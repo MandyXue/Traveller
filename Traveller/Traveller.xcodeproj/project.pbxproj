@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		338D979B1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D979A1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift */; };
 		33C1E6061CEF644800C75708 /* DispatchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6051CEF644800C75708 /* DispatchController.swift */; };
 		33C1E6081CEF64A300C75708 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6071CEF64A300C75708 /* RootTabBarController.swift */; };
 		33C1E60A1CEF654300C75708 /* UIStoryboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6091CEF654300C75708 /* UIStoryboardManager.swift */; };
@@ -26,6 +27,7 @@
 		33D4F8361CEF3B980082B927 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33D4F8351CEF3B980082B927 /* Assets.xcassets */; };
 		33D4F8391CEF3B980082B927 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33D4F8371CEF3B980082B927 /* LaunchScreen.storyboard */; };
 		33D4F8441CEF3B980082B927 /* TravellerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D4F8431CEF3B980082B927 /* TravellerTests.swift */; };
+		3792D753F4B5F2BE5440B538 /* Pods_Traveller.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B5F18F4A9B09FE0F9E06058 /* Pods_Traveller.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		29F26F2D461A0CFD699DDADA /* Pods-Traveller.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Traveller.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Traveller/Pods-Traveller.debug.xcconfig"; sourceTree = "<group>"; };
+		338D979A1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMCustomTransitionAnimation.swift; sourceTree = "<group>"; };
 		33C1E6051CEF644800C75708 /* DispatchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchController.swift; sourceTree = "<group>"; };
 		33C1E6071CEF64A300C75708 /* RootTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
 		33C1E6091CEF654300C75708 /* UIStoryboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardManager.swift; sourceTree = "<group>"; };
@@ -62,6 +66,8 @@
 		33D4F83F1CEF3B980082B927 /* TravellerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravellerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		33D4F8431CEF3B980082B927 /* TravellerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellerTests.swift; sourceTree = "<group>"; };
 		33D4F8451CEF3B980082B927 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4B5F18F4A9B09FE0F9E06058 /* Pods_Traveller.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Traveller.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6697C2EDC27A5B41892E040 /* Pods-Traveller.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Traveller.release.xcconfig"; path = "Pods/Target Support Files/Pods-Traveller/Pods-Traveller.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3792D753F4B5F2BE5440B538 /* Pods_Traveller.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,11 +89,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		28341BE72BAEC141D93DACE9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				29F26F2D461A0CFD699DDADA /* Pods-Traveller.debug.xcconfig */,
+				E6697C2EDC27A5B41892E040 /* Pods-Traveller.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		33C1E5E61CEF5F8F00C75708 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				33C1E6091CEF654300C75708 /* UIStoryboardManager.swift */,
 				33C1E60B1CEF660000C75708 /* UIViewControllerManager.swift */,
+				338D979A1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -350,6 +367,8 @@
 				33D4F82D1CEF3B980082B927 /* Traveller */,
 				33D4F8421CEF3B980082B927 /* TravellerTests */,
 				33D4F82C1CEF3B980082B927 /* Products */,
+				28341BE72BAEC141D93DACE9 /* Pods */,
+				94C9950653AA7A2926CA2C67 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -383,6 +402,14 @@
 			path = TravellerTests;
 			sourceTree = "<group>";
 		};
+		94C9950653AA7A2926CA2C67 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4B5F18F4A9B09FE0F9E06058 /* Pods_Traveller.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -390,9 +417,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 33D4F8481CEF3B980082B927 /* Build configuration list for PBXNativeTarget "Traveller" */;
 			buildPhases = (
+				620CE778945D183ABA047348 /* Check Pods Manifest.lock */,
 				33D4F8271CEF3B980082B927 /* Sources */,
 				33D4F8281CEF3B980082B927 /* Frameworks */,
 				33D4F8291CEF3B980082B927 /* Resources */,
+				BB4D937FAF3014AD59E4D3E5 /* Embed Pods Frameworks */,
+				D6A476CB5B55F51726AA7BCD /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -486,6 +516,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		620CE778945D183ABA047348 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BB4D937FAF3014AD59E4D3E5 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Traveller/Pods-Traveller-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D6A476CB5B55F51726AA7BCD /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Traveller/Pods-Traveller-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		33D4F8271CEF3B980082B927 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -493,6 +571,7 @@
 			files = (
 				33C1E6101CF019CA00C75708 /* HomeMapViewController.swift in Sources */,
 				33C1E6201CF033E700C75708 /* WelcomeViewController.swift in Sources */,
+				338D979B1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift in Sources */,
 				33C1E6181CF01AEF00C75708 /* FollowingTableViewController.swift in Sources */,
 				33C1E6141CF01A5D00C75708 /* TimelineTableViewController.swift in Sources */,
 				33D4F82F1CEF3B980082B927 /* AppDelegate.swift in Sources */,
@@ -619,6 +698,7 @@
 		};
 		33D4F8491CEF3B980082B927 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 29F26F2D461A0CFD699DDADA /* Pods-Traveller.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Traveller/Info.plist;
@@ -630,6 +710,7 @@
 		};
 		33D4F84A1CEF3B980082B927 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E6697C2EDC27A5B41892E040 /* Pods-Traveller.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Traveller/Info.plist;

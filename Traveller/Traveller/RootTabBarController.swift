@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import RAMAnimatedTabBarController
 
-class RootTabBarController: UITabBarController {
+class RootTabBarController: RAMAnimatedTabBarController {
 
     // MARK: - BaseViewController
     
@@ -19,43 +20,55 @@ class RootTabBarController: UITabBarController {
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         
         let configs : [NSDictionary] = [
             ["Title": "Home",
                 "ImageName": "home",
                 "SelectedImageName": "home-selected",
-                "ViewController": HomeMapViewController.loadFromStoryboard()],
+                "ViewController": HomeMapViewController.loadFromStoryboard(),
+                "animation": RAMCustomTopTransitionAnimation()],
             ["Title": "Following",
                 "ImageName": "following",
                 "SelectedImageName": "following-selected",
-                "ViewController": FollowingTableViewController.loadFromStoryboard()],
+                "ViewController": FollowingTableViewController.loadFromStoryboard(),
+                "animation": RAMBounceAnimation()],
             ["Title": "Schedule",
                 "ImageName": "schedule",
                 "SelectedImageName": "schedule-selected",
-                "ViewController": TimelineTableViewController.loadFromStoryboard()],
+                "ViewController": TimelineTableViewController.loadFromStoryboard(),
+                "animation": RAMCustomLeftTransitionAnimation()],
             ["Title": "Me",
                 "ImageName": "me",
                 "SelectedImageName": "me-selected",
-                "ViewController": MeTableViewController.loadFromStoryboard()]
+                "ViewController": MeTableViewController.loadFromStoryboard(),
+                "animation": RAMRotationAnimation()]
         ]
         
         var controllers = [UIViewController]()
         
         for config in configs {
             let viewController = config["ViewController"] as! UIViewController
-            viewController.tabBarItem = UITabBarItem.init(title: config["Title"] as? String, image: UIImage(named: config["ImageName"] as! String)!.imageWithRenderingMode(.AlwaysOriginal), selectedImage: UIImage(named: config["SelectedImageName"] as! String))
+            let tabbarItem = RAMAnimatedTabBarItem.init(title: config["Title"] as? String, image: UIImage(named: config["ImageName"] as! String)!.imageWithRenderingMode(.AlwaysOriginal), selectedImage: UIImage(named: config["SelectedImageName"] as! String))
+            // set default text&icon color
+            tabbarItem.textColor = UIColor.whiteColor()
+            tabbarItem.iconColor = UIColor.whiteColor()
+            // set tabbaritem animation
+            tabbarItem.animation = config["animation"] as! RAMItemAnimation
+            viewController.tabBarItem = tabbarItem
             controllers.append(viewController)
         }
         
         self.setViewControllers(controllers, animated: false)
         
         // tabbar style
-        self.tabBar.backgroundImage = UIImage.getImageWithColor(UIColor(red: 27/255, green: 27/255, blue: 27/255, alpha: 1), size: CGSize(width: 320, height: 49))
         let selectedColor = UIColor(red: 255/255, green: 211/255, blue: 0/255, alpha: 1)
-        UITabBar.appearance().tintColor = selectedColor
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState:.Normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: selectedColor], forState:.Selected)
+        self.changeSelectedColor(selectedColor, iconSelectedColor: selectedColor)
+        self.tabBar.backgroundImage = UIImage.getImageWithColor(UIColor(red: 27/255, green: 27/255, blue: 27/255, alpha: 1), size: CGSize(width: 320, height: 49))
+        
+        // super view did load必须在上面后调用，否则没有tab会崩
+        super.viewDidLoad()
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
