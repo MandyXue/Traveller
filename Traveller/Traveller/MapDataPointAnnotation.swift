@@ -27,13 +27,12 @@ class MapDataPointAnnotation: NSObject, MKAnnotation {
         self.subtitle = subtitle
         self.coordinate = coordinate
         self.image = image
-        print("init finished")
     }
     
     init(post: PostModel) {
         self.coordinate = post.location
         self.title = post.place
-        self.subtitle = post.comment
+        self.subtitle = post.detail
         if post.images.count != 0 {
             self.image = post.images.first!
         } else {

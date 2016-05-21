@@ -61,7 +61,7 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     
     private func getAnnotations() {
         // 这里应该先用API获取annotation然后放到annotations里
-        let testPost = PostModel(place: "Hong Kong Disney Land", comment: "Such a great place!! I love it so much!!!", location: CLLocationCoordinate2D(latitude: 22.3663913986, longitude: 114.1180044924))
+        let testPost = PostModel(place: "Hong Kong Disney Land", detail: "Such a great place!! I love it so much!!!", location: CLLocationCoordinate2D(latitude: 22.3663913986, longitude: 114.1180044924))
         testPost.addImage(UIImage(named: "testPost")!)
         annotations.append(MapDataPointAnnotation(post: testPost))
         self.mapView.showAnnotations(annotations, animated: true)
@@ -103,5 +103,22 @@ extension HomeMapViewController {
         print("will change")
         // 这里应该再获取一次annotation
 //        getAnnotations()
+    }
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+        if let annotationView = view.annotation as? MapDataPointAnnotation {
+            if let detailView = PostDetailTableViewController.loadFromStoryboard() as? PostDetailTableViewController {
+                print(annotationView.title)
+                // TODO: 接上接口以后要改这个参数
+                detailView.post = PostModel(place: "Hong Kong Disney Land", detail: "Such a great place!! I love it so much!!!", location: CLLocationCoordinate2D(latitude: 22.3663913986, longitude: 114.1180044924))
+                self.navigationController?.pushViewController(detailView, animated: true)
+            } else {
+                print("something went wrong...")
+            }
+        } else {
+            print("something went wrong...")
+        }
+        
     }
 }

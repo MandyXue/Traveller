@@ -16,22 +16,34 @@ class PostModel: NSObject {
     // MARK: - MKAnnotation Property
     
     var place: String?
-    var comment: String?
+    var detail: String?
+    var comments: [String] = []
     var location: CLLocationCoordinate2D
     var images: [UIImage] = []
     
     // MARK: - Init
     
-    init(place: String, comment: String, location: CLLocationCoordinate2D) {
+    override init() {
+        place = nil
+        detail = nil
+        location = CLLocationCoordinate2D()
+    }
+    
+    init(place: String, detail: String, location: CLLocationCoordinate2D) {
         self.place = place
-        self.comment = comment
+        self.detail = detail
         self.location = location
-        print("init finished")
     }
     
     // MARK: - Methods
     
     func addImage(image: UIImage) {
         self.images.append(image)
+    }
+    
+    func addComment(comment: String?) {
+        if comment != nil {
+            self.comments.append(comment!)
+        }
     }
 }

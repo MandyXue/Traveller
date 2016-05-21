@@ -6,6 +6,7 @@ use_frameworks!
 target 'Traveller' do
 
 pod 'RAMAnimatedTabBarController'
+pod 'LTNavigationBar'
 #pod 'Alamofire', '3.4'
 #pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 #pod 'PKHUD'
