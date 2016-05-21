@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		338D979B1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D979A1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift */; };
+		338D979D1CF099F900F731AE /* MapDataPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D979C1CF099F900F731AE /* MapDataPointAnnotation.swift */; };
+		338D979F1CF09B9000F731AE /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D979E1CF09B9000F731AE /* PostModel.swift */; };
 		33C1E6061CEF644800C75708 /* DispatchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6051CEF644800C75708 /* DispatchController.swift */; };
 		33C1E6081CEF64A300C75708 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6071CEF64A300C75708 /* RootTabBarController.swift */; };
 		33C1E60A1CEF654300C75708 /* UIStoryboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6091CEF654300C75708 /* UIStoryboardManager.swift */; };
@@ -43,6 +45,8 @@
 /* Begin PBXFileReference section */
 		29F26F2D461A0CFD699DDADA /* Pods-Traveller.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Traveller.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Traveller/Pods-Traveller.debug.xcconfig"; sourceTree = "<group>"; };
 		338D979A1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMCustomTransitionAnimation.swift; sourceTree = "<group>"; };
+		338D979C1CF099F900F731AE /* MapDataPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDataPointAnnotation.swift; sourceTree = "<group>"; };
+		338D979E1CF09B9000F731AE /* PostModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		33C1E6051CEF644800C75708 /* DispatchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchController.swift; sourceTree = "<group>"; };
 		33C1E6071CEF64A300C75708 /* RootTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
 		33C1E6091CEF654300C75708 /* UIStoryboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardManager.swift; sourceTree = "<group>"; };
@@ -152,6 +156,8 @@
 		33C1E5EB1CEF630C00C75708 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				338D979C1CF099F900F731AE /* MapDataPointAnnotation.swift */,
+				338D979E1CF09B9000F731AE /* PostModel.swift */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";
@@ -569,10 +575,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				338D979D1CF099F900F731AE /* MapDataPointAnnotation.swift in Sources */,
 				33C1E6101CF019CA00C75708 /* HomeMapViewController.swift in Sources */,
 				33C1E6201CF033E700C75708 /* WelcomeViewController.swift in Sources */,
 				338D979B1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift in Sources */,
 				33C1E6181CF01AEF00C75708 /* FollowingTableViewController.swift in Sources */,
+				338D979F1CF09B9000F731AE /* PostModel.swift in Sources */,
 				33C1E6141CF01A5D00C75708 /* TimelineTableViewController.swift in Sources */,
 				33D4F82F1CEF3B980082B927 /* AppDelegate.swift in Sources */,
 				33C1E6081CEF64A300C75708 /* RootTabBarController.swift in Sources */,
@@ -701,6 +709,7 @@
 			baseConfigurationReference = 29F26F2D461A0CFD699DDADA /* Pods-Traveller.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Traveller/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AppleClub.Traveller;
@@ -713,6 +722,7 @@
 			baseConfigurationReference = E6697C2EDC27A5B41892E040 /* Pods-Traveller.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Traveller/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AppleClub.Traveller;

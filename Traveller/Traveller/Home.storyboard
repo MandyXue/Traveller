@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Home Map View Controller-->
@@ -16,8 +17,22 @@
                     <view key="view" contentMode="scaleToFill" id="Qpp-tT-pPF">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="VnB-3a-rV4">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="66R-EF-BBy" firstAttribute="top" secondItem="VnB-3a-rV4" secondAttribute="bottom" id="3pY-dF-iY1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="VnB-3a-rV4" secondAttribute="trailing" constant="-20" id="NCF-t4-dqu"/>
+                            <constraint firstItem="VnB-3a-rV4" firstAttribute="top" secondItem="Qpp-tT-pPF" secondAttribute="topMargin" id="t1o-U0-TKt"/>
+                            <constraint firstItem="VnB-3a-rV4" firstAttribute="leading" secondItem="Qpp-tT-pPF" secondAttribute="leadingMargin" constant="-20" id="zCZ-9f-dJt"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="VnB-3a-rV4" id="hzW-Gb-RyW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xXV-96-DRa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

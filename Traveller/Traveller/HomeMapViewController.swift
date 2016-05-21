@@ -7,8 +7,15 @@
 //
 
 import UIKit
+import MapKit
 
-class HomeMapViewController: UIViewController {
+class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+    
+    var annotations: [MapDataPointAnnotation] = []
+    let annotationViewReuseIdentifier = "annotationViewReuseIdentifier"
+    
+    @IBOutlet weak var mapView: MKMapView!
+    let locationManager = CLLocationManager()
     
     // MARK: - BaseViewController
     
@@ -22,8 +29,17 @@ class HomeMapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.title = "Home"
+        
+        initLocationManager()
+        mapView.delegate = self
+        getAnnotations()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        mapView.showsUserLocation = true
+        mapView.userTrackingMode = MKUserTrackingMode.Follow
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,6 +47,25 @@ class HomeMapViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - Helper
+    
+    private func initLocationManager() {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.distanceFilter = 1000
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.requestAlwaysAuthorization()
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    private func getAnnotations() {
+        // 这里应该先用API获取annotation然后放到annotations里
+        let testPost = PostModel(place: "Hong Kong Disney Land", comment: "Such a great place!! I love it so much!!!", location: CLLocationCoordinate2D(latitude: 22.3663913986, longitude: 114.1180044924))
+        testPost.addImage(UIImage(named: "testPost")!)
+        annotations.append(MapDataPointAnnotation(post: testPost))
+        self.mapView.showAnnotations(annotations, animated: true)
+    }
 
     /*
     // MARK: - Navigation
@@ -42,4 +77,31 @@ class HomeMapViewController: UIViewController {
     }
     */
 
+}
+
+// MARK: - Delegate
+
+extension HomeMapViewController {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        // annotation view
+        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(annotationViewReuseIdentifier)
+        if annotationView == nil {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: annotationViewReuseIdentifier)
+        }
+        annotationView?.canShowCallout = true
+        // deal with data point
+        if let dataPointAnnotation = annotation as? MapDataPointAnnotation {
+            let customImage = UIImageView.init(image: dataPointAnnotation.image)
+            customImage.layer.cornerRadius = 2.0
+            annotationView?.leftCalloutAccessoryView = customImage
+            annotationView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+        }
+        return annotationView
+    }
+    
+    func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        print("will change")
+        // 这里应该再获取一次annotation
+//        getAnnotations()
+    }
 }
