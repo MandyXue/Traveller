@@ -83,13 +83,32 @@ extension PostDetailTableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ImageCell", forIndexPath: indexPath)
-        
-        // Configure the cell...
-        
-        return cell
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCellWithIdentifier("DetailCell", forIndexPath: indexPath) as! PostDetailTableViewCell
+            cell.locationLabel.text = "\(post.location)"
+            cell.descriptionLabel.text = post.detail
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCellWithIdentifier("CreatorCell", forIndexPath: indexPath) as! PostCreatorTableViewCell
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! PostCommentTableViewCell
+            return cell
+        }
     }
     
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 0:
+            return 147.0
+        case 1:
+            return 105.0
+        default:
+            return 65.0
+        }
+    }
+
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         let color = UIColor(red: 126/255, green: 211/255, blue: 33/255, alpha: 1)
         let offsetY = scrollView.contentOffset.y
@@ -98,8 +117,10 @@ extension PostDetailTableViewController {
             let alpha = min(1, 1-((NAVBAR_CHANGE_POINT+64-offsetY)/64))
             
             navigationController?.navigationBar.lt_setBackgroundColor(color.colorWithAlphaComponent(alpha))
+            self.title = post.place
         } else {
             navigationController?.navigationBar.lt_setBackgroundColor(color.colorWithAlphaComponent(0))
+            self.title = ""
         }
     }
 }

@@ -111,7 +111,7 @@ extension HomeMapViewController {
             if let detailView = PostDetailTableViewController.loadFromStoryboard() as? PostDetailTableViewController {
                 print(annotationView.title)
                 // TODO: 接上接口以后要改这个参数
-                detailView.post = PostModel(place: "Hong Kong Disney Land", detail: "Such a great place!! I love it so much!!!", location: CLLocationCoordinate2D(latitude: 22.3663913986, longitude: 114.1180044924))
+                detailView.post = PostModel(place: "Hong Kong Disney Land", detail: "Hong Kong Disneyland (Chinese: 香港迪士尼樂園) is the first theme parklocated inside the Hong Kong Disneyland Resort and is owned and managed by the Hong Kong International Theme Parks.", location: CLLocationCoordinate2D(latitude: 22.3663913986, longitude: 114.1180044924))
                 self.navigationController?.pushViewController(detailView, animated: true)
             } else {
                 print("something went wrong...")
