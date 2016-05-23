@@ -10,6 +10,10 @@ import UIKit
 
 class PostCreatorTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var creatorImageView: UIImageView!
+    @IBOutlet weak var creatorNameLabel: UILabel!
+    @IBOutlet weak var creatorPlaceLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

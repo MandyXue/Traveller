@@ -15,24 +15,30 @@ class PostModel: NSObject {
     
     // MARK: - MKAnnotation Property
     
-    var place: String?
-    var detail: String?
-    var comments: [String] = []
-    var location: CLLocationCoordinate2D
-    var images: [UIImage] = []
+    var place: String?                    // 景点名称
+    var address: String?                  // 景点地址
+    var detail: String?                   // 景点详细介绍
+    var comments: [CommentModel] = []     // 景点的相关评论
+    var location: CLLocationCoordinate2D  // 景点的GPS信息
+    var images: [UIImage] = []            // 景点的图片
+    var creator: UserModel                // 创建者
     
     // MARK: - Init
     
     override init() {
         place = nil
         detail = nil
+        address = nil
         location = CLLocationCoordinate2D()
+        creator = UserModel()
     }
     
-    init(place: String, detail: String, location: CLLocationCoordinate2D) {
+    init(place: String, detail: String, location: CLLocationCoordinate2D, address: String, creator: UserModel) {
         self.place = place
         self.detail = detail
         self.location = location
+        self.creator = creator
+        self.address = address
     }
     
     // MARK: - Methods
@@ -41,7 +47,7 @@ class PostModel: NSObject {
         self.images.append(image)
     }
     
-    func addComment(comment: String?) {
+    func addComment(comment: CommentModel?) {
         if comment != nil {
             self.comments.append(comment!)
         }

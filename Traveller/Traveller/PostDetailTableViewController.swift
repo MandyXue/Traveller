@@ -15,9 +15,13 @@ class PostDetailTableViewController: UITableViewController {
     let NAVBAR_CHANGE_POINT: CGFloat = 50
     
     var post = PostModel()
+    var comments: [CommentModel] = []
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
+    @IBAction func addImage(sender: AnyObject) {
+        print("add image")
+    }
     
     // MARK: - BaseViewController
     
@@ -33,6 +37,8 @@ class PostDetailTableViewController: UITableViewController {
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.navigationController?.navigationBar.lt_setBackgroundColor(UIColor.clearColor())
+        
+        prepareData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -65,6 +71,12 @@ class PostDetailTableViewController: UITableViewController {
         addButton.layer.borderColor = UIColor(red: 255/255, green: 211/255, blue: 0/155, alpha: 0.8).CGColor
         titleLabel.text = post.place
     }
+    
+    func prepareData() {
+        comments.append(CommentModel(user: UserModel(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai"), comment: "Great place, I want to go.", time: NSDate(timeIntervalSinceNow: 0)))
+        comments.append(CommentModel(user: UserModel(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai"), comment: "Great place, I want to go.", time: NSDate(timeIntervalSinceNow: 0)))
+        comments.append(CommentModel(user: UserModel(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai"), comment: "Great place, I want to go.", time: NSDate(timeIntervalSinceNow: 0)))
+    }
 
 }
 
@@ -79,21 +91,29 @@ extension PostDetailTableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 20
+        return 2+comments.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier("DetailCell", forIndexPath: indexPath) as! PostDetailTableViewCell
-            cell.locationLabel.text = "\(post.location)"
+            cell.locationLabel.text = post.address
             cell.descriptionLabel.text = post.detail
             return cell
         case 1:
             let cell = tableView.dequeueReusableCellWithIdentifier("CreatorCell", forIndexPath: indexPath) as! PostCreatorTableViewCell
+            cell.creatorImageView.image = post.creator.avatar
+            cell.creatorNameLabel.text = post.creator.username
+            cell.creatorPlaceLabel.text = post.creator.place
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! PostCommentTableViewCell
+            cell.commentLabel.text = comments[indexPath.row-2].comment
+            let user = comments[indexPath.row-2].user
+            cell.commentImageView.image = user.avatar
+            cell.commentNameLabel.text = user.username
+            cell.commentTimeLabel.text = NSDate.dateToString(comments[indexPath.row-2].time)
             return cell
         }
     }

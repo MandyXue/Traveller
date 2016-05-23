@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -47,5 +48,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+extension NSDate {
+    static func dateToString(date: NSDate) -> String {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .MediumStyle
+        formatter.timeStyle = .ShortStyle
+        let string = formatter.stringFromDate(date)
+        return string
+    }
 }
 
