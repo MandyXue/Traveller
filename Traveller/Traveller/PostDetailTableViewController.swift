@@ -10,17 +10,19 @@ import UIKit
 import QuartzCore
 import LTNavigationBar
 
-class PostDetailTableViewController: UITableViewController {
+class PostDetailTableViewController: UITableViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate {
     
     let NAVBAR_CHANGE_POINT: CGFloat = 50
     
     var post = PostModel()
     var comments: [CommentModel] = []
     
+    // TODO: 添加图片放大展示效果
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
     @IBAction func addImage(sender: AnyObject) {
-        print("add image")
+        let actionSheet = getImagePickerActionSheet()
+        actionSheet.showInView(self.view)
     }
     
     // MARK: - BaseViewController
@@ -142,5 +144,70 @@ extension PostDetailTableViewController {
             navigationController?.navigationBar.lt_setBackgroundColor(color.colorWithAlphaComponent(0))
             self.title = ""
         }
+    }
+}
+
+// MARK: - ImagePickerController Delegate and Helpers
+
+extension PostDetailTableViewController {
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        let imageToSave = info[UIImagePickerControllerEditedImage]
+        if let image = imageToSave as? UIImage {
+            post.addImage(image)
+        }
+        print(post.images)
+        
+        // TODO: 连后端接口上传图片
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // MARK: - ActionSheet Delegate
+    
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        switch(buttonIndex) {
+        case 1:
+            print("拍照")
+            takePhotoByCamera()
+        case 2:
+            print("从相册选取")
+            choosePhotoFromAlbum()
+        default: break
+        }
+    }
+    
+    // MARK: - Helper
+    // 从相册选取照片
+    func choosePhotoFromAlbum() {
+        let ipc = UIImagePickerController()
+        ipc.delegate = self
+        ipc.sourceType = .PhotoLibrary
+        ipc.allowsEditing = true
+        presentViewController(ipc, animated: true, completion: nil)
+    }
+    
+    // 拍照
+    func takePhotoByCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .Camera;
+            imagePicker.allowsEditing = false
+            presentViewController(imagePicker, animated: true, completion: nil)
+        }
+        else {
+            let alert = UIAlertView(title: "Sorry",
+                                    message: "我们不能访问您的相机📷",
+                                    delegate: nil,
+                                    cancelButtonTitle: "Ok")
+            alert.show()
+            
+       }
+    }
+    
+    func getImagePickerActionSheet() -> UIActionSheet {
+        let actionSheet = UIActionSheet(title: "选取照片", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照", "从相册选取")
+        actionSheet.actionSheetStyle = .BlackOpaque
+        return actionSheet
     }
 }
