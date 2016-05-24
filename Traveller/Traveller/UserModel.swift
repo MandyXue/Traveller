@@ -14,7 +14,7 @@ class UserModel: NSObject {
     
     // MARK: - Properties
     var username: String?   // 用户名
-    var avatar = UIImage()  // 用户头像
+    var avatar: UIImage?  // 用户头像
     var place: String?      // 用户所在地区
     
     // MARK: - Init

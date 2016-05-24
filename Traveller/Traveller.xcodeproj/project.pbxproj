@@ -17,6 +17,8 @@
 		338D97AD1CF213B400F731AE /* PostCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D97AC1CF213B400F731AE /* PostCommentTableViewCell.swift */; };
 		338D97AF1CF3291700F731AE /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D97AE1CF3291700F731AE /* CommentModel.swift */; };
 		338D97B11CF3294F00F731AE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D97B01CF3294F00F731AE /* UserModel.swift */; };
+		338D97B61CF3FA8F00F731AE /* UserDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 338D97B51CF3FA8F00F731AE /* UserDetail.storyboard */; };
+		338D97CB1CF486E900F731AE /* UserDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D97CA1CF486E900F731AE /* UserDetailTableViewController.swift */; };
 		33C1E6061CEF644800C75708 /* DispatchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6051CEF644800C75708 /* DispatchController.swift */; };
 		33C1E6081CEF64A300C75708 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6071CEF64A300C75708 /* RootTabBarController.swift */; };
 		33C1E60A1CEF654300C75708 /* UIStoryboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6091CEF654300C75708 /* UIStoryboardManager.swift */; };
@@ -61,6 +63,8 @@
 		338D97AC1CF213B400F731AE /* PostCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCommentTableViewCell.swift; sourceTree = "<group>"; };
 		338D97AE1CF3291700F731AE /* CommentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		338D97B01CF3294F00F731AE /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		338D97B51CF3FA8F00F731AE /* UserDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserDetail.storyboard; sourceTree = "<group>"; };
+		338D97CA1CF486E900F731AE /* UserDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailTableViewController.swift; sourceTree = "<group>"; };
 		33C1E6051CEF644800C75708 /* DispatchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchController.swift; sourceTree = "<group>"; };
 		33C1E6071CEF64A300C75708 /* RootTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
 		33C1E6091CEF654300C75708 /* UIStoryboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardManager.swift; sourceTree = "<group>"; };
@@ -152,6 +156,31 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
+		338D97B21CF3FA6400F731AE /* UserDetail */ = {
+			isa = PBXGroup;
+			children = (
+				338D97B41CF3FA7A00F731AE /* ViewControllers */,
+				338D97B31CF3FA7500F731AE /* Views */,
+			);
+			name = UserDetail;
+			sourceTree = "<group>";
+		};
+		338D97B31CF3FA7500F731AE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				338D97B51CF3FA8F00F731AE /* UserDetail.storyboard */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		338D97B41CF3FA7A00F731AE /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				338D97CA1CF486E900F731AE /* UserDetailTableViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		33C1E5E61CEF5F8F00C75708 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +220,7 @@
 		33C1E5EA1CEF5FB700C75708 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				338D97B21CF3FA6400F731AE /* UserDetail */,
 				33C1E6011CEF63FC00C75708 /* Root_Tabbar */,
 				33C1E5F21CEF639D00C75708 /* Home */,
 				338D97A01CF0B15200F731AE /* PostDetail */,
@@ -557,6 +587,7 @@
 			files = (
 				33C1E60E1CEF664800C75708 /* Root.storyboard in Resources */,
 				33D4F8391CEF3B980082B927 /* LaunchScreen.storyboard in Resources */,
+				338D97B61CF3FA8F00F731AE /* UserDetail.storyboard in Resources */,
 				33D4F8361CEF3B980082B927 /* Assets.xcassets in Resources */,
 				33C1E6121CF019D700C75708 /* Home.storyboard in Resources */,
 				338D97A61CF0B19600F731AE /* PostDetail.storyboard in Resources */,
@@ -629,6 +660,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				338D97CB1CF486E900F731AE /* UserDetailTableViewController.swift in Sources */,
 				338D979D1CF099F900F731AE /* MapDataPointAnnotation.swift in Sources */,
 				33C1E6101CF019CA00C75708 /* HomeMapViewController.swift in Sources */,
 				338D97AB1CF213A400F731AE /* PostCreatorTableViewCell.swift in Sources */,

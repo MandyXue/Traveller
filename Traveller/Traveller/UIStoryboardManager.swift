@@ -43,7 +43,11 @@ extension UIStoryboard {
         return UIStoryboard.init(name: "Root", bundle: nil)
     }
     
-    class func traveller_postStoryboard() -> UIStoryboard {
+    class func traveller_postDetailStoryboard() -> UIStoryboard {
         return UIStoryboard.init(name: "PostDetail", bundle: nil)
+    }
+    
+    class func traveller_userDetailStoryboard() -> UIStoryboard {
+        return UIStoryboard.init(name: "UserDetail", bundle: nil)
     }
 }

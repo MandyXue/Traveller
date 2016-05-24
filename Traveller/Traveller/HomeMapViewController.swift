@@ -65,6 +65,9 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         let testPost = PostModel(place: "Hong Kong Disney Land", detail: "Such a great place!! I love it so much!!!", location: CLLocationCoordinate2D(latitude: 22.3663913986, longitude: 114.1180044924), address: "香港，大嶼山", creator: UserModel(username: "Huo Teng", avatar: UIImage(named: "avatar")!, place: "Shanghai, Jia Ding District"))
         testPost.addImage(UIImage(named: "testPost")!)
         annotations.append(MapDataPointAnnotation(post: testPost))
+        let testPost2 = PostModel(place: "Hong Kong Disney Land", detail: "Such a great place!! I love it so much!!!", location: CLLocationCoordinate2D(latitude: 31.2855741398, longitude: 121.2147781261), address: "香港，大嶼山", creator: UserModel(username: "Huo Teng", avatar: UIImage(named: "avatar")!, place: "Shanghai, Jia Ding District"))
+        testPost2.addImage(UIImage(named: "testPost")!)
+        annotations.append(MapDataPointAnnotation(post: testPost2))
         self.mapView.showAnnotations(annotations, animated: true)
     }
 

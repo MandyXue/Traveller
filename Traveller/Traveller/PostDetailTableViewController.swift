@@ -28,7 +28,7 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
     // MARK: - BaseViewController
     
     static func loadFromStoryboard() -> UIViewController {
-        let controller = UIStoryboard.traveller_postStoryboard().instantiateViewControllerWithIdentifier(self.traveller_className())
+        let controller = UIStoryboard.traveller_postDetailStoryboard().instantiateViewControllerWithIdentifier(self.traveller_className())
         return controller
     }
     
@@ -143,6 +143,21 @@ extension PostDetailTableViewController {
         } else {
             navigationController?.navigationBar.lt_setBackgroundColor(color.colorWithAlphaComponent(0))
             self.title = ""
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        cell?.setSelected(false, animated: false)
+        if indexPath.row == 1 {
+            if let detailView = UserDetailTableViewController.loadFromStoryboard() as? UserDetailTableViewController {
+                // TODO: 接上接口以后要改这个参数
+                detailView.user = post.creator
+                print(post.creator)
+                self.navigationController?.pushViewController(detailView, animated: true)
+            } else {
+                print("something went wrong...")
+            }
         }
     }
 }
