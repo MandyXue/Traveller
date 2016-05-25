@@ -8,6 +8,8 @@ target 'Traveller' do
 pod 'RAMAnimatedTabBarController'
 pod 'LTNavigationBar'
 pod 'SnapKit'
+pod 'SDCycleScrollView','~> 1.64'
+pod 'MJRefresh'
 #pod 'Alamofire', '3.4'
 #pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 #pod 'PKHUD'

@@ -9,15 +9,20 @@
 import UIKit
 import QuartzCore
 import LTNavigationBar
+import SDCycleScrollView
+import MJRefresh
 
-class PostDetailTableViewController: UITableViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate {
+class PostDetailTableViewController: UITableViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate, SDCycleScrollViewDelegate {
     
     let NAVBAR_CHANGE_POINT: CGFloat = 50
     
     var post = PostModel()
     var comments: [CommentModel] = []
+    var imageURLs: [String] = []
     
     // TODO: 添加图片放大展示效果
+    @IBOutlet weak var refreshHeader: MJRefreshNormalHeader!
+    @IBOutlet weak var scrollView: SDCycleScrollView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
     @IBAction func addImage(sender: AnyObject) {
@@ -40,7 +45,15 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.navigationController?.navigationBar.lt_setBackgroundColor(UIColor.clearColor())
         
+//        self.refreshHeader = MJRefreshNormalHeader(refreshingBlock: {
+//            self.refresh()
+//        })
+//        self.refreshHeader = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(refresh))
+        
         prepareData()
+        if post.place != nil {
+            setUpUI()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -48,10 +61,6 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
         scrollViewDidScroll(tableView)
         tableView.delegate = self
         navigationController?.navigationBar.shadowImage = UIImage()
-        
-        if post.place != nil {
-            setUpUI()
-        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -67,17 +76,35 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
     
     // MARK: - Helper
     
+    func refresh() {
+        self.tableView.reloadData()
+        self.refreshHeader.endRefreshing()
+    }
+    
     func setUpUI() {
         addButton.layer.borderWidth = 2
         addButton.layer.cornerRadius = 5
         addButton.layer.borderColor = UIColor(red: 255/255, green: 211/255, blue: 0/155, alpha: 0.8).CGColor
         titleLabel.text = post.place
+        // scroll view
+        self.scrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight
+        self.scrollView.placeholderImage = UIImage(named: "testPlace")
+        self.scrollView.delegate = self
+        self.scrollView.imageURLStringsGroup = self.imageURLs
     }
     
     func prepareData() {
-        comments.append(CommentModel(user: UserModel(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai"), comment: "Great place, I want to go.", time: NSDate(timeIntervalSinceNow: 0)))
-        comments.append(CommentModel(user: UserModel(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai"), comment: "Great place, I want to go.", time: NSDate(timeIntervalSinceNow: 0)))
-        comments.append(CommentModel(user: UserModel(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai"), comment: "Great place, I want to go.", time: NSDate(timeIntervalSinceNow: 0)))
+        // TODO: 假数据，后续添加接口
+        var i = 0
+        while i < 20 {
+            comments.append(CommentModel(user: UserModel(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai"), comment: "Great place, I want to go.", time: NSDate(timeIntervalSinceNow: 0)))
+            i += 1
+        }
+        // scroll view images
+        imageURLs.append("http://www.khxing.com/files/2014-9/20140915132828105078.jpg")
+        imageURLs.append("http://file21.mafengwo.net/M00/B3/05/wKgB21AXIVfkK_6eABs2chtBOg409.groupinfo.w600.jpeg")
+        imageURLs.append("http://www.oruchina.com/files/2014-9/f20140930095244175411.jpg")
+        imageURLs.append("http://youimg1.c-ctrip.com/target/tg/920/427/911/5c52e590249244499dbeede58832e865_jupiter.jpg")
     }
 
 }

@@ -15,28 +15,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="EoQ-b0-aaN">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="136"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="170"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="testPlace" translatesAutoresizingMaskIntoConstraints="NO" id="qhT-G0-5Cc">
-                                    <rect key="frame" x="0.0" y="-174" width="600" height="310"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jfh-Lc-5c8" customClass="MJRefreshNormalHeader">
+                                    <rect key="frame" x="0.0" y="-64" width="600" height="64"/>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="200" id="cDr-eM-My5"/>
+                                        <constraint firstAttribute="height" constant="64" id="iOb-jb-nMr"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="cDr-eM-My5"/>
-                                        </mask>
-                                    </variation>
-                                </imageView>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3ZJ-nc-aIE" customClass="SDCycleScrollView">
+                                    <rect key="frame" x="0.0" y="-64" width="600" height="234"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradual" translatesAutoresizingMaskIntoConstraints="NO" id="4Fp-8T-tSZ">
-                                    <rect key="frame" x="0.0" y="36" width="600" height="100"/>
+                                    <rect key="frame" x="0.0" y="70" width="600" height="100"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="100" id="yxD-R8-7l1"/>
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hong Kong Disney Land" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3H7-El-z1g">
-                                    <rect key="frame" x="16" y="93" width="478" height="29"/>
+                                    <rect key="frame" x="16" y="127" width="478" height="29"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
@@ -45,7 +45,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DuN-Rb-zhv">
-                                    <rect key="frame" x="502" y="88" width="90" height="40"/>
+                                    <rect key="frame" x="502" y="122" width="90" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="JgE-nB-erB"/>
                                         <constraint firstAttribute="width" constant="90" id="VT9-nF-hLU"/>
@@ -64,21 +64,24 @@
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="4Fp-8T-tSZ" secondAttribute="trailing" id="4I5-e9-dvR"/>
                                 <constraint firstAttribute="bottom" secondItem="DuN-Rb-zhv" secondAttribute="bottom" constant="8" id="5bD-Ux-AXG"/>
-                                <constraint firstItem="qhT-G0-5Cc" firstAttribute="leading" secondItem="EoQ-b0-aaN" secondAttribute="leading" id="AJA-hr-o7H"/>
+                                <constraint firstItem="3ZJ-nc-aIE" firstAttribute="leading" secondItem="EoQ-b0-aaN" secondAttribute="leading" id="6rk-4D-SMf"/>
                                 <constraint firstItem="DuN-Rb-zhv" firstAttribute="leading" secondItem="3H7-El-z1g" secondAttribute="trailing" constant="8" id="D2l-fK-Q5d"/>
                                 <constraint firstAttribute="bottom" secondItem="4Fp-8T-tSZ" secondAttribute="bottom" id="Khy-6I-5g0"/>
-                                <constraint firstAttribute="trailing" secondItem="qhT-G0-5Cc" secondAttribute="trailing" id="PLy-jy-suA"/>
                                 <constraint firstAttribute="trailing" secondItem="DuN-Rb-zhv" secondAttribute="trailing" constant="8" id="Q1H-DQ-yHR"/>
                                 <constraint firstItem="4Fp-8T-tSZ" firstAttribute="leading" secondItem="EoQ-b0-aaN" secondAttribute="leading" id="Rao-vE-MWG"/>
+                                <constraint firstAttribute="trailing" secondItem="Jfh-Lc-5c8" secondAttribute="trailing" id="UT1-ug-o6d"/>
+                                <constraint firstItem="3ZJ-nc-aIE" firstAttribute="top" secondItem="Jfh-Lc-5c8" secondAttribute="bottom" constant="-64" id="Uss-XN-jCB"/>
                                 <constraint firstItem="3H7-El-z1g" firstAttribute="centerY" secondItem="DuN-Rb-zhv" secondAttribute="centerY" id="Ypt-NW-zY1"/>
-                                <constraint firstAttribute="bottom" secondItem="qhT-G0-5Cc" secondAttribute="bottom" id="b9b-Ld-zeI"/>
-                                <constraint firstItem="qhT-G0-5Cc" firstAttribute="top" secondItem="EoQ-b0-aaN" secondAttribute="top" constant="-174" id="cwC-IZ-IS1"/>
+                                <constraint firstAttribute="trailing" secondItem="3ZJ-nc-aIE" secondAttribute="trailing" id="gTb-7Z-t93"/>
+                                <constraint firstItem="3ZJ-nc-aIE" firstAttribute="top" secondItem="EoQ-b0-aaN" secondAttribute="top" constant="-64" id="ggN-Z1-56E"/>
                                 <constraint firstItem="3H7-El-z1g" firstAttribute="leading" secondItem="EoQ-b0-aaN" secondAttribute="leading" constant="16" id="h5y-rs-TF4"/>
+                                <constraint firstAttribute="bottom" secondItem="3ZJ-nc-aIE" secondAttribute="bottom" id="k6p-O8-rMl"/>
+                                <constraint firstItem="Jfh-Lc-5c8" firstAttribute="leading" secondItem="EoQ-b0-aaN" secondAttribute="leading" id="qCh-be-WdH"/>
                             </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailCell" rowHeight="147" id="pPc-Da-LN2" customClass="PostDetailTableViewCell" customModule="Traveller" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="164" width="600" height="147"/>
+                                <rect key="frame" x="0.0" y="198" width="600" height="147"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pPc-Da-LN2" id="ZKn-fg-wd7">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="147"/>
@@ -134,7 +137,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CreatorCell" rowHeight="105" id="xBo-PH-V7y" customClass="PostCreatorTableViewCell" customModule="Traveller" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="311" width="600" height="105"/>
+                                <rect key="frame" x="0.0" y="345" width="600" height="105"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xBo-PH-V7y" id="1a3-iY-yik">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="105"/>
@@ -266,7 +269,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" rowHeight="65" id="v4C-Xx-ZC9" customClass="PostCommentTableViewCell" customModule="Traveller" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="416" width="600" height="65"/>
+                                <rect key="frame" x="0.0" y="450" width="600" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="v4C-Xx-ZC9" id="mEC-Ro-bhV">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
@@ -353,12 +356,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addButton" destination="DuN-Rb-zhv" id="o13-x1-O0k"/>
+                        <outlet property="refreshHeader" destination="Jfh-Lc-5c8" id="dVf-In-h0B"/>
+                        <outlet property="scrollView" destination="3ZJ-nc-aIE" id="ieW-QB-U2c"/>
                         <outlet property="titleLabel" destination="3H7-El-z1g" id="0cR-rc-JBa"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0U8-Tr-LET" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="552" y="311"/>
+            <point key="canvasLocation" x="550" y="196"/>
         </scene>
     </scenes>
     <resources>
@@ -367,6 +372,5 @@
         <image name="detail-icon" width="30" height="30"/>
         <image name="gradual" width="375" height="100"/>
         <image name="location-icon" width="30" height="30"/>
-        <image name="testPlace" width="375" height="200"/>
     </resources>
 </document>
