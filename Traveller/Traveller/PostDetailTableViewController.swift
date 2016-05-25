@@ -19,9 +19,10 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
     var post = PostModel()
     var comments: [CommentModel] = []
     var imageURLs: [String] = []
+    var scrollViewWidth: CGFloat = 0
     
     // TODO: 添加图片放大展示效果
-    @IBOutlet weak var refreshHeader: MJRefreshNormalHeader!
+//    @IBOutlet weak var refreshHeader: MJRefreshNormalHeader!
     @IBOutlet weak var scrollView: SDCycleScrollView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
@@ -45,10 +46,7 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.navigationController?.navigationBar.lt_setBackgroundColor(UIColor.clearColor())
         
-//        self.refreshHeader = MJRefreshNormalHeader(refreshingBlock: {
-//            self.refresh()
-//        })
-//        self.refreshHeader = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(refresh))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "刷新", style: .Plain, target: self, action: #selector(refresh))
         
         prepareData()
         if post.place != nil {
@@ -78,7 +76,7 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
     
     func refresh() {
         self.tableView.reloadData()
-        self.refreshHeader.endRefreshing()
+        print("refresh")
     }
     
     func setUpUI() {
@@ -87,7 +85,7 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
         addButton.layer.borderColor = UIColor(red: 255/255, green: 211/255, blue: 0/155, alpha: 0.8).CGColor
         titleLabel.text = post.place
         // scroll view
-        self.scrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight
+        self.scrollView.showPageControl = false
         self.scrollView.placeholderImage = UIImage(named: "testPlace")
         self.scrollView.delegate = self
         self.scrollView.imageURLStringsGroup = self.imageURLs
@@ -105,6 +103,7 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
         imageURLs.append("http://file21.mafengwo.net/M00/B3/05/wKgB21AXIVfkK_6eABs2chtBOg409.groupinfo.w600.jpeg")
         imageURLs.append("http://www.oruchina.com/files/2014-9/f20140930095244175411.jpg")
         imageURLs.append("http://youimg1.c-ctrip.com/target/tg/920/427/911/5c52e590249244499dbeede58832e865_jupiter.jpg")
+        scrollViewWidth = self.scrollView.frame.size.width
     }
 
 }
@@ -161,7 +160,7 @@ extension PostDetailTableViewController {
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         let color = UIColor(red: 126/255, green: 211/255, blue: 33/255, alpha: 1)
         let offsetY = scrollView.contentOffset.y
-        
+        // set navigation bar
         if offsetY > NAVBAR_CHANGE_POINT {
             let alpha = min(1, 1-((NAVBAR_CHANGE_POINT+64-offsetY)/64))
             
@@ -170,6 +169,15 @@ extension PostDetailTableViewController {
         } else {
             navigationController?.navigationBar.lt_setBackgroundColor(color.colorWithAlphaComponent(0))
             self.title = ""
+        }
+        
+        // set header view
+        if offsetY < -64.0 {
+            let heightAfter = 170+abs(offsetY)
+            self.scrollView.autoScroll = false
+            self.scrollView.frame = CGRect(x: 0, y: offsetY, width: self.view.frame.size.width, height: heightAfter)
+        } else {
+            self.scrollView.autoScroll = true
         }
     }
     
