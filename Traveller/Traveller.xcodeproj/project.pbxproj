@@ -38,6 +38,8 @@
 		33D4F8361CEF3B980082B927 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33D4F8351CEF3B980082B927 /* Assets.xcassets */; };
 		33D4F8391CEF3B980082B927 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33D4F8371CEF3B980082B927 /* LaunchScreen.storyboard */; };
 		33D4F8441CEF3B980082B927 /* TravellerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D4F8431CEF3B980082B927 /* TravellerTests.swift */; };
+		33DA2CFE1CFC993200665709 /* UserProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DA2CFD1CFC993200665709 /* UserProfileTableViewCell.swift */; };
+		33DA2D001CFC994F00665709 /* UserPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DA2CFF1CFC994F00665709 /* UserPostTableViewCell.swift */; };
 		3792D753F4B5F2BE5440B538 /* Pods_Traveller.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B5F18F4A9B09FE0F9E06058 /* Pods_Traveller.framework */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +90,8 @@
 		33D4F83F1CEF3B980082B927 /* TravellerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravellerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		33D4F8431CEF3B980082B927 /* TravellerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellerTests.swift; sourceTree = "<group>"; };
 		33D4F8451CEF3B980082B927 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		33DA2CFD1CFC993200665709 /* UserProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileTableViewCell.swift; sourceTree = "<group>"; };
+		33DA2CFF1CFC994F00665709 /* UserPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPostTableViewCell.swift; sourceTree = "<group>"; };
 		4B5F18F4A9B09FE0F9E06058 /* Pods_Traveller.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Traveller.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6697C2EDC27A5B41892E040 /* Pods-Traveller.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Traveller.release.xcconfig"; path = "Pods/Target Support Files/Pods-Traveller/Pods-Traveller.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -176,6 +180,7 @@
 		338D97B41CF3FA7A00F731AE /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				33DA2CFC1CFC991E00665709 /* Cells */,
 				338D97CA1CF486E900F731AE /* UserDetailTableViewController.swift */,
 			);
 			name = ViewControllers;
@@ -491,6 +496,15 @@
 			path = TravellerTests;
 			sourceTree = "<group>";
 		};
+		33DA2CFC1CFC991E00665709 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				33DA2CFD1CFC993200665709 /* UserProfileTableViewCell.swift */,
+				33DA2CFF1CFC994F00665709 /* UserPostTableViewCell.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		94C9950653AA7A2926CA2C67 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -664,6 +678,7 @@
 				338D979D1CF099F900F731AE /* MapDataPointAnnotation.swift in Sources */,
 				33C1E6101CF019CA00C75708 /* HomeMapViewController.swift in Sources */,
 				338D97AB1CF213A400F731AE /* PostCreatorTableViewCell.swift in Sources */,
+				33DA2CFE1CFC993200665709 /* UserProfileTableViewCell.swift in Sources */,
 				33C1E6201CF033E700C75708 /* WelcomeViewController.swift in Sources */,
 				338D979B1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift in Sources */,
 				33C1E6181CF01AEF00C75708 /* FollowingTableViewController.swift in Sources */,
@@ -675,6 +690,7 @@
 				33D4F82F1CEF3B980082B927 /* AppDelegate.swift in Sources */,
 				33C1E6081CEF64A300C75708 /* RootTabBarController.swift in Sources */,
 				338D97A91CF2139300F731AE /* PostDetailTableViewCell.swift in Sources */,
+				33DA2D001CFC994F00665709 /* UserPostTableViewCell.swift in Sources */,
 				33C1E61C1CF01C1D00C75708 /* MeTableViewController.swift in Sources */,
 				338D97B11CF3294F00F731AE /* UserModel.swift in Sources */,
 				33C1E60A1CEF654300C75708 /* UIStoryboardManager.swift in Sources */,

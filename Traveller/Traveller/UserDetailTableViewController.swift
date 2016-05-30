@@ -9,12 +9,14 @@
 import UIKit
 import LTNavigationBar
 import SnapKit
+import MapKit
 
 class UserDetailTableViewController: UITableViewController {
     
     let NAVBAR_CHANGE_POINT: CGFloat = 50
     
     var user = UserModel()
+    var profile = [String:String]()
     var type: Bool = true //true就是profile,false是posts
     
     @IBOutlet weak var avatarImageView: UIImageView!
@@ -39,6 +41,7 @@ class UserDetailTableViewController: UITableViewController {
         self.navigationController?.navigationBar.lt_setBackgroundColor(UIColor.clearColor())
         
         setUpUI()
+        prepareData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -67,6 +70,11 @@ class UserDetailTableViewController: UITableViewController {
         }
         nameLabel.text = user.username
         followingLabel.text = "0 Followers | 0 Following"
+    }
+    
+    func prepareData() {
+        user.posts.append(PostModel(place: "Tongji University", detail: "testtesttest", location: CLLocationCoordinate2D(latitude: 31.2825510324, longitude: 121.5060841762), address: "1239 Siping Road, Shanghai", creator: self.user))
+        user.posts.append(PostModel(place: "Tongji University (Jiading)", detail: "testtesttest", location: CLLocationCoordinate2D(latitude: 31.2855741398, longitude: 121.2147781261), address: "4800 Caoan Road, Shanghai", creator: self.user))
     }
     
 }
@@ -99,16 +107,24 @@ extension UserDetailTableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 25
+        if type {
+            return 10
+        } else {
+            return user.posts.count
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("UserDetailCell", forIndexPath: indexPath)
-        
-        // Configure the cell...
-        
-        return cell
+        if type {
+            let cell = tableView.dequeueReusableCellWithIdentifier("UserDetailCell", forIndexPath: indexPath)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("UserPostCell", forIndexPath: indexPath) as! UserPostTableViewCell
+            cell.imageView?.image = UIImage(named: "testPost")
+            cell.postNameLabel.text = user.posts[indexPath.row].place
+            cell.postLocationLabel.text = user.posts[indexPath.row].address
+            return cell
+        }
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
