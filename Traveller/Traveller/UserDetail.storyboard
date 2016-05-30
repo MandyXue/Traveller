@@ -18,17 +18,17 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="dLL-4C-IAB">
-                                    <rect key="frame" x="0.0" y="-174" width="600" height="338"/>
+                                    <rect key="frame" x="0.0" y="-64" width="600" height="228"/>
                                 </imageView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NDl-J3-UV7">
-                                    <rect key="frame" x="0.0" y="-174" width="600" height="338"/>
+                                    <rect key="frame" x="0.0" y="-64" width="600" height="228"/>
                                     <subviews>
                                         <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JQe-UH-adc">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="338"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="228"/>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="6135516F-6300-4C9D-AAF7-B7370A12112E" translatesAutoresizingMaskIntoConstraints="NO" id="QTm-1n-mH6">
-                                            <rect key="frame" x="260" y="178" width="80" height="80"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="F65B26C1-AA67-42F9-956B-7AB5D05E9D34" translatesAutoresizingMaskIntoConstraints="NO" id="QTm-1n-mH6">
+                                            <rect key="frame" x="260" y="68" width="80" height="80"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="3kl-az-VZk"/>
                                                 <constraint firstAttribute="height" constant="80" id="Zqu-eB-kpg"/>
@@ -40,13 +40,13 @@
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNo-cH-Phl">
-                                            <rect key="frame" x="274" y="266" width="53" height="24"/>
+                                            <rect key="frame" x="274" y="156" width="53" height="24"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Followers | 0 Following" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMH-pR-XBK">
-                                            <rect key="frame" x="211" y="298" width="179" height="20"/>
+                                            <rect key="frame" x="211" y="188" width="179" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -74,7 +74,7 @@
                                 <constraint firstItem="NDl-J3-UV7" firstAttribute="leading" secondItem="dMS-p3-JQN" secondAttribute="leading" id="5H2-ll-ZSi"/>
                                 <constraint firstAttribute="trailing" secondItem="NDl-J3-UV7" secondAttribute="trailing" id="Dzv-3S-CbI"/>
                                 <constraint firstAttribute="bottom" secondItem="dLL-4C-IAB" secondAttribute="bottom" id="ReR-6f-q3l"/>
-                                <constraint firstItem="dLL-4C-IAB" firstAttribute="top" secondItem="dMS-p3-JQN" secondAttribute="top" constant="-174" id="aAf-1d-ByU"/>
+                                <constraint firstItem="dLL-4C-IAB" firstAttribute="top" secondItem="dMS-p3-JQN" secondAttribute="top" constant="-64" id="aAf-1d-ByU"/>
                                 <constraint firstAttribute="trailing" secondItem="dLL-4C-IAB" secondAttribute="trailing" id="dOa-8H-gnL"/>
                                 <constraint firstItem="NDl-J3-UV7" firstAttribute="trailing" secondItem="dLL-4C-IAB" secondAttribute="trailing" id="oiI-jm-JLN"/>
                                 <constraint firstItem="NDl-J3-UV7" firstAttribute="top" secondItem="dMS-p3-JQN" secondAttribute="top" id="psg-zt-wOM"/>
@@ -96,7 +96,7 @@
                                 <rect key="frame" x="0.0" y="208" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IoH-PO-XlF" id="DQg-XZ-Rt7">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -107,7 +107,9 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="avatarBackImageView" destination="dLL-4C-IAB" id="XmO-RN-C9l"/>
                         <outlet property="avatarImageView" destination="QTm-1n-mH6" id="rey-9S-wSp"/>
+                        <outlet property="backgroundView" destination="JQe-UH-adc" id="Cyi-iS-lpO"/>
                         <outlet property="followingLabel" destination="rMH-pR-XBK" id="xgn-SA-yha"/>
                         <outlet property="nameLabel" destination="qNo-cH-Phl" id="dcm-sK-hpJ"/>
                     </connections>
@@ -118,7 +120,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="6135516F-6300-4C9D-AAF7-B7370A12112E" width="100" height="100">
+        <image name="F65B26C1-AA67-42F9-956B-7AB5D05E9D34" width="100" height="100">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

@@ -15,10 +15,13 @@ class UserDetailTableViewController: UITableViewController {
     let NAVBAR_CHANGE_POINT: CGFloat = 50
     
     var user = UserModel()
+    var type: Bool = true //true就是profile,false是posts
     
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var followingLabel: UILabel!
+    @IBOutlet weak var avatarBackImageView: UIImageView!
+    @IBOutlet weak var backgroundView: UIView!
     
     // MARK: - BaseViewController
     
@@ -73,7 +76,7 @@ class UserDetailTableViewController: UITableViewController {
 extension UserDetailTableViewController {
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        let color = UIColor(red: 126/255, green: 211/255, blue: 33/255, alpha: 1)
+        let color = UIColor.customGreenColor()
         let offsetY = scrollView.contentOffset.y
         
         if offsetY > NAVBAR_CHANGE_POINT {
@@ -84,6 +87,14 @@ extension UserDetailTableViewController {
         } else {
             navigationController?.navigationBar.lt_setBackgroundColor(color.colorWithAlphaComponent(0))
             self.title = ""
+        }
+        
+        // set header view
+        if offsetY < -64.0 {
+            let heightAfter = 164+abs(offsetY)
+            self.backgroundView.frame = CGRect(x: 0, y: offsetY, width: self.view.frame.size.width, height: heightAfter+64)
+            let widthAfter = heightAfter/228*self.view.frame.size.width
+            self.avatarBackImageView.frame = CGRect(x: -(widthAfter-self.view.frame.size.width)/2, y: offsetY, width: widthAfter, height: heightAfter)
         }
     }
     
@@ -118,18 +129,31 @@ extension UserDetailTableViewController {
         let button2 = UIButton.drawButton(width, x: width, title: "Posts")
         button2.addTarget(self, action: #selector(getPosts), forControlEvents: .TouchUpInside)
         view.addSubview(button2)
+        
+        // draw underline
+        let underline = UIView()
+        if type {
+            underline.frame = CGRect(x: 0, y: 40, width: tableView.frame.size.width/2, height: 4)
+        } else {
+            underline.frame = CGRect(x: tableView.frame.size.width/2, y: 40, width: tableView.frame.size.width/2, height: 4)
+        }
+        underline.backgroundColor = UIColor.customGreenColor()
+        view.addSubview(underline)
+        
         return view
     }
     
     // helper
     func getProfile(sender: UIButton!) {
         print("profile")
+        type = true
         tableView.reloadData()
         sender.selected = true
     }
     
     func getPosts(sender: UIButton!) {
         print("posts")
+        type = false
         tableView.reloadData()
         sender.selected = true
     }

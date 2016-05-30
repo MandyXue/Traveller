@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // set navigation bar style
         let navigationBarAppearance = UINavigationBar.appearance()
         navigationBarAppearance.tintColor = UIColor.whiteColor()
-        navigationBarAppearance.barTintColor = UIColor(red: 126/255, green: 211/255, blue: 33/255, alpha: 1)
+        navigationBarAppearance.barTintColor = UIColor.customGreenColor()
         navigationBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         return true
     }
@@ -60,3 +60,8 @@ extension NSDate {
     }
 }
 
+extension UIColor {
+    public class func customGreenColor() -> UIColor {
+        return UIColor(red: 126/255, green: 211/255, blue: 33/255, alpha: 1)
+    }
+}

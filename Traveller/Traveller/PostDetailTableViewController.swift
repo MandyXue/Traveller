@@ -46,7 +46,7 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.navigationController?.navigationBar.lt_setBackgroundColor(UIColor.clearColor())
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "刷新", style: .Plain, target: self, action: #selector(refresh))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Refresh", style: .Plain, target: self, action: #selector(refresh))
         
         prepareData()
         if post.place != nil {
@@ -158,7 +158,7 @@ extension PostDetailTableViewController {
     }
 
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        let color = UIColor(red: 126/255, green: 211/255, blue: 33/255, alpha: 1)
+        let color = UIColor.customGreenColor()
         let offsetY = scrollView.contentOffset.y
         // set navigation bar
         if offsetY > NAVBAR_CHANGE_POINT {
