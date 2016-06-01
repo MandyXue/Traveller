@@ -119,7 +119,7 @@ extension PostDetailTableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 2+comments.count
+        return 4+comments.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -130,7 +130,14 @@ extension PostDetailTableViewController {
             cell.descriptionLabel.text = post.detail
             return cell
         case 1:
+            let cell = tableView.dequeueReusableCellWithIdentifier("CreatorTagCell", forIndexPath: indexPath)
+            return cell
+        case 3:
+            let cell = tableView.dequeueReusableCellWithIdentifier("CommentsTagCell", forIndexPath: indexPath)
+            return cell
+        case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("CreatorCell", forIndexPath: indexPath) as! PostCreatorTableViewCell
+            cell.accessoryType = .DisclosureIndicator
             cell.creatorImageView.image = post.creator.avatar
             cell.creatorNameLabel.text = post.creator.username
             cell.creatorPlaceLabel.text = post.creator.place
@@ -151,7 +158,11 @@ extension PostDetailTableViewController {
         case 0:
             return 147.0
         case 1:
-            return 105.0
+            return 25.0
+        case 2:
+            return 80.0
+        case 3:
+            return 25.0
         default:
             return 65.0
         }
@@ -184,7 +195,7 @@ extension PostDetailTableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         cell?.setSelected(false, animated: false)
-        if indexPath.row == 1 {
+        if indexPath.row == 2 {
             if let detailView = UserDetailTableViewController.loadFromStoryboard() as? UserDetailTableViewController {
                 // TODO: 接上接口以后要改这个参数
                 detailView.user = post.creator

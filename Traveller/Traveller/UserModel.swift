@@ -39,9 +39,9 @@ class UserModel: NSObject {
         self.avatar = avatar
         self.place = place
         gender = true
-        summary = ""
-        email = ""
-        homepage = ""
+        summary = nil
+        email = nil
+        homepage = nil
         registerDate = NSDate(timeIntervalSinceNow: 0)
     }
     

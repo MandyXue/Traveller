@@ -73,6 +73,7 @@ class UserDetailTableViewController: UITableViewController {
     }
     
     func prepareData() {
+        user.posts = []
         user.posts.append(PostModel(place: "Tongji University", detail: "testtesttest", location: CLLocationCoordinate2D(latitude: 31.2825510324, longitude: 121.5060841762), address: "1239 Siping Road, Shanghai", creator: self.user))
         user.posts.append(PostModel(place: "Tongji University (Jiading)", detail: "testtesttest", location: CLLocationCoordinate2D(latitude: 31.2855741398, longitude: 121.2147781261), address: "4800 Caoan Road, Shanghai", creator: self.user))
     }
@@ -108,7 +109,7 @@ extension UserDetailTableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if type {
-            return 10
+            return 7
         } else {
             return user.posts.count
         }
@@ -116,14 +117,63 @@ extension UserDetailTableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if type {
-            let cell = tableView.dequeueReusableCellWithIdentifier("UserDetailCell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCellWithIdentifier("UserDetailCell", forIndexPath: indexPath) as! UserProfileTableViewCell
+            switch indexPath.row {
+            case 0:
+                cell.keyLabel.text = "Name"
+                cell.valueLabel.text = user.username
+            case 1:
+                cell.keyLabel.text = "Place"
+                cell.valueLabel.text = (user.place == nil) ? "unsetted": user.place
+            case 2:
+                cell.keyLabel.text = "Gender"
+                cell.valueLabel.text = user.gender ? "male" : "female"
+            case 3:
+                cell.keyLabel.text = "Summary"
+                cell.valueLabel.text = (user.summary == nil) ? "unsetted": user.summary
+            case 4:
+                cell.keyLabel.text = "Email"
+                cell.valueLabel.text = (user.email == nil) ? "unsetted": user.email
+            case 5:
+                cell.keyLabel.text = "Homepage"
+                cell.valueLabel.text = (user.homepage == nil) ? "unsetted": user.homepage
+            case 6:
+                cell.keyLabel.text = "Register Date"
+                cell.valueLabel.text = NSDateFormatter.stringFromDate(user.registerDate!)
+            default:
+                cell.keyLabel.text = ""
+                cell.valueLabel.text = ""
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("UserPostCell", forIndexPath: indexPath) as! UserPostTableViewCell
+            cell.accessoryType = .DisclosureIndicator
             cell.imageView?.image = UIImage(named: "testPost")
             cell.postNameLabel.text = user.posts[indexPath.row].place
             cell.postLocationLabel.text = user.posts[indexPath.row].address
             return cell
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        cell?.setSelected(false, animated: false)
+        if !type {
+            if let detailView = PostDetailTableViewController.loadFromStoryboard() as? PostDetailTableViewController {
+                // TODO: 接上接口以后要改这个参数
+                detailView.post = user.posts[indexPath.row]
+                self.navigationController?.pushViewController(detailView, animated: true)
+            } else {
+                print("something went wrong...")
+            }
+        }
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if type {
+            return 45
+        } else {
+            return 84
         }
     }
     

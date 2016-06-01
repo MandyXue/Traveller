@@ -65,3 +65,12 @@ extension UIColor {
         return UIColor(red: 126/255, green: 211/255, blue: 33/255, alpha: 1)
     }
 }
+
+extension NSDateFormatter {
+    public class func stringFromDate(date: NSDate) -> String {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .LongStyle
+        formatter.timeStyle = .NoStyle
+        return formatter.stringFromDate(date)
+    }
+}
