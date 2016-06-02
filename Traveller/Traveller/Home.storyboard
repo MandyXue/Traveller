@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Home Map View Controller-->
+        <!--Home-->
         <scene sceneID="5h1-vy-eNG">
             <objects>
                 <viewController storyboardIdentifier="HomeMapViewController" id="EOw-ZW-Bqw" customClass="HomeMapViewController" customModule="Traveller" customModuleProvider="target" sceneMemberID="viewController">
@@ -30,6 +30,7 @@
                             <constraint firstItem="VnB-3a-rV4" firstAttribute="leading" secondItem="Qpp-tT-pPF" secondAttribute="leadingMargin" constant="-20" id="zCZ-9f-dJt"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Home" id="dAd-fr-5JC"/>
                     <connections>
                         <outlet property="mapView" destination="VnB-3a-rV4" id="hzW-Gb-RyW"/>
                     </connections>

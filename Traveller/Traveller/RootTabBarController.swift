@@ -24,7 +24,6 @@ class RootTabBarController: RAMAnimatedTabBarController {
         let configs : [NSDictionary] = [
             ["Title": "Home",
                 "ImageName": "home",
-                "SelectedImageName": "home-selected",
                 "ViewController": HomeMapViewController.loadFromStoryboard(),
                 "animation": RAMCustomTopTransitionAnimation()],
             ["Title": "Following",
@@ -34,12 +33,10 @@ class RootTabBarController: RAMAnimatedTabBarController {
                 "animation": RAMBounceAnimation()],
             ["Title": "Schedule",
                 "ImageName": "schedule",
-                "SelectedImageName": "schedule-selected",
                 "ViewController": TimelineTableViewController.loadFromStoryboard(),
                 "animation": RAMCustomLeftTransitionAnimation()],
             ["Title": "Me",
                 "ImageName": "me",
-                "SelectedImageName": "me-selected",
                 "ViewController": MeTableViewController.loadFromStoryboard(),
                 "animation": RAMRotationAnimation()]
         ]
@@ -48,7 +45,7 @@ class RootTabBarController: RAMAnimatedTabBarController {
         
         for config in configs {
             let viewController = config["ViewController"] as! UIViewController
-            let tabbarItem = RAMAnimatedTabBarItem.init(title: config["Title"] as? String, image: UIImage(named: config["ImageName"] as! String)!.imageWithRenderingMode(.AlwaysOriginal), selectedImage: UIImage(named: config["SelectedImageName"] as! String))
+            let tabbarItem = RAMAnimatedTabBarItem.init(title: config["Title"] as? String, image: UIImage(named: config["ImageName"] as! String)!.imageWithRenderingMode(.AlwaysOriginal), tag: 0)
             // set default text&icon color
             tabbarItem.textColor = UIColor.whiteColor()
             tabbarItem.iconColor = UIColor.whiteColor()

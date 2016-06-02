@@ -29,7 +29,6 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Home"
         
         initLocationManager()
         mapView.delegate = self
