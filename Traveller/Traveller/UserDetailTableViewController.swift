@@ -214,14 +214,12 @@ extension UserDetailTableViewController {
         print("profile")
         type = true
         tableView.reloadData()
-        sender.selected = true
     }
     
     func getPosts(sender: UIButton!) {
         print("posts")
         type = false
         tableView.reloadData()
-        sender.selected = true
     }
 }
 

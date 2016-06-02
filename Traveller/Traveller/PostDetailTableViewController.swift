@@ -11,6 +11,7 @@ import QuartzCore
 import LTNavigationBar
 import SDCycleScrollView
 import MJRefresh
+import UITableView_FDTemplateLayoutCell
 
 class PostDetailTableViewController: UITableViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate, SDCycleScrollViewDelegate {
     
@@ -95,7 +96,7 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
         // TODO: 假数据，后续添加接口
         var i = 0
         while i < 20 {
-            comments.append(CommentModel(user: UserModel(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai"), comment: "Great place, I want to go.", time: NSDate(timeIntervalSinceNow: 0)))
+            comments.append(CommentModel(user: UserModel(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai"), comment: "Great place, I want to go gogogogogogogogogogogogogogo....", time: NSDate(timeIntervalSinceNow: 0)))
             i += 1
         }
         // scroll view images
@@ -126,8 +127,7 @@ extension PostDetailTableViewController {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier("DetailCell", forIndexPath: indexPath) as! PostDetailTableViewCell
-            cell.locationLabel.text = post.address
-            cell.descriptionLabel.text = post.detail
+            configureDetailCell(cell, indexPath: indexPath)
             return cell
         case 1:
             let cell = tableView.dequeueReusableCellWithIdentifier("CreatorTagCell", forIndexPath: indexPath)
@@ -144,11 +144,7 @@ extension PostDetailTableViewController {
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! PostCommentTableViewCell
-            cell.commentLabel.text = comments[indexPath.row-2].comment
-            let user = comments[indexPath.row-2].user
-            cell.commentImageView.image = user.avatar
-            cell.commentNameLabel.text = user.username
-            cell.commentTimeLabel.text = NSDate.dateToString(comments[indexPath.row-2].time)
+            configureCommentCell(cell, indexPath: indexPath)
             return cell
         }
     }
@@ -156,7 +152,11 @@ extension PostDetailTableViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return 147.0
+            return tableView.fd_heightForCellWithIdentifier("DetailCell", configuration: { (cell) in
+                if let detailCell = cell as? PostDetailTableViewCell {
+                    self.configureDetailCell(detailCell, indexPath: indexPath)
+                }
+            })
         case 1:
             return 25.0
         case 2:
@@ -164,7 +164,11 @@ extension PostDetailTableViewController {
         case 3:
             return 25.0
         default:
-            return 65.0
+            return tableView.fd_heightForCellWithIdentifier("CommentCell", configuration: { (cell) in
+                if let commentCell = cell as? PostCommentTableViewCell {
+                    self.configureCommentCell(commentCell, indexPath: indexPath)
+                }
+            })
         }
     }
 
@@ -205,6 +209,21 @@ extension PostDetailTableViewController {
                 print("something went wrong...")
             }
         }
+    }
+    
+    // helper
+    
+    func configureDetailCell(cell: PostDetailTableViewCell, indexPath: NSIndexPath) {
+        cell.locationLabel.text = post.address
+        cell.descriptionLabel.text = post.detail
+    }
+    
+    func configureCommentCell(cell: PostCommentTableViewCell, indexPath: NSIndexPath) {
+        cell.commentLabel.text = comments[indexPath.row-4].comment
+        let user = comments[indexPath.row-4].user
+        cell.commentImageView.image = user.avatar
+        cell.commentNameLabel.text = user.username
+        cell.commentTimeLabel.text = NSDate.dateToString(comments[indexPath.row-4].time)
     }
 }
 
