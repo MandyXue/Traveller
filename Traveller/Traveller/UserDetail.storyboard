@@ -28,7 +28,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="228"/>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ABD79D3A-31AB-4F15-B5C8-719804BEBB2B" translatesAutoresizingMaskIntoConstraints="NO" id="QTm-1n-mH6">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="80C9CF1F-B68C-48E0-8663-D0467741CA71" translatesAutoresizingMaskIntoConstraints="NO" id="QTm-1n-mH6">
                                             <rect key="frame" x="260" y="68" width="80" height="80"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="3kl-az-VZk"/>
@@ -134,11 +134,11 @@
                                     <outlet property="valueLabel" destination="h6f-HG-saR" id="hpg-R9-Mze"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserPostCell" rowHeight="84" id="79s-cg-dBc" customClass="UserPostTableViewCell" customModule="Traveller" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UserPostCell" rowHeight="84" id="79s-cg-dBc" customClass="UserPostTableViewCell" customModule="Traveller" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="253" width="600" height="84"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="79s-cg-dBc" id="5jm-sq-8cA">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="83.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="83.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yUz-Er-B1E">
@@ -220,7 +220,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ABD79D3A-31AB-4F15-B5C8-719804BEBB2B" width="100" height="100">
+        <image name="80C9CF1F-B68C-48E0-8663-D0467741CA71" width="100" height="100">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -896,7 +896,7 @@ ak1C/+jk4///////////////////////////////////////////////////////////////////////
 AAABBgADAAAAAQACAAABEQAEAAAAAQAAAAgBEgADAAAAAQABAAABFQADAAAAAQAEAAABFgADAAAAAQBk
 AAABFwAEAAAAAQAAnEABHAADAAAAAQABAAABUgADAAAAAQACAAABUwADAAAABAAAnP6HcwAHAAAMSAAA
 nQYAAAAAAAgACAAIAAgAAQABAAEAAQAADEhMaW5vAhAAAG1udHJSR0IgWFlaIAfOAAIACQAGADEAAGFj
-c3BNU0ZUAAAAAElFQyBzUkdCAAAAAAAAAAAAAAAAAAD21gABAAAAANMtSFAgIAAAAAAAAAAAAAAAAAAA
+c3BNU0ZUAAAAAElFQyBzUkdCAAAAAAAAAAAAAAABAAD21gABAAAAANMtSFAgIAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEWNwcnQAAAFQAAAAM2Rlc2MAAAGEAAAAbHd0
 cHQAAAHwAAAAFGJrcHQAAAIEAAAAFHJYWVoAAAIYAAAAFGdYWVoAAAIsAAAAFGJYWVoAAAJAAAAAFGRt
 bmQAAAJUAAAAcGRtZGQAAALEAAAAiHZ1ZWQAAANMAAAAhnZpZXcAAAPUAAAAJGx1bWkAAAP4AAAAFG1l

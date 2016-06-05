@@ -137,7 +137,6 @@ extension PostDetailTableViewController {
             return cell
         case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("CreatorCell", forIndexPath: indexPath) as! PostCreatorTableViewCell
-            cell.accessoryType = .DisclosureIndicator
             cell.creatorImageView.image = post.creator.avatar
             cell.creatorNameLabel.text = post.creator.username
             cell.creatorPlaceLabel.text = post.creator.place
@@ -247,10 +246,11 @@ extension PostDetailTableViewController {
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         switch(buttonIndex) {
         case 1:
-            print("拍照")
+            print("Take a photo now")
+            // TODO: 这里的拍照上传好像有点问题
             takePhotoByCamera()
         case 2:
-            print("从相册选取")
+            print("Choose photo from album")
             choosePhotoFromAlbum()
         default: break
         }
@@ -277,16 +277,15 @@ extension PostDetailTableViewController {
         }
         else {
             let alert = UIAlertView(title: "Sorry",
-                                    message: "我们不能访问您的相机📷",
+                                    message: "We cannot get your camera📷",
                                     delegate: nil,
                                     cancelButtonTitle: "Ok")
             alert.show()
-            
        }
     }
     
     func getImagePickerActionSheet() -> UIActionSheet {
-        let actionSheet = UIActionSheet(title: "选取照片", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照", "从相册选取")
+        let actionSheet = UIActionSheet(title: "Upload a photo", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Take a photo now", "Choose photo from album")
         actionSheet.actionSheetStyle = .BlackOpaque
         return actionSheet
     }

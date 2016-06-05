@@ -40,6 +40,9 @@ class UserDetailTableViewController: UITableViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.navigationController?.navigationBar.lt_setBackgroundColor(UIColor.clearColor())
         
+        // 做一下好友判断
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Follow", style: .Plain, target: self, action: #selector(follow))
+        
         setUpUI()
         prepareData()
     }
@@ -76,6 +79,10 @@ class UserDetailTableViewController: UITableViewController {
         user.posts = []
         user.posts.append(PostModel(place: "Tongji University", detail: "testtesttest", location: CLLocationCoordinate2D(latitude: 31.2825510324, longitude: 121.5060841762), address: "1239 Siping Road, Shanghai", creator: self.user))
         user.posts.append(PostModel(place: "Tongji University (Jiading)", detail: "testtesttest", location: CLLocationCoordinate2D(latitude: 31.2855741398, longitude: 121.2147781261), address: "4800 Caoan Road, Shanghai", creator: self.user))
+    }
+    
+    func follow() {
+        print("follow \(user.username!)")
     }
     
 }
@@ -147,7 +154,6 @@ extension UserDetailTableViewController {
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("UserPostCell", forIndexPath: indexPath) as! UserPostTableViewCell
-            cell.accessoryType = .DisclosureIndicator
             cell.imageView?.image = UIImage(named: "testPost")
             cell.postNameLabel.text = user.posts[indexPath.row].place
             cell.postLocationLabel.text = user.posts[indexPath.row].address

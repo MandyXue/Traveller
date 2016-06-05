@@ -7,8 +7,15 @@
 //
 
 import UIKit
+import MessageUI
 
-class MeTableViewController: UITableViewController {
+class MeTableViewController: UITableViewController, MFMailComposeViewControllerDelegate {
+    
+    var user = UserModel(username: "Huo Teng", avatar: UIImage(named: "avatar")!, place: "Jiading District, Shanghai", gender: true, summary: "Like photography and coding", email: "huoteng@huoteng.com", homepage: "www.huoteng.com", registerDate: NSDate(timeIntervalSinceNow: 0))
+    
+    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
     
     // MARK: - BaseViewController
     
@@ -22,84 +29,94 @@ class MeTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        avatarImageView.image = user.avatar
+        nameLabel.text = user.username
+        locationLabel.text = user.place
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    
+    // MARK: - Table View Delegate
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 12))
+        view.backgroundColor = UIColor.clearColor()
+        return view
     }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        switch indexPath.section {
+        case 0:
+            let vc = InfoSettingTableViewController.loadFromStoryboard() as! InfoSettingTableViewController
+            vc.user = self.user
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 3:
+            if indexPath.row == 0 {
+                let vc = storyboard?.instantiateViewControllerWithIdentifier("AboutTraveller")
+                navigationController?.pushViewController(vc!, animated: true)
+            } else {
+                let title = "Feedback of Traveller @"+user.username!
+                let messageBody = ""
+                let toRecipents = ["xuemengdi513@gmail.com"]
+                self.send(title, messageBody: messageBody, toRecipients: toRecipents)
+            }
+        case 4:
+            let alert = UIAlertController(title: "Are you sure to log out?", message: nil, preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action) in
+                // TODO: logout
+                print("logout")
+            }))
+            presentViewController(alert, animated: true, completion: nil)
+        default:
+            break
+        }
+        tableView.cellForRowAtIndexPath(indexPath)?.setSelected(false, animated: false)
     }
-
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    
+    // MARK: - Sending Emails
+    
+    func send(title: String, messageBody: String, toRecipients: [String]) {
+        if MFMailComposeViewController.canSendMail() {
+            let mc: MFMailComposeViewController = MFMailComposeViewController()
+            mc.mailComposeDelegate = self
+            mc.setSubject(title)
+            mc.setMessageBody(messageBody, isHTML: false)
+            mc.setToRecipients(toRecipients)
+            mc.navigationBar.tintColor = UIColor.whiteColor()
+            self.presentViewController(mc, animated: true, completion: nil)
+        } else {
+            print("No email account found.")
+        }
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        
+        self.dismissViewControllerAnimated(false, completion: nil)
+        
+        switch result.rawValue {
+        case MFMailComposeResultCancelled.rawValue:
+            print("Mail Cancelled")
+        case MFMailComposeResultSaved.rawValue:
+            let alert = UIAlertController(title: "Saved", message: "Your mail has been saved.", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
+        case MFMailComposeResultSent.rawValue:
+            let alert = UIAlertController(title: "Success", message: "Your mail has been sent.", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
+        case MFMailComposeResultFailed.rawValue:
+            let alert = UIAlertController(title: "Fail", message: "Your mail has failed to be sent according to unknown error.", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
+        default: break
+        }
+        
+        
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
