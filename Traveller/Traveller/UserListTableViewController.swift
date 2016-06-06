@@ -54,6 +54,12 @@ class UserListTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let vc = UserDetailTableViewController.loadFromStoryboard() as! UserDetailTableViewController
+        vc.user = users[indexPath.row]
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     // MARK: - Helper
     
     func setInfo() {
