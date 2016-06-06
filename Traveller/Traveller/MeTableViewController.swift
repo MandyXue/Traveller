@@ -50,10 +50,24 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.section {
+        // setting information
         case 0:
             let vc = InfoSettingTableViewController.loadFromStoryboard() as! InfoSettingTableViewController
             vc.user = self.user
             self.navigationController?.pushViewController(vc, animated: true)
+        // followings and followers
+        case 1:
+            let vc = UserListTableViewController.loadFromStoryboard() as! UserListTableViewController
+            vc.type = (indexPath.row == 0) ? true: false
+            self.navigationController?.pushViewController(vc, animated: true)
+        // my posts and my comments
+        case 2:
+            if indexPath.row == 0 {
+                print("posts")
+            } else {
+                
+            }
+        // about traveller and feedback
         case 3:
             if indexPath.row == 0 {
                 let vc = storyboard?.instantiateViewControllerWithIdentifier("AboutTraveller")
@@ -64,6 +78,7 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
                 let toRecipents = ["xuemengdi513@gmail.com"]
                 self.send(title, messageBody: messageBody, toRecipients: toRecipents)
             }
+        // logout
         case 4:
             let alert = UIAlertController(title: "Are you sure to log out?", message: nil, preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))

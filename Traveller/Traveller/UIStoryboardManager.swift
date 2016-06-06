@@ -50,4 +50,12 @@ extension UIStoryboard {
     class func traveller_userDetailStoryboard() -> UIStoryboard {
         return UIStoryboard.init(name: "UserDetail", bundle: nil)
     }
+    
+    class func traveller_userListStoryboard() -> UIStoryboard {
+        return UIStoryboard.init(name: "UserList", bundle: nil)
+    }
+    
+    class func traveller_postListStoryboard() -> UIStoryboard {
+        return UIStoryboard.init(name: "PostList", bundle: nil)
+    }
 }
