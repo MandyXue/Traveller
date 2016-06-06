@@ -64,6 +64,10 @@ extension UIColor {
     public class func customGreenColor() -> UIColor {
         return UIColor(red: 126/255, green: 211/255, blue: 33/255, alpha: 1)
     }
+    
+    public class func customGreenColor(alpha: CGFloat) -> UIColor {
+        return UIColor(red: 126/255, green: 211/255, blue: 33/255, alpha: alpha)
+    }
 }
 
 extension NSDateFormatter {

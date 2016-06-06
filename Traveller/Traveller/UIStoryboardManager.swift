@@ -19,10 +19,6 @@ extension UIStoryboard {
         return UIStoryboard.init(name: "Schedule", bundle: nil)
     }
     
-    class func traveller_followingStoryboard() -> UIStoryboard {
-        return UIStoryboard.init(name: "Following", bundle: nil)
-    }
-    
     class func traveller_meStoryboard() -> UIStoryboard {
         return UIStoryboard.init(name: "Me", bundle: nil)
     }

@@ -63,7 +63,7 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
         // my posts and my comments
         case 2:
             let vc = PostListTableViewController.loadFromStoryboard() as! PostListTableViewController
-            vc.type = (indexPath.row == 0) ? true: false
+            vc.type = (indexPath.row == 0) ? 1: 2
             self.navigationController?.pushViewController(vc, animated: true)
         // about traveller and feedback
         case 3:

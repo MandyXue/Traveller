@@ -37,8 +37,6 @@
 		33C1E6121CF019D700C75708 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33C1E6111CF019D700C75708 /* Home.storyboard */; };
 		33C1E6141CF01A5D00C75708 /* TimelineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6131CF01A5D00C75708 /* TimelineTableViewController.swift */; };
 		33C1E6161CF01AC500C75708 /* Schedule.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33C1E6151CF01AC500C75708 /* Schedule.storyboard */; };
-		33C1E6181CF01AEF00C75708 /* FollowingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6171CF01AEF00C75708 /* FollowingTableViewController.swift */; };
-		33C1E61A1CF01BD700C75708 /* Following.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33C1E6191CF01BD700C75708 /* Following.storyboard */; };
 		33C1E61C1CF01C1D00C75708 /* MeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E61B1CF01C1D00C75708 /* MeTableViewController.swift */; };
 		33C1E61E1CF01C3600C75708 /* Me.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33C1E61D1CF01C3600C75708 /* Me.storyboard */; };
 		33C1E6201CF033E700C75708 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E61F1CF033E700C75708 /* WelcomeViewController.swift */; };
@@ -94,8 +92,6 @@
 		33C1E6111CF019D700C75708 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		33C1E6131CF01A5D00C75708 /* TimelineTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineTableViewController.swift; sourceTree = "<group>"; };
 		33C1E6151CF01AC500C75708 /* Schedule.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Schedule.storyboard; sourceTree = "<group>"; };
-		33C1E6171CF01AEF00C75708 /* FollowingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingTableViewController.swift; sourceTree = "<group>"; };
-		33C1E6191CF01BD700C75708 /* Following.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Following.storyboard; sourceTree = "<group>"; };
 		33C1E61B1CF01C1D00C75708 /* MeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeTableViewController.swift; sourceTree = "<group>"; };
 		33C1E61D1CF01C3600C75708 /* Me.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Me.storyboard; sourceTree = "<group>"; };
 		33C1E61F1CF033E700C75708 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -327,7 +323,6 @@
 				3356F4361D0519BC00329F0F /* UserList */,
 				338D97B21CF3FA6400F731AE /* UserDetail */,
 				33C1E5F11CEF639200C75708 /* Schedule */,
-				33C1E5EF1CEF636800C75708 /* Following */,
 				33C1E5F01CEF637100C75708 /* Me */,
 				33C1E5EE1CEF635F00C75708 /* Welcome */,
 				33C1E5ED1CEF635900C75708 /* Signup */,
@@ -372,15 +367,6 @@
 				33C1E5F71CEF63C400C75708 /* Views */,
 			);
 			name = Welcome;
-			sourceTree = "<group>";
-		};
-		33C1E5EF1CEF636800C75708 /* Following */ = {
-			isa = PBXGroup;
-			children = (
-				33C1E5FE1CEF63E900C75708 /* ViewControllers */,
-				33C1E5FD1CEF63E400C75708 /* Views */,
-			);
-			name = Following;
 			sourceTree = "<group>";
 		};
 		33C1E5F01CEF637100C75708 /* Me */ = {
@@ -484,22 +470,6 @@
 			isa = PBXGroup;
 			children = (
 				33C1E6131CF01A5D00C75708 /* TimelineTableViewController.swift */,
-			);
-			name = ViewControllers;
-			sourceTree = "<group>";
-		};
-		33C1E5FD1CEF63E400C75708 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				33C1E6191CF01BD700C75708 /* Following.storyboard */,
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
-		33C1E5FE1CEF63E900C75708 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				33C1E6171CF01AEF00C75708 /* FollowingTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -706,7 +676,6 @@
 				33D4F8361CEF3B980082B927 /* Assets.xcassets in Resources */,
 				33C1E6121CF019D700C75708 /* Home.storyboard in Resources */,
 				338D97A61CF0B19600F731AE /* PostDetail.storyboard in Resources */,
-				33C1E61A1CF01BD700C75708 /* Following.storyboard in Resources */,
 				33C1E6231CF033F900C75708 /* Welcome.storyboard in Resources */,
 				33C1E61E1CF01C3600C75708 /* Me.storyboard in Resources */,
 				33C1E6161CF01AC500C75708 /* Schedule.storyboard in Resources */,
@@ -784,7 +753,6 @@
 				3356F4351D04652A00329F0F /* InfoSettingTableViewController.swift in Sources */,
 				3356F44F1D05646E00329F0F /* PostTableViewCell.swift in Sources */,
 				338D979B1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift in Sources */,
-				33C1E6181CF01AEF00C75708 /* FollowingTableViewController.swift in Sources */,
 				3356F44B1D0561B400329F0F /* PostListTableViewController.swift in Sources */,
 				338D979F1CF09B9000F731AE /* PostModel.swift in Sources */,
 				338D97AF1CF3291700F731AE /* CommentModel.swift in Sources */,

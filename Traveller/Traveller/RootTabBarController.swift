@@ -29,7 +29,7 @@ class RootTabBarController: RAMAnimatedTabBarController {
             ["Title": "Following",
                 "ImageName": "following",
                 "SelectedImageName": "following-selected",
-                "ViewController": FollowingTableViewController.loadFromStoryboard(),
+                "ViewController": UINavigationController.init(rootViewController: PostListTableViewController.loadFromStoryboard()),
                 "animation": RAMBounceAnimation()],
             ["Title": "Schedule",
                 "ImageName": "schedule",

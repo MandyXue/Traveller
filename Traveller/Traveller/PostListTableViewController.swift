@@ -12,10 +12,12 @@ import UITableView_FDTemplateLayoutCell
 
 class PostListTableViewController: UITableViewController {
     
-    var type: Bool = true // true: post, false: comment
+    var type: Int = 0 // 0: all following posts,1: my posts, false: my comments
     var comments: [CommentModel] = []
     var posts: [PostModel] = []
+    var filteredPosts: [PostModel] = []
     
+    let searchController = UISearchController(searchResultsController: nil)
     
     // MARK: - BaseViewController
     
@@ -28,8 +30,27 @@ class PostListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = type ? "Posts": "Comments"
+        
+        switch type {
+        case 1:
+            navigationItem.title = "Posts"
+        case 2:
+            navigationItem.title = "Comments"
+        default:
+            navigationItem.title = "Following"
+        }
+        
         setInfo()
+        
+        if type == 0 {
+            searchController.searchBar.delegate = self
+            searchController.dimsBackgroundDuringPresentation = false
+            definesPresentationContext = true
+            tableView.tableHeaderView = searchController.searchBar
+            // set ui
+            searchController.searchBar.barTintColor = UIColor.customGreenColor()
+            searchController.searchBar.tintColor = UIColor.whiteColor()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,17 +76,38 @@ class PostListTableViewController: UITableViewController {
     
 }
 
+// MARK: - Search bar setting
+
+extension PostListTableViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        if searchBar.text != nil {
+            filterContentForSearchText(searchBar.text!)
+        } else {
+            let alert = UIAlertController(title: "Empty Search", message: "Search text shouldn't be empty.", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func filterContentForSearchText(searchText: String) {
+        // TODO: search filter
+        print("filter")
+        tableView.reloadData()
+    }
+}
+
 // MARK: - Table view data source
 
 extension PostListTableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return type ? posts.count: comments.count
+        return posts.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if type {
+        if type == 0 || type == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier("PostCell", forIndexPath: indexPath) as! PostTableViewCell
             configurePostCell(cell, indexPath: indexPath)
             return cell
@@ -77,7 +119,7 @@ extension PostListTableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if type {
+        if type == 0 || type == 1  {
             return tableView.fd_heightForCellWithIdentifier("PostCell", configuration: { (cell) in
                 if let commentCell = cell as? PostTableViewCell {
                     self.configurePostCell(commentCell, indexPath: indexPath)
