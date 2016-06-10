@@ -82,6 +82,8 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
             alert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action) in
                 // TODO: logout
+                //        UIApplication.sharedApplication().windows[0].rootViewController = DispatchController.dispatchToMain()
+                UIApplication.sharedApplication().windows[0].rootViewController = WelcomeViewController.loadFromStoryboard()
                 print("logout")
             }))
             presentViewController(alert, animated: true, completion: nil)

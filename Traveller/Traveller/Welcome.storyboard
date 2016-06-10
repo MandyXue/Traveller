@@ -1,27 +1,124 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E64a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="plE-3h-IOR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E64a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6e5-pN-flp">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Welcome View Controller-->
-        <scene sceneID="eP1-z9-noI">
+        <scene sceneID="86W-Fa-RNR">
             <objects>
-                <viewController storyboardIdentifier="WelcomeViewController" id="plE-3h-IOR" customClass="WelcomeViewController" customModule="Traveller" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Welcome" storyboardIdentifier="WelcomeViewController" id="6e5-pN-flp" customClass="WelcomeViewController" customModule="Traveller" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="rZL-k0-7Ba"/>
-                        <viewControllerLayoutGuide type="bottom" id="IDb-Ar-cMn"/>
+                        <viewControllerLayoutGuide type="top" id="h04-E2-134"/>
+                        <viewControllerLayoutGuide type="bottom" id="Qyp-5g-5Nt"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Yjk-eo-Yap">
+                    <view key="view" contentMode="scaleToFill" id="9qA-Vm-F3g">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="welcome-icon" translatesAutoresizingMaskIntoConstraints="NO" id="Kx0-u1-Q6u">
+                                <rect key="frame" x="240" y="120" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Kx0-u1-Q6u" secondAttribute="height" multiplier="1:1" id="EVp-ct-9d6"/>
+                                    <constraint firstAttribute="width" constant="120" id="IPs-Zj-Ipu"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="加入Traveller,  开启你的精彩旅途" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rag-JL-NSd">
+                                <rect key="frame" x="197" y="366" width="206" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.97647058819999999" green="0.98431372549999996" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aUu-fj-8WP">
+                                <rect key="frame" x="258" y="534" width="84" height="29"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="用户协议与条款">
+                                            <attributes>
+                                                <color key="NSColor" red="0.97647058819999999" green="0.98431372549999996" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="12" name="PingFangSC-Regular"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KW9-qP-iIb">
+                                <rect key="frame" x="40" y="468" width="520" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="登录">
+                                    <color key="titleColor" red="0.97647058819999999" green="0.98431372549999996" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="gotoLogin:" destination="6e5-pN-flp" eventType="touchUpInside" id="Z6o-kf-DOB"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="traveller" translatesAutoresizingMaskIntoConstraints="NO" id="zig-xw-hV8">
+                                <rect key="frame" x="237" y="260" width="127" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="YOq-kW-B9O"/>
+                                    <constraint firstAttribute="width" constant="127" id="b9p-0J-QJi"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dRC-W0-BE2">
+                                <rect key="frame" x="40" y="403" width="520" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="We9-71-iSz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="注册">
+                                    <color key="titleColor" red="0.97647058819999999" green="0.98431372549999996" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="gotoSignup:" destination="6e5-pN-flp" eventType="touchUpInside" id="pgK-YT-0YB"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.98823529409999999" green="0.69803921570000005" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Kx0-u1-Q6u" firstAttribute="centerX" secondItem="9qA-Vm-F3g" secondAttribute="centerX" id="3ol-U2-0ys"/>
+                            <constraint firstItem="KW9-qP-iIb" firstAttribute="height" secondItem="dRC-W0-BE2" secondAttribute="height" id="4V8-em-Lf2"/>
+                            <constraint firstItem="dRC-W0-BE2" firstAttribute="width" secondItem="rag-JL-NSd" secondAttribute="width" multiplier="1.5" id="6l4-EZ-w9C"/>
+                            <constraint firstItem="aUu-fj-8WP" firstAttribute="top" secondItem="KW9-qP-iIb" secondAttribute="bottom" multiplier="1.02" constant="8" symbolic="YES" id="AGi-vE-LB7"/>
+                            <constraint firstItem="dRC-W0-BE2" firstAttribute="top" secondItem="rag-JL-NSd" secondAttribute="bottom" multiplier="1.03" constant="8" symbolic="YES" id="JC9-4v-1Ak"/>
+                            <constraint firstItem="dRC-W0-BE2" firstAttribute="centerX" secondItem="rag-JL-NSd" secondAttribute="centerX" id="RFX-K5-Dgg"/>
+                            <constraint firstItem="KW9-qP-iIb" firstAttribute="centerX" secondItem="dRC-W0-BE2" secondAttribute="centerX" id="Tys-hJ-Cbh"/>
+                            <constraint firstItem="Kx0-u1-Q6u" firstAttribute="top" secondItem="h04-E2-134" secondAttribute="bottom" constant="100" id="Vlh-DQ-lRz"/>
+                            <constraint firstItem="zig-xw-hV8" firstAttribute="centerX" secondItem="9qA-Vm-F3g" secondAttribute="centerX" id="Wah-02-La5"/>
+                            <constraint firstItem="Kx0-u1-Q6u" firstAttribute="centerY" secondItem="9qA-Vm-F3g" secondAttribute="centerY" multiplier="0.5" id="aD4-EF-kry"/>
+                            <constraint firstItem="dRC-W0-BE2" firstAttribute="leading" secondItem="9qA-Vm-F3g" secondAttribute="leadingMargin" constant="20" id="gEz-ek-kR1"/>
+                            <constraint firstItem="zig-xw-hV8" firstAttribute="top" secondItem="Kx0-u1-Q6u" secondAttribute="bottom" constant="20" id="h3R-QN-VyO"/>
+                            <constraint firstItem="aUu-fj-8WP" firstAttribute="centerX" secondItem="KW9-qP-iIb" secondAttribute="centerX" id="iF2-wW-M51"/>
+                            <constraint firstItem="rag-JL-NSd" firstAttribute="centerY" secondItem="9qA-Vm-F3g" secondAttribute="centerY" multiplier="1.25" id="myT-Av-Cet"/>
+                            <constraint firstItem="KW9-qP-iIb" firstAttribute="top" secondItem="dRC-W0-BE2" secondAttribute="bottom" multiplier="1.02" constant="8" symbolic="YES" id="qSv-9v-ONn"/>
+                            <constraint firstItem="dRC-W0-BE2" firstAttribute="width" secondItem="rag-JL-NSd" secondAttribute="width" id="rem-tP-Zfy"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dRC-W0-BE2" secondAttribute="trailing" constant="20" id="wNp-Ei-xS9"/>
+                            <constraint firstItem="KW9-qP-iIb" firstAttribute="width" secondItem="dRC-W0-BE2" secondAttribute="width" id="zWI-Yy-W6i"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="aD4-EF-kry"/>
+                                <exclude reference="6l4-EZ-w9C"/>
+                                <exclude reference="rem-tP-Zfy"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="loginButton" destination="KW9-qP-iIb" id="SIW-Th-Gef"/>
+                        <outlet property="signupButton" destination="dRC-W0-BE2" id="tlJ-bN-a9d"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jVS-gQ-VDG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CDR-SM-1BY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="353" y="285"/>
+            <point key="canvasLocation" x="534" y="215"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="traveller" width="127" height="26"/>
+        <image name="welcome-icon" width="180" height="180"/>
+    </resources>
 </document>

@@ -78,3 +78,12 @@ extension NSDateFormatter {
         return formatter.stringFromDate(date)
     }
 }
+
+extension UIButton {
+    public class func defaultStyle(button:UIButton) {
+        button.layer.cornerRadius = button.bounds.height/2
+        button.clipsToBounds = true
+        button.layer.borderWidth = 1.2
+        button.layer.borderColor = UIColor.whiteColor().CGColor
+    }
+}

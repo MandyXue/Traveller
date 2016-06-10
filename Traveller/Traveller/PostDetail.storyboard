@@ -26,7 +26,7 @@
                                         <constraint firstAttribute="height" constant="234" id="Zcy-a1-qYs"/>
                                     </constraints>
                                 </view>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradual" translatesAutoresizingMaskIntoConstraints="NO" id="4Fp-8T-tSZ">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="gradual" translatesAutoresizingMaskIntoConstraints="NO" id="4Fp-8T-tSZ">
                                     <rect key="frame" x="0.0" y="70" width="600" height="100"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hong Kong Disney Land" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3H7-El-z1g">

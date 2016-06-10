@@ -16,6 +16,10 @@
 		3356F44B1D0561B400329F0F /* PostListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3356F44A1D0561B400329F0F /* PostListTableViewController.swift */; };
 		3356F44F1D05646E00329F0F /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3356F44E1D05646E00329F0F /* PostTableViewCell.swift */; };
 		3356F4511D05647700329F0F /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3356F4501D05647700329F0F /* CommentTableViewCell.swift */; };
+		3381DE0E1D0B0447003482F7 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3381DE0D1D0B0447003482F7 /* Login.storyboard */; };
+		3381DE101D0B0454003482F7 /* Signup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3381DE0F1D0B0454003482F7 /* Signup.storyboard */; };
+		3381DE121D0B126E003482F7 /* SignupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3381DE111D0B126E003482F7 /* SignupTableViewController.swift */; };
+		3381DE141D0B130D003482F7 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3381DE131D0B130D003482F7 /* LoginTableViewController.swift */; };
 		338D979B1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D979A1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift */; };
 		338D979D1CF099F900F731AE /* MapDataPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D979C1CF099F900F731AE /* MapDataPointAnnotation.swift */; };
 		338D979F1CF09B9000F731AE /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D979E1CF09B9000F731AE /* PostModel.swift */; };
@@ -71,6 +75,10 @@
 		3356F44A1D0561B400329F0F /* PostListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostListTableViewController.swift; sourceTree = "<group>"; };
 		3356F44E1D05646E00329F0F /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		3356F4501D05647700329F0F /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		3381DE0D1D0B0447003482F7 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		3381DE0F1D0B0454003482F7 /* Signup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signup.storyboard; sourceTree = "<group>"; };
+		3381DE111D0B126E003482F7 /* SignupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupTableViewController.swift; sourceTree = "<group>"; };
+		3381DE131D0B130D003482F7 /* LoginTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
 		338D979A1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMCustomTransitionAnimation.swift; sourceTree = "<group>"; };
 		338D979C1CF099F900F731AE /* MapDataPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDataPointAnnotation.swift; sourceTree = "<group>"; };
 		338D979E1CF09B9000F731AE /* PostModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
@@ -399,6 +407,7 @@
 		33C1E5F31CEF63A900C75708 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3381DE0D1D0B0447003482F7 /* Login.storyboard */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -406,6 +415,7 @@
 		33C1E5F41CEF63B100C75708 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3381DE131D0B130D003482F7 /* LoginTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -413,6 +423,7 @@
 		33C1E5F51CEF63B900C75708 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3381DE0F1D0B0454003482F7 /* Signup.storyboard */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -420,6 +431,7 @@
 		33C1E5F61CEF63BD00C75708 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3381DE111D0B126E003482F7 /* SignupTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -676,9 +688,11 @@
 				33D4F8361CEF3B980082B927 /* Assets.xcassets in Resources */,
 				33C1E6121CF019D700C75708 /* Home.storyboard in Resources */,
 				338D97A61CF0B19600F731AE /* PostDetail.storyboard in Resources */,
+				3381DE0E1D0B0447003482F7 /* Login.storyboard in Resources */,
 				33C1E6231CF033F900C75708 /* Welcome.storyboard in Resources */,
 				33C1E61E1CF01C3600C75708 /* Me.storyboard in Resources */,
 				33C1E6161CF01AC500C75708 /* Schedule.storyboard in Resources */,
+				3381DE101D0B0454003482F7 /* Signup.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,6 +763,7 @@
 				33C1E6101CF019CA00C75708 /* HomeMapViewController.swift in Sources */,
 				338D97AB1CF213A400F731AE /* PostCreatorTableViewCell.swift in Sources */,
 				33DA2CFE1CFC993200665709 /* UserProfileTableViewCell.swift in Sources */,
+				3381DE141D0B130D003482F7 /* LoginTableViewController.swift in Sources */,
 				33C1E6201CF033E700C75708 /* WelcomeViewController.swift in Sources */,
 				3356F4351D04652A00329F0F /* InfoSettingTableViewController.swift in Sources */,
 				3356F44F1D05646E00329F0F /* PostTableViewCell.swift in Sources */,
@@ -759,6 +774,7 @@
 				338D97A41CF0B18900F731AE /* PostDetailTableViewController.swift in Sources */,
 				338D97AD1CF213B400F731AE /* PostCommentTableViewCell.swift in Sources */,
 				33C1E6141CF01A5D00C75708 /* TimelineTableViewController.swift in Sources */,
+				3381DE121D0B126E003482F7 /* SignupTableViewController.swift in Sources */,
 				33D4F82F1CEF3B980082B927 /* AppDelegate.swift in Sources */,
 				33C1E6081CEF64A300C75708 /* RootTabBarController.swift in Sources */,
 				338D97A91CF2139300F731AE /* PostDetailTableViewCell.swift in Sources */,

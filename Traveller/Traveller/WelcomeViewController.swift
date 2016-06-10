@@ -10,6 +10,17 @@ import UIKit
 
 class WelcomeViewController: UIViewController {
     
+    @IBOutlet weak var signupButton: UIButton!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBAction func gotoSignup(sender: AnyObject) {
+        let vc = SignupTableViewController.loadFromStoryboard()
+        presentViewController(vc, animated: true, completion: nil)
+    }
+    @IBAction func gotoLogin(sender: AnyObject) {
+        let vc = LoginTableViewController.loadFromStoryboard()
+        presentViewController(vc, animated: true, completion: nil)
+    }
+    
     // MARK: - BaseViewController
     
     static func loadFromStoryboard() -> UIViewController {
@@ -21,7 +32,7 @@ class WelcomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setUpUI()
         // Do any additional setup after loading the view.
     }
 
@@ -30,15 +41,10 @@ class WelcomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func setUpUI() {
+        view.backgroundColor = UIColor(patternImage: UIImage(named: "background")!)
+        UIButton.defaultStyle(signupButton)
+        UIButton.defaultStyle(loginButton)
     }
-    */
 
 }
