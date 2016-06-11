@@ -21,7 +21,6 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     
     static func loadFromStoryboard() -> UIViewController {
         let controller = UIStoryboard.traveller_homeStoryboard().instantiateViewControllerWithIdentifier(self.traveller_className())
-//        let navigationController: UINavigationController = UINavigationController.init(rootViewController: controller)
         return controller
     }
     
@@ -35,7 +34,7 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         getAnnotations()
         
         self.tabBarController?.navigationItem.title = "Home"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addAnnotation))
+        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addAnnotation))
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -76,6 +75,8 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     func addAnnotation() {
         // TODO: add page
         print("add")
+        let vc = NewPostTableViewController.loadFromStoryboard()
+        presentViewController(vc, animated: true, completion: nil)
     }
 
 }

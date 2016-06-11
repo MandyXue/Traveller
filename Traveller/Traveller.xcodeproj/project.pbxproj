@@ -20,6 +20,9 @@
 		3381DE101D0B0454003482F7 /* Signup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3381DE0F1D0B0454003482F7 /* Signup.storyboard */; };
 		3381DE121D0B126E003482F7 /* SignupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3381DE111D0B126E003482F7 /* SignupTableViewController.swift */; };
 		3381DE141D0B130D003482F7 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3381DE131D0B130D003482F7 /* LoginTableViewController.swift */; };
+		3381DE191D0BEFD9003482F7 /* NewPost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3381DE181D0BEFD9003482F7 /* NewPost.storyboard */; };
+		3381DE1B1D0BF00F003482F7 /* NewPostTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3381DE1A1D0BF00F003482F7 /* NewPostTableViewController.swift */; };
+		3381DE1E1D0BFDCD003482F7 /* PostImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3381DE1D1D0BFDCD003482F7 /* PostImageCollectionViewCell.swift */; };
 		338D979B1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D979A1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift */; };
 		338D979D1CF099F900F731AE /* MapDataPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D979C1CF099F900F731AE /* MapDataPointAnnotation.swift */; };
 		338D979F1CF09B9000F731AE /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D979E1CF09B9000F731AE /* PostModel.swift */; };
@@ -79,6 +82,9 @@
 		3381DE0F1D0B0454003482F7 /* Signup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signup.storyboard; sourceTree = "<group>"; };
 		3381DE111D0B126E003482F7 /* SignupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupTableViewController.swift; sourceTree = "<group>"; };
 		3381DE131D0B130D003482F7 /* LoginTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
+		3381DE181D0BEFD9003482F7 /* NewPost.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewPost.storyboard; sourceTree = "<group>"; };
+		3381DE1A1D0BF00F003482F7 /* NewPostTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostTableViewController.swift; sourceTree = "<group>"; };
+		3381DE1D1D0BFDCD003482F7 /* PostImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		338D979A1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMCustomTransitionAnimation.swift; sourceTree = "<group>"; };
 		338D979C1CF099F900F731AE /* MapDataPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDataPointAnnotation.swift; sourceTree = "<group>"; };
 		338D979E1CF09B9000F731AE /* PostModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
@@ -223,6 +229,40 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
+		3381DE151D0BEF94003482F7 /* NewPost */ = {
+			isa = PBXGroup;
+			children = (
+				3381DE171D0BEFA3003482F7 /* ViewControllers */,
+				3381DE161D0BEF9E003482F7 /* Views */,
+			);
+			name = NewPost;
+			sourceTree = "<group>";
+		};
+		3381DE161D0BEF9E003482F7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3381DE181D0BEFD9003482F7 /* NewPost.storyboard */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		3381DE171D0BEFA3003482F7 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3381DE1C1D0BFDB9003482F7 /* Cells */,
+				3381DE1A1D0BF00F003482F7 /* NewPostTableViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		3381DE1C1D0BFDB9003482F7 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				3381DE1D1D0BFDCD003482F7 /* PostImageCollectionViewCell.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		338D97A01CF0B15200F731AE /* PostDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,6 +366,7 @@
 			children = (
 				33C1E6011CEF63FC00C75708 /* Root_Tabbar */,
 				33C1E5F21CEF639D00C75708 /* Home */,
+				3381DE151D0BEF94003482F7 /* NewPost */,
 				3356F4371D0519C300329F0F /* PostList */,
 				338D97A01CF0B15200F731AE /* PostDetail */,
 				3356F4361D0519BC00329F0F /* UserList */,
@@ -691,6 +732,7 @@
 				3381DE0E1D0B0447003482F7 /* Login.storyboard in Resources */,
 				33C1E6231CF033F900C75708 /* Welcome.storyboard in Resources */,
 				33C1E61E1CF01C3600C75708 /* Me.storyboard in Resources */,
+				3381DE191D0BEFD9003482F7 /* NewPost.storyboard in Resources */,
 				33C1E6161CF01AC500C75708 /* Schedule.storyboard in Resources */,
 				3381DE101D0B0454003482F7 /* Signup.storyboard in Resources */,
 			);
@@ -762,6 +804,7 @@
 				338D979D1CF099F900F731AE /* MapDataPointAnnotation.swift in Sources */,
 				33C1E6101CF019CA00C75708 /* HomeMapViewController.swift in Sources */,
 				338D97AB1CF213A400F731AE /* PostCreatorTableViewCell.swift in Sources */,
+				3381DE1E1D0BFDCD003482F7 /* PostImageCollectionViewCell.swift in Sources */,
 				33DA2CFE1CFC993200665709 /* UserProfileTableViewCell.swift in Sources */,
 				3381DE141D0B130D003482F7 /* LoginTableViewController.swift in Sources */,
 				33C1E6201CF033E700C75708 /* WelcomeViewController.swift in Sources */,
@@ -773,6 +816,7 @@
 				338D97AF1CF3291700F731AE /* CommentModel.swift in Sources */,
 				338D97A41CF0B18900F731AE /* PostDetailTableViewController.swift in Sources */,
 				338D97AD1CF213B400F731AE /* PostCommentTableViewCell.swift in Sources */,
+				3381DE1B1D0BF00F003482F7 /* NewPostTableViewController.swift in Sources */,
 				33C1E6141CF01A5D00C75708 /* TimelineTableViewController.swift in Sources */,
 				3381DE121D0B126E003482F7 /* SignupTableViewController.swift in Sources */,
 				33D4F82F1CEF3B980082B927 /* AppDelegate.swift in Sources */,

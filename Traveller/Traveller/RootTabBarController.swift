@@ -30,7 +30,6 @@ class RootTabBarController: RAMAnimatedTabBarController {
                 "animation": RAMCustomTopTransitionAnimation()],
             ["Title": "Discover",
                 "ImageName": "following",
-                "SelectedImageName": "following-selected",
                 "ViewController": PostListTableViewController.loadFromStoryboard(),
                 "animation": RAMBounceAnimation()],
             ["Title": "Schedule",
