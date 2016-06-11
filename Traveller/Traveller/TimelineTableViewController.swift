@@ -14,14 +14,16 @@ class TimelineTableViewController: UITableViewController {
     
     static func loadFromStoryboard() -> UIViewController {
         let controller = UIStoryboard.traveller_scheduleStoryboard().instantiateViewControllerWithIdentifier(self.traveller_className())
-        let navigationController: UINavigationController = UINavigationController.init(rootViewController: controller)
-        return navigationController
+//        let navigationController: UINavigationController = UINavigationController.init(rootViewController: controller)
+        return controller
     }
     
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tabBarController?.navigationItem.title = "Schedule"
 
         // delete selection between presentations
         self.clearsSelectionOnViewWillAppear = true

@@ -21,8 +21,8 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     
     static func loadFromStoryboard() -> UIViewController {
         let controller = UIStoryboard.traveller_homeStoryboard().instantiateViewControllerWithIdentifier(self.traveller_className())
-        let navigationController: UINavigationController = UINavigationController.init(rootViewController: controller)
-        return navigationController
+//        let navigationController: UINavigationController = UINavigationController.init(rootViewController: controller)
+        return controller
     }
     
     // MARK: - Life Cycle
@@ -34,6 +34,7 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         mapView.delegate = self
         getAnnotations()
         
+        self.tabBarController?.navigationItem.title = "Home"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addAnnotation))
     }
     

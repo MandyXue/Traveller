@@ -9,6 +9,7 @@
         <scene sceneID="OSa-cc-8jO">
             <objects>
                 <tabBarController storyboardIdentifier="RootTabBarController" id="A5t-7h-h1H" customClass="RootTabBarController" customModule="Traveller" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="7y8-YN-sMI"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="I8R-D1-4I2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

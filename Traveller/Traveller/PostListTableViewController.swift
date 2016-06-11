@@ -37,7 +37,7 @@ class PostListTableViewController: UITableViewController {
         case 2:
             navigationItem.title = "Comments"
         default:
-            navigationItem.title = "Following"
+            self.tabBarController?.navigationItem.title = "Discover"
         }
         
         setInfo()

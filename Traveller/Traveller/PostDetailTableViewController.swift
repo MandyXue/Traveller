@@ -23,7 +23,6 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
     var scrollViewWidth: CGFloat = 0
     
     // TODO: 添加图片放大展示效果
-//    @IBOutlet weak var refreshHeader: MJRefreshNormalHeader!
     @IBOutlet weak var scrollView: SDCycleScrollView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
@@ -90,6 +89,10 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
         self.scrollView.placeholderImage = UIImage(named: "testPlace")
         self.scrollView.delegate = self
         self.scrollView.imageURLStringsGroup = self.imageURLs
+        // footer view
+//        let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+//        view.backgroundColor = UIColor.blackColor()
+//        self.tableView.tableFooterView = view
     }
     
     func prepareData() {

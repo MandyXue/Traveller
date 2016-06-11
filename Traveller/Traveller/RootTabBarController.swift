@@ -14,7 +14,9 @@ class RootTabBarController: RAMAnimatedTabBarController {
     // MARK: - BaseViewController
     
     static func loadFromStoryboard() -> UIViewController {
-        return UIStoryboard.traveller_rootStoryboard().instantiateViewControllerWithIdentifier(self.traveller_className())
+        let vc = UIStoryboard.traveller_rootStoryboard().instantiateViewControllerWithIdentifier(self.traveller_className())
+        let nc: UINavigationController = UINavigationController.init(rootViewController: vc)
+        return nc
     }
     
     // MARK: - Life Cycle
@@ -26,10 +28,10 @@ class RootTabBarController: RAMAnimatedTabBarController {
                 "ImageName": "home",
                 "ViewController": HomeMapViewController.loadFromStoryboard(),
                 "animation": RAMCustomTopTransitionAnimation()],
-            ["Title": "Following",
+            ["Title": "Discover",
                 "ImageName": "following",
                 "SelectedImageName": "following-selected",
-                "ViewController": UINavigationController.init(rootViewController: PostListTableViewController.loadFromStoryboard()),
+                "ViewController": PostListTableViewController.loadFromStoryboard(),
                 "animation": RAMBounceAnimation()],
             ["Title": "Schedule",
                 "ImageName": "schedule",

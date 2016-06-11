@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Timeline Table View Controller-->
+        <!--Schedule-->
         <scene sceneID="OBF-wX-YSr">
             <objects>
                 <tableViewController storyboardIdentifier="TimelineTableViewController" id="IaU-eK-YhR" customClass="TimelineTableViewController" customModule="Traveller" customModuleProvider="target" sceneMemberID="viewController">
@@ -28,6 +28,7 @@
                             <outlet property="delegate" destination="IaU-eK-YhR" id="8Ok-56-4mA"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Schedule" id="vbB-Oc-TxL"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GAo-th-0zZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

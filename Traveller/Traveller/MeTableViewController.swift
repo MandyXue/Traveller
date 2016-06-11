@@ -21,14 +21,16 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
     
     static func loadFromStoryboard() -> UIViewController {
         let controller = UIStoryboard.traveller_meStoryboard().instantiateViewControllerWithIdentifier(self.traveller_className())
-        let navigationController: UINavigationController = UINavigationController.init(rootViewController: controller)
-        return navigationController
+//        let navigationController: UINavigationController = UINavigationController.init(rootViewController: controller)
+        return controller
     }
     
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tabBarController?.navigationItem.title = "Me"
         
         avatarImageView.image = user.avatar
         nameLabel.text = user.username

@@ -11,11 +11,11 @@ import UIKit
 class DispatchController: NSObject {
     class func dispatchToMain()-> UIViewController {
 //        if User.currentUser() != nil {
-//            return RootTabBarController.loadFromStoryboard()
+            return RootTabBarController.loadFromStoryboard()
 //        }
 //        else
 //        {
-            return WelcomeViewController.loadFromStoryboard()
+//            return WelcomeViewController.loadFromStoryboard()
 //        }
     }
 }
