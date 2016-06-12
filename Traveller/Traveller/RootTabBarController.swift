@@ -34,7 +34,7 @@ class RootTabBarController: RAMAnimatedTabBarController {
                 "animation": RAMBounceAnimation()],
             ["Title": "Schedule",
                 "ImageName": "schedule",
-                "ViewController": TimelineTableViewController.loadFromStoryboard(),
+                "ViewController": ScheduleTableViewController.loadFromStoryboard(),
                 "animation": RAMCustomLeftTransitionAnimation()],
             ["Title": "Me",
                 "ImageName": "me",

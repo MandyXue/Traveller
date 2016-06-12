@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3355F2D21D0D623D00DFE697 /* DestinationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3355F2D11D0D623D00DFE697 /* DestinationTableViewCell.swift */; };
+		3355F2DE1D0DBD1C00DFE697 /* TimelineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3355F2DD1D0DBD1C00DFE697 /* TimelineTableViewController.swift */; };
+		3355F2E01D0DBDAD00DFE697 /* TimelineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3355F2DF1D0DBDAD00DFE697 /* TimelineTableViewCell.swift */; };
 		3356F4351D04652A00329F0F /* InfoSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3356F4341D04652A00329F0F /* InfoSettingTableViewController.swift */; };
 		3356F43D1D051A2D00329F0F /* UserList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3356F43C1D051A2D00329F0F /* UserList.storyboard */; };
 		3356F43F1D051A3900329F0F /* PostList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3356F43E1D051A3900329F0F /* PostList.storyboard */; };
@@ -46,7 +48,7 @@
 		33C1E60E1CEF664800C75708 /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33C1E60D1CEF664800C75708 /* Root.storyboard */; };
 		33C1E6101CF019CA00C75708 /* HomeMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E60F1CF019CA00C75708 /* HomeMapViewController.swift */; };
 		33C1E6121CF019D700C75708 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33C1E6111CF019D700C75708 /* Home.storyboard */; };
-		33C1E6141CF01A5D00C75708 /* TimelineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6131CF01A5D00C75708 /* TimelineTableViewController.swift */; };
+		33C1E6141CF01A5D00C75708 /* ScheduleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6131CF01A5D00C75708 /* ScheduleTableViewController.swift */; };
 		33C1E6161CF01AC500C75708 /* Schedule.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33C1E6151CF01AC500C75708 /* Schedule.storyboard */; };
 		33C1E61C1CF01C1D00C75708 /* MeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E61B1CF01C1D00C75708 /* MeTableViewController.swift */; };
 		33C1E61E1CF01C3600C75708 /* Me.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33C1E61D1CF01C3600C75708 /* Me.storyboard */; };
@@ -75,6 +77,8 @@
 		29F26F2D461A0CFD699DDADA /* Pods-Traveller.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Traveller.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Traveller/Pods-Traveller.debug.xcconfig"; sourceTree = "<group>"; };
 		3355F2D11D0D623D00DFE697 /* DestinationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationTableViewCell.swift; sourceTree = "<group>"; };
 		3355F2D71D0D6DA200DFE697 /* Traveller-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Traveller-Bridging-Header.h"; sourceTree = "<group>"; };
+		3355F2DD1D0DBD1C00DFE697 /* TimelineTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineTableViewController.swift; sourceTree = "<group>"; };
+		3355F2DF1D0DBDAD00DFE697 /* TimelineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineTableViewCell.swift; sourceTree = "<group>"; };
 		3356F4341D04652A00329F0F /* InfoSettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoSettingTableViewController.swift; sourceTree = "<group>"; };
 		3356F43C1D051A2D00329F0F /* UserList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserList.storyboard; sourceTree = "<group>"; };
 		3356F43E1D051A3900329F0F /* PostList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PostList.storyboard; sourceTree = "<group>"; };
@@ -113,7 +117,7 @@
 		33C1E60D1CEF664800C75708 /* Root.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Root.storyboard; sourceTree = "<group>"; };
 		33C1E60F1CF019CA00C75708 /* HomeMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMapViewController.swift; sourceTree = "<group>"; };
 		33C1E6111CF019D700C75708 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
-		33C1E6131CF01A5D00C75708 /* TimelineTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineTableViewController.swift; sourceTree = "<group>"; };
+		33C1E6131CF01A5D00C75708 /* ScheduleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewController.swift; sourceTree = "<group>"; };
 		33C1E6151CF01AC500C75708 /* Schedule.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Schedule.storyboard; sourceTree = "<group>"; };
 		33C1E61B1CF01C1D00C75708 /* MeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeTableViewController.swift; sourceTree = "<group>"; };
 		33C1E61D1CF01C3600C75708 /* Me.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Me.storyboard; sourceTree = "<group>"; };
@@ -165,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				3355F2D11D0D623D00DFE697 /* DestinationTableViewCell.swift */,
+				3355F2DF1D0DBDAD00DFE697 /* TimelineTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -568,7 +573,8 @@
 			isa = PBXGroup;
 			children = (
 				3355F2D01D0D622A00DFE697 /* Cells */,
-				33C1E6131CF01A5D00C75708 /* TimelineTableViewController.swift */,
+				33C1E6131CF01A5D00C75708 /* ScheduleTableViewController.swift */,
+				3355F2DD1D0DBD1C00DFE697 /* TimelineTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -857,6 +863,7 @@
 				33C1E6201CF033E700C75708 /* WelcomeViewController.swift in Sources */,
 				3356F4351D04652A00329F0F /* InfoSettingTableViewController.swift in Sources */,
 				3356F44F1D05646E00329F0F /* PostTableViewCell.swift in Sources */,
+				3355F2DE1D0DBD1C00DFE697 /* TimelineTableViewController.swift in Sources */,
 				338D979B1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift in Sources */,
 				3356F44B1D0561B400329F0F /* PostListTableViewController.swift in Sources */,
 				338D979F1CF09B9000F731AE /* PostModel.swift in Sources */,
@@ -865,7 +872,8 @@
 				338D97AD1CF213B400F731AE /* PostCommentTableViewCell.swift in Sources */,
 				3381DE1B1D0BF00F003482F7 /* NewPostTableViewController.swift in Sources */,
 				3381DE271D0D2E61003482F7 /* ChooseLocationViewController.swift in Sources */,
-				33C1E6141CF01A5D00C75708 /* TimelineTableViewController.swift in Sources */,
+				3355F2E01D0DBDAD00DFE697 /* TimelineTableViewCell.swift in Sources */,
+				33C1E6141CF01A5D00C75708 /* ScheduleTableViewController.swift in Sources */,
 				3381DE121D0B126E003482F7 /* SignupTableViewController.swift in Sources */,
 				33D4F82F1CEF3B980082B927 /* AppDelegate.swift in Sources */,
 				3355F2D21D0D623D00DFE697 /* DestinationTableViewCell.swift in Sources */,
