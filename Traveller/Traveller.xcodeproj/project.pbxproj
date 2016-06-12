@@ -23,6 +23,9 @@
 		3381DE191D0BEFD9003482F7 /* NewPost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3381DE181D0BEFD9003482F7 /* NewPost.storyboard */; };
 		3381DE1B1D0BF00F003482F7 /* NewPostTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3381DE1A1D0BF00F003482F7 /* NewPostTableViewController.swift */; };
 		3381DE1E1D0BFDCD003482F7 /* PostImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3381DE1D1D0BFDCD003482F7 /* PostImageCollectionViewCell.swift */; };
+		3381DE251D0D2DA6003482F7 /* ChooseLocation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3381DE241D0D2DA6003482F7 /* ChooseLocation.storyboard */; };
+		3381DE271D0D2E61003482F7 /* ChooseLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3381DE261D0D2E61003482F7 /* ChooseLocationViewController.swift */; };
+		3381DE291D0D383A003482F7 /* ChooseLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3381DE281D0D383A003482F7 /* ChooseLocationTableViewController.swift */; };
 		338D979B1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D979A1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift */; };
 		338D979D1CF099F900F731AE /* MapDataPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D979C1CF099F900F731AE /* MapDataPointAnnotation.swift */; };
 		338D979F1CF09B9000F731AE /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D979E1CF09B9000F731AE /* PostModel.swift */; };
@@ -85,6 +88,9 @@
 		3381DE181D0BEFD9003482F7 /* NewPost.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewPost.storyboard; sourceTree = "<group>"; };
 		3381DE1A1D0BF00F003482F7 /* NewPostTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostTableViewController.swift; sourceTree = "<group>"; };
 		3381DE1D1D0BFDCD003482F7 /* PostImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		3381DE241D0D2DA6003482F7 /* ChooseLocation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChooseLocation.storyboard; sourceTree = "<group>"; };
+		3381DE261D0D2E61003482F7 /* ChooseLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseLocationViewController.swift; sourceTree = "<group>"; };
+		3381DE281D0D383A003482F7 /* ChooseLocationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseLocationTableViewController.swift; sourceTree = "<group>"; };
 		338D979A1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMCustomTransitionAnimation.swift; sourceTree = "<group>"; };
 		338D979C1CF099F900F731AE /* MapDataPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDataPointAnnotation.swift; sourceTree = "<group>"; };
 		338D979E1CF09B9000F731AE /* PostModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
@@ -263,6 +269,32 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
+		3381DE211D0D2D87003482F7 /* ChooseLocation */ = {
+			isa = PBXGroup;
+			children = (
+				3381DE231D0D2D98003482F7 /* ViewControllers */,
+				3381DE221D0D2D95003482F7 /* Views */,
+			);
+			name = ChooseLocation;
+			sourceTree = "<group>";
+		};
+		3381DE221D0D2D95003482F7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3381DE241D0D2DA6003482F7 /* ChooseLocation.storyboard */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		3381DE231D0D2D98003482F7 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3381DE261D0D2E61003482F7 /* ChooseLocationViewController.swift */,
+				3381DE281D0D383A003482F7 /* ChooseLocationTableViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		338D97A01CF0B15200F731AE /* PostDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,6 +396,7 @@
 		33C1E5EA1CEF5FB700C75708 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				3381DE211D0D2D87003482F7 /* ChooseLocation */,
 				33C1E6011CEF63FC00C75708 /* Root_Tabbar */,
 				33C1E5F21CEF639D00C75708 /* Home */,
 				3381DE151D0BEF94003482F7 /* NewPost */,
@@ -733,6 +766,7 @@
 				33C1E6231CF033F900C75708 /* Welcome.storyboard in Resources */,
 				33C1E61E1CF01C3600C75708 /* Me.storyboard in Resources */,
 				3381DE191D0BEFD9003482F7 /* NewPost.storyboard in Resources */,
+				3381DE251D0D2DA6003482F7 /* ChooseLocation.storyboard in Resources */,
 				33C1E6161CF01AC500C75708 /* Schedule.storyboard in Resources */,
 				3381DE101D0B0454003482F7 /* Signup.storyboard in Resources */,
 			);
@@ -817,6 +851,7 @@
 				338D97A41CF0B18900F731AE /* PostDetailTableViewController.swift in Sources */,
 				338D97AD1CF213B400F731AE /* PostCommentTableViewCell.swift in Sources */,
 				3381DE1B1D0BF00F003482F7 /* NewPostTableViewController.swift in Sources */,
+				3381DE271D0D2E61003482F7 /* ChooseLocationViewController.swift in Sources */,
 				33C1E6141CF01A5D00C75708 /* TimelineTableViewController.swift in Sources */,
 				3381DE121D0B126E003482F7 /* SignupTableViewController.swift in Sources */,
 				33D4F82F1CEF3B980082B927 /* AppDelegate.swift in Sources */,
@@ -826,6 +861,7 @@
 				3356F4511D05647700329F0F /* CommentTableViewCell.swift in Sources */,
 				3356F4411D0525DD00329F0F /* UserListTableViewController.swift in Sources */,
 				33C1E61C1CF01C1D00C75708 /* MeTableViewController.swift in Sources */,
+				3381DE291D0D383A003482F7 /* ChooseLocationTableViewController.swift in Sources */,
 				338D97B11CF3294F00F731AE /* UserModel.swift in Sources */,
 				3356F4461D05570200329F0F /* FollowingTableViewCell.swift in Sources */,
 				33C1E60A1CEF654300C75708 /* UIStoryboardManager.swift in Sources */,

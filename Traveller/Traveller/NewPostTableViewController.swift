@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class NewPostTableViewController: UITableViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate {
     
@@ -30,12 +31,14 @@ class NewPostTableViewController: UITableViewController, UICollectionViewDataSou
         
         // navigation items
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(cancel))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .Plain, target: self, action: #selector(send))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .Done, target: self, action: #selector(send))
         // collection view delegate & data source
         collectionView.delegate = self
         collectionView.dataSource = self
         // textview delegate
         textView.delegate = self
+        // choose location delegate
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,7 +65,8 @@ class NewPostTableViewController: UITableViewController, UICollectionViewDataSou
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 1 {
-            
+            let vc = ChooseLocationViewController.loadFromStoryboard()
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     

@@ -58,4 +58,8 @@ extension UIStoryboard {
     class func traveller_newPostStoryboard() -> UIStoryboard {
         return UIStoryboard.init(name: "NewPost", bundle: nil)
     }
+    
+    class func traveller_chooseLocationStoryboard() -> UIStoryboard {
+        return UIStoryboard.init(name: "ChooseLocation", bundle: nil)
+    }
 }

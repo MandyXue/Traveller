@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E64a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Choose Location-->
+        <scene sceneID="DhD-dI-3ie">
+            <objects>
+                <viewController storyboardIdentifier="ChooseLocationViewController" id="BeQ-8v-FkR" customClass="ChooseLocationViewController" customModule="Traveller" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ji3-P9-dMZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="jgU-NA-aeZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="G9c-tf-M1M">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Unp-s8-Y0K">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </mapView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="qu0-g0-Vo9">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="qu0-g0-Vo9" secondAttribute="trailing" constant="-20" id="69U-od-EUb"/>
+                            <constraint firstItem="Unp-s8-Y0K" firstAttribute="top" secondItem="G9c-tf-M1M" secondAttribute="topMargin" id="C7M-of-Olf"/>
+                            <constraint firstItem="Unp-s8-Y0K" firstAttribute="leading" secondItem="G9c-tf-M1M" secondAttribute="leadingMargin" constant="-20" id="IsY-U3-JBQ"/>
+                            <constraint firstItem="qu0-g0-Vo9" firstAttribute="leading" secondItem="G9c-tf-M1M" secondAttribute="leadingMargin" constant="-20" id="J7G-xp-J6N"/>
+                            <constraint firstItem="qu0-g0-Vo9" firstAttribute="top" secondItem="Ji3-P9-dMZ" secondAttribute="bottom" id="T2y-V5-724"/>
+                            <constraint firstItem="jgU-NA-aeZ" firstAttribute="top" secondItem="Unp-s8-Y0K" secondAttribute="bottom" id="g9n-dj-cWY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Unp-s8-Y0K" secondAttribute="trailing" constant="-20" id="zB8-WU-k8K"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Choose Location" id="Ino-gK-aq6"/>
+                    <connections>
+                        <outlet property="mapView" destination="Unp-s8-Y0K" id="2Cv-a1-54f"/>
+                        <outlet property="searchBar" destination="qu0-g0-Vo9" id="VEZ-yD-J8L"/>
+                        <segue destination="298-Nl-5HX" kind="show" identifier="ChooseLocationMapToTableViewSegue" id="4wM-ZP-Jie"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jYS-y6-FVy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="249" y="387"/>
+        </scene>
+        <!--Choose Location Table View Controller-->
+        <scene sceneID="N3k-yI-gl7">
+            <objects>
+                <tableViewController storyboardIdentifier="ChooseLocationTableViewController" id="298-Nl-5HX" customClass="ChooseLocationTableViewController" customModule="Traveller" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" id="FSC-9J-hPf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="5bR-1v-fkI" detailTextLabel="6mp-RE-JJr" rowHeight="65" style="IBUITableViewCellStyleSubtitle" id="04I-Jk-wpF">
+                                <rect key="frame" x="0.0" y="28" width="600" height="65"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="04I-Jk-wpF" id="Blk-rt-4sa">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="64.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5bR-1v-fkI">
+                                            <rect key="frame" x="15" y="16" width="31.5" height="19.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6mp-RE-JJr">
+                                            <rect key="frame" x="15" y="35.5" width="30.5" height="13.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="298-Nl-5HX" id="zTC-Rr-EPs"/>
+                            <outlet property="delegate" destination="298-Nl-5HX" id="Rir-G4-v8l"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eBE-7q-vAE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="985" y="387"/>
+        </scene>
+    </scenes>
+</document>
