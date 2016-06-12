@@ -31,13 +31,10 @@ class PostListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        switch type {
-        case 1:
+        if type == 1 {
             navigationItem.title = "Posts"
-        case 2:
+        } else if type == 2 {
             navigationItem.title = "Comments"
-        default:
-            self.tabBarController?.navigationItem.title = "Discover"
         }
         
         setInfo()
@@ -50,6 +47,15 @@ class PostListTableViewController: UITableViewController {
             // set ui
             searchController.searchBar.barTintColor = UIColor.customGreenColor()
             searchController.searchBar.tintColor = UIColor.whiteColor()
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        if type == 0 {
+            // set up navigation bar
+            self.tabBarController?.navigationItem.title = "Discover"
+            self.tabBarController?.navigationItem.rightBarButtonItem = nil
+            self.tabBarController?.navigationItem.leftBarButtonItem = nil
         }
     }
 

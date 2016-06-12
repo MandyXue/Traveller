@@ -22,14 +22,19 @@ class TimelineTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.tabBarController?.navigationItem.title = "Schedule"
 
         // delete selection between presentations
         self.clearsSelectionOnViewWillAppear = true
 
         // display an Edit button in the navigation bar for this view controller.
-        self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        // set up navigation bar
+        self.tabBarController?.navigationItem.title = "Schedule"
+        self.tabBarController?.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.tabBarController?.navigationItem.leftBarButtonItem = nil
     }
 
     override func didReceiveMemoryWarning() {

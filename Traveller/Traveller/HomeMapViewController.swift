@@ -32,15 +32,17 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         initLocationManager()
         mapView.delegate = self
         getAnnotations()
-        
-        self.tabBarController?.navigationItem.title = "Home"
-        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addAnnotation))
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         mapView.showsUserLocation = true
         mapView.userTrackingMode = MKUserTrackingMode.Follow
+        
+        // set up navigation bar
+        self.tabBarController?.navigationItem.title = "Home"
+        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addAnnotation))
+        self.tabBarController?.navigationItem.leftBarButtonItem = nil
     }
 
     override func didReceiveMemoryWarning() {

@@ -30,11 +30,16 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tabBarController?.navigationItem.title = "Me"
-        
         avatarImageView.image = user.avatar
         nameLabel.text = user.username
         locationLabel.text = user.place
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        // set up navigation bar
+        self.tabBarController?.navigationItem.title = "Me"
+        self.tabBarController?.navigationItem.rightBarButtonItem = nil
+        self.tabBarController?.navigationItem.leftBarButtonItem = nil
     }
 
     override func didReceiveMemoryWarning() {
