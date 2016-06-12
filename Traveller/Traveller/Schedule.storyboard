@@ -2,30 +2,56 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E64a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="IaU-eK-YhR">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10117"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Schedule-->
         <scene sceneID="OBF-wX-YSr">
             <objects>
                 <tableViewController storyboardIdentifier="TimelineTableViewController" id="IaU-eK-YhR" customClass="TimelineTableViewController" customModule="Traveller" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="121" sectionHeaderHeight="28" sectionFooterHeight="28" id="HXU-qx-O8V">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" id="HXU-qx-O8V">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="121" id="Qe3-rW-tA7">
-                                <rect key="frame" x="0.0" y="28" width="600" height="121"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DestinationCell" rowHeight="65" id="Qe3-rW-tA7" customClass="DestinationTableViewCell" customModule="Traveller" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qe3-rW-tA7" id="4J7-JL-bZy">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="120.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zKN-CR-ndx">
+                                            <rect key="frame" x="18" y="13" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="5sg-3l-6QD"/>
+                                                <constraint firstAttribute="width" constant="40" id="A7Q-dG-bF1"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pU-qP-ceK">
+                                            <rect key="frame" x="66" y="22" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="2pU-qP-ceK" firstAttribute="centerY" secondItem="zKN-CR-ndx" secondAttribute="centerY" id="H4G-5z-IOA"/>
+                                        <constraint firstItem="zKN-CR-ndx" firstAttribute="centerY" secondItem="4J7-JL-bZy" secondAttribute="centerY" id="Mrk-wy-QWP"/>
+                                        <constraint firstItem="2pU-qP-ceK" firstAttribute="leading" secondItem="zKN-CR-ndx" secondAttribute="trailing" constant="8" id="bKb-iZ-kDK"/>
+                                        <constraint firstItem="zKN-CR-ndx" firstAttribute="leading" secondItem="4J7-JL-bZy" secondAttribute="leadingMargin" constant="10" id="ibq-E8-EXl"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="destImageView" destination="zKN-CR-ndx" id="WmB-Mw-zaj"/>
+                                    <outlet property="destNameLabel" destination="2pU-qP-ceK" id="loq-ho-aB7"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="IaU-eK-YhR" id="4Uc-yo-gkn"/>
-                            <outlet property="delegate" destination="IaU-eK-YhR" id="8Ok-56-4mA"/>
+                            <outlet property="dataSource" destination="IaU-eK-YhR" id="ZKM-H4-Tgh"/>
+                            <outlet property="delegate" destination="IaU-eK-YhR" id="m0b-cM-k0C"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Schedule" id="vbB-Oc-TxL"/>
