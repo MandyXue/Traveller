@@ -19,7 +19,6 @@ class TimelineTableViewController: UITableViewController {
         prepareData()
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addDay))
-        self.tabBarController?.navigationItem.leftBarButtonItem = self.editButtonItem()
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
         self.tableView.addGestureRecognizer(longPress)

@@ -17,6 +17,8 @@ class DayDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addSpot))
+        
         prepareData()
     }
 
@@ -39,10 +41,12 @@ class DayDetailTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("SpotCell", forIndexPath: indexPath) as! SpotTableViewCell
             // 如果是第一行则不显示上方的辅助线，如果是最后一行则不显示下方辅助线
             if indexPath.row == 0 {
-                cell.upLineView.removeFromSuperview()
+                cell.upLineView.image = nil
+                cell.bottomLineView.image = UIImage(named: "line")!
             }
             if indexPath.row == spots.count * 2 - 2 {
-                cell.bottomLineView.removeFromSuperview()
+                cell.upLineView.image = UIImage(named: "line")!
+                cell.bottomLineView.image = nil
             }
             
             // type: eating/living/spot
@@ -66,28 +70,33 @@ class DayDetailTableViewController: UITableViewController {
         }
     }
     
-//    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-//        // Return false if you do not want the specified item to be editable.
-//        return true
-//    }
-//    
-//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if editingStyle == .Delete {
-//            // Delete the row from the data source
-//            if indexPath.row < spots.count * 2 - 1 {
-//                spots.removeAtIndex((indexPath.row + 1)/2)
-//                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
-//            }
-//        }
-//    }
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return indexPath.row % 2 == 0
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            // Delete the row from the data source
+            if indexPath.row < spots.count * 2 - 1 {
+                spots.removeAtIndex((indexPath.row + 1)/2)
+                tableView.reloadData()
+            }
+        }
+    }
     
     // MARK: - Helper
     
     func prepareData() {
-        spots.append(["name": "鹅銮鼻灯塔", "type": "spot", "time": "10:00 a.m. to 10:50 a.m."])
-        spots.append(["name": "鹅銮鼻公园", "type": "spot", "time": "10:55 a.m. to 18:20 a.m."])
-        spots.append(["name": "台湾最南点碑", "type": "spot", "time": "18:50 a.m. to 19:20 a.m."])
-        spots.append(["name": "垦丁俪山林会馆", "type": "living", "time": "all night"])
+        spots.append(["name": "鹅銮鼻灯塔", "type": "spot", "time": "10:00 to 10:50"])
+        spots.append(["name": "鹅銮鼻公园", "type": "spot", "time": "10:55 to 18:20"])
+        spots.append(["name": "台湾最南点碑", "type": "spot", "time": "18:50 to 19:20"])
+        spots.append(["name": "垦丁俪山林会馆", "type": "living", "time": "night🌚"])
+    }
+    
+    func addSpot() {
+        // TODO: add a spot
+        spots.append(["name": "test", "type": "spot", "time": "半夜出来吓人"])
+        tableView.reloadData()
     }
 
 }
