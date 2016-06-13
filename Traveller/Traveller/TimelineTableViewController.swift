@@ -18,11 +18,11 @@ class TimelineTableViewController: UITableViewController {
         
         prepareData()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addDay))
+        self.tabBarController?.navigationItem.leftBarButtonItem = self.editButtonItem()
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
+        self.tableView.addGestureRecognizer(longPress)
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,16 +46,57 @@ class TimelineTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            // Delete the row from the data source
+            if indexPath.row < places.count {
+                places.removeAtIndex(indexPath.row)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
+            }
+        }
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "DayDetailSegue" {
+            if let detailViewController = segue.destinationViewController as? DayDetailTableViewController {
+                if let indexPath = tableView.indexPathForSelectedRow {
+                    if let cell = tableView.cellForRowAtIndexPath(indexPath) as? TimelineTableViewCell {
+                        // TODO: pass value
+                        detailViewController.navigationItem.title = cell.placeLabel.text
+                        cell.setSelected(false, animated: false)
+                    }
+                }
+            }
+        }
+    }
+    
     // MARK: - Helper
     
+    func addDay() {
+        // TODO: add day
+        print("addday")
+        places.append(["place": "New", "time": NSDate.dateToString(NSDate.init(timeIntervalSinceNow: 0))])
+        tableView.reloadData()
+    }
+    
     func prepareData() {
-        var i = 0
-        while i < 5 {
-            places.append(["place": "Yu Garden", "time": NSDate.dateToString(NSDate.init(timeIntervalSinceNow: 0))])
-            places.append(["place": "the Bund", "time": NSDate.dateToString(NSDate.init(timeIntervalSinceNow: 6000))])
-            places.append(["place": "Oriental Pearl TV Tower", "time": NSDate.dateToString(NSDate.init(timeIntervalSinceNow: 12000))])
-            i += 1
-        }
+        places = []
+        gradientColors = []
+        
+        places.append(["place": "Shanghai > Taipei", "time": "Jun 13, 2016"])
+        places.append(["place": "Taipei > Hualian", "time": "Jun 14, 2016"])
+        places.append(["place": "Hualian", "time": "Jun 15, 2016"])
+        places.append(["place": "Hualian > Taidong", "time": "Jun 16, 2016"])
+        places.append(["place": "Taidong > Kending", "time": "Jun 17, 2016"])
+        places.append(["place": "Kending", "time": "Jun 18, 2016"])
+        places.append(["place": "Kending > Shanghai", "time": "Jun 19, 2016"])
         
         // color
         gradientColors.append(UIColor(red: 86/255, green: 158/255, blue: 8/255, alpha: 1))
@@ -76,6 +117,82 @@ class TimelineTableViewController: UITableViewController {
     func calculateProgress(index: NSIndexPath) -> CGFloat {
         let result = CGFloat(index.row+1)/CGFloat(places.count)
         return result
+    }
+    
+    var snapshot: UIView? = nil
+    var sourceIndexPath: NSIndexPath? = nil
+    
+    func longPressGestureRecognized(sender: AnyObject?) {
+        if let longPress = sender as? UILongPressGestureRecognizer {
+            let state = longPress.state
+            
+            let location = longPress.locationInView(self.tableView)
+            let indexPath = self.tableView.indexPathForRowAtPoint(location)
+            
+            switch state {
+            case .Began:
+                if indexPath != nil {
+                    sourceIndexPath = indexPath
+                    
+                    let cell = tableView.cellForRowAtIndexPath(indexPath!)
+                    
+                    // take a snapshot of the selected row using helper method
+                    snapshot = UIView.customSnapshotFromView(cell!)
+                    
+                    var center = cell!.center
+                    snapshot!.center = center
+                    snapshot!.alpha = 0.0
+                    self.tableView.addSubview(snapshot!)
+                    UIView.animateWithDuration(0.25, animations: {
+                        center.y = location.y
+                        self.snapshot!.center = center
+                        self.snapshot!.transform = CGAffineTransformMakeScale(1.05, 1.05)
+                        self.snapshot!.alpha = 0.98
+                        cell!.alpha = 0.0
+                        cell!.hidden = true
+                    })
+                }
+                
+                break
+            case .Changed:
+                var center = snapshot!.center
+                center.y = location.y
+                snapshot!.center = center
+                
+                // Is destination valid and is it different from source?
+                if indexPath != nil && !indexPath!.isEqual(sourceIndexPath) {
+                    
+                    // update data source
+                    let temp = NSMutableArray(array: places)
+                    temp.exchangeObjectAtIndex(indexPath!.row, withObjectAtIndex: sourceIndexPath!.row)
+                    self.places = temp as AnyObject as! [[String:String]]
+                    tableView.reloadData()
+                    // TODO: 将places存到远端
+                    
+                    // move the rows
+                    self.tableView.moveRowAtIndexPath(sourceIndexPath!, toIndexPath: indexPath!)
+                    
+                    // update source with UI changes
+                    sourceIndexPath = indexPath
+                }
+                break
+            default:
+                let cell = self.tableView.cellForRowAtIndexPath(sourceIndexPath!)
+                cell!.alpha = 0.0
+                UIView.animateWithDuration(0.25, animations: {
+                    self.snapshot!.center = cell!.center
+                    self.snapshot!.transform = CGAffineTransformIdentity
+                    self.snapshot!.alpha = 0.0
+                    cell!.alpha = 1.0
+                    }, completion: { (finished: Bool) in
+                        cell!.hidden = false
+                        self.sourceIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+                        self.snapshot!.removeFromSuperview()
+                        self.snapshot = UIView()
+                })
+                break
+            }
+        }
     }
 
 }

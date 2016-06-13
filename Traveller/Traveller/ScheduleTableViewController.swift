@@ -100,7 +100,7 @@ class ScheduleTableViewController: UITableViewController {
     }
     
     func addDestination() {
-        // TODO: 进入地图选点
+        // TODO: 进入地图选点, add destination
         print("add")
         cities.append("New")
         tableView.reloadData()
@@ -125,7 +125,7 @@ class ScheduleTableViewController: UITableViewController {
                         let cell = tableView.cellForRowAtIndexPath(indexPath!)
                         
                         // take a snapshot of the selected row using helper method
-                        snapshot = self.customSnapshotFromView(cell!)
+                        snapshot = UIView.customSnapshotFromView(cell!)
                         
                         var center = cell!.center
                         snapshot!.center = center
@@ -180,23 +180,6 @@ class ScheduleTableViewController: UITableViewController {
                     break
             }
         }
-    }
-    
-    func customSnapshotFromView(inputView: UIView) -> UIView {
-        UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
-        inputView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        // create an image view
-        let snapshot = UIImageView(image: image)
-        snapshot.layer.masksToBounds = false
-        snapshot.layer.cornerRadius = 0.0
-        snapshot.layer.shadowOffset = CGSizeMake(-5.0, 0.0)
-        snapshot.layer.shadowRadius = 5.0
-        snapshot.layer.shadowOpacity = 0.4
-        
-        return snapshot
     }
 
 }
