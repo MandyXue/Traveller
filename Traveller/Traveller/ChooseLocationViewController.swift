@@ -9,12 +9,23 @@
 import UIKit
 import MapKit
 
-class ChooseLocationViewController: UIViewController, UISearchBarDelegate, MapSearchDelegate {
+protocol SelectLocationDelegate {
+    func selectLocation(selectedLocation: MKMapItem)
+}
+
+class ChooseLocationViewController: UIViewController, UISearchBarDelegate, MKMapViewDelegate, CLLocationManagerDelegate, MapSearchDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var mapView: MKMapView!
     
     var selectedPoint:MKMapItem?
+    var locationManager:CLLocationManager?
+    var selectedAnnotation:MKAnnotation?
+    var selectLocationDelegate:SelectLocationDelegate?
+    
+    let currentLocationSpan = MKCoordinateSpanMake(0.05, 0.05)
+    
+    
     
     // MARK: - BaseViewController
     
@@ -30,6 +41,20 @@ class ChooseLocationViewController: UIViewController, UISearchBarDelegate, MapSe
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(makeChoice))
         self.searchBar.delegate = self
+        
+        
+        // 长按手势
+        let longpressGesutre = UILongPressGestureRecognizer(target: self, action: #selector(ChooseLocationViewController.handleLongpressGesture(_:)))
+        longpressGesutre.minimumPressDuration = 1
+        longpressGesutre.allowableMovement = 15
+        longpressGesutre.numberOfTouchesRequired = 1
+        
+        mapView.addGestureRecognizer(longpressGesutre)
+        
+        // 显示用户当前位置
+        mapView.showsUserLocation = true
+        mapView.userTrackingMode = .Follow
+        startStandardUpdates()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -37,21 +62,128 @@ class ChooseLocationViewController: UIViewController, UISearchBarDelegate, MapSe
         
         if let _ = selectedPoint {
             // 放置selectedPoint大头针
-            let selectedAnnotation = MKPointAnnotation()
-            selectedAnnotation.coordinate = selectedPoint!.placemark.coordinate
-            selectedAnnotation.title = selectedPoint!.placemark.title
-            selectedAnnotation.subtitle = selectedPoint!.placemark.thoroughfare
             
-            mapView.addAnnotation(selectedAnnotation)
-            mapView.centerCoordinate = selectedAnnotation.coordinate
+            if let _ = selectedAnnotation {
+                mapView.removeAnnotation(selectedAnnotation!)
+            }
             
-            let latDelta = 0.05
-            let longDelta = 0.05
-            let currentLocationSpan:MKCoordinateSpan = MKCoordinateSpanMake(latDelta, longDelta)
-
+            let newAnnotation = MKPointAnnotation()
             
-            let currentRegion = MKCoordinateRegion(center: selectedAnnotation.coordinate, span: currentLocationSpan)
+            selectedAnnotation = newAnnotation
+            newAnnotation.coordinate = selectedPoint!.placemark.coordinate
+            newAnnotation.title = selectedPoint!.placemark.title
+            newAnnotation.subtitle = selectedPoint!.placemark.thoroughfare
+            
+            mapView.addAnnotation(newAnnotation)
+//            mapView.add
+            mapView.centerCoordinate = newAnnotation.coordinate
+            
+            let currentRegion = MKCoordinateRegion(center: newAnnotation.coordinate, span: currentLocationSpan)
             mapView.setRegion(currentRegion, animated: true)
+        }
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        locationManager?.stopUpdatingLocation()
+    }
+    
+    func startStandardUpdates() {
+        guard let _ = locationManager else {
+            locationManager = CLLocationManager()
+            locationManager!.delegate = self
+            locationManager!.desiredAccuracy = kCLLocationAccuracyBest
+            return
+        }
+        
+        if CLLocationManager.locationServicesEnabled() {
+            // 申请开启定位服务
+            print("申请开启定位服务")
+        }
+        
+        if getAuthorizationFromUser(CLLocationManager.authorizationStatus()) {
+            locationManager!.startUpdatingLocation()
+        }
+    }
+    
+    func getAuthorizationFromUser(status: CLAuthorizationStatus) -> Bool {
+        
+        var userIsAgreeUseLocaiton = false
+        switch status {
+        case .AuthorizedAlways, .AuthorizedWhenInUse:
+            //允许使用定位
+            userIsAgreeUseLocaiton = true
+        case .Denied, .Restricted:
+            //没有获得授权，不允许使用定位
+            //给用户提示，请求获得授权
+            let alertController = UIAlertController(
+                title: "定位权限被禁用",
+                message: "请打开app的定位权限以获得当前位置信息",
+                preferredStyle: .Alert)
+            
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            
+            let openAction = UIAlertAction(title: "设置", style: .Default) { (action) in
+                if let url = NSURL(string:UIApplicationOpenSettingsURLString) {
+                    UIApplication.sharedApplication().openURL(url)
+                }
+            }
+            alertController.addAction(openAction)
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
+            
+        case .NotDetermined:
+            //向用户申请授权
+            locationManager = CLLocationManager()
+            self.locationManager!.requestWhenInUseAuthorization()
+            
+            userIsAgreeUseLocaiton = true
+        }
+        return userIsAgreeUseLocaiton
+    }
+    
+    func handleLongpressGesture(sender: UILongPressGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.Began {
+            // 移除其他大头针
+            if let _ = selectedAnnotation {
+                mapView.removeAnnotation(selectedAnnotation!)
+            }
+            // 在长按的地方放置大头针，显示详情
+            
+            let touchPoint = sender.locationInView(mapView)
+            let newCoordinates = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
+            let newAnnotation = MKPointAnnotation()
+            selectedAnnotation = newAnnotation
+            newAnnotation.coordinate = newCoordinates
+            
+            CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude), completionHandler: {(placemarks, error) -> Void in
+                if error != nil {
+                    print("Reverse geocoder failed with error" + error!.localizedDescription)
+                    return
+                }
+                
+                if placemarks?.count > 0 {
+                    let pm = placemarks![0]
+                    
+                    // not all places have thoroughfare & subThoroughfare so validate those values
+                    newAnnotation.title = pm.thoroughfare
+                    newAnnotation.subtitle = pm.subLocality
+                } else {
+                    newAnnotation.title = "Unknown Place"
+                    print("Problem with the data received from geocoder")
+                }
+                self.mapView.addAnnotation(newAnnotation)
+                let selectedPlace:MKPlacemark
+                if let address = placemarks?.last?.addressDictionary {
+                    let addressInfo = address as! [String: AnyObject]
+                    selectedPlace = MKPlacemark(coordinate: newAnnotation.coordinate, addressDictionary: addressInfo)
+                } else {
+                    selectedPlace = MKPlacemark(coordinate: newAnnotation.coordinate, addressDictionary: nil)
+                }
+                self.selectedPoint = MKMapItem(placemark: selectedPlace)
+            })
         }
     }
 
@@ -68,8 +200,10 @@ class ChooseLocationViewController: UIViewController, UISearchBarDelegate, MapSe
         
         if let _ = self.selectedPoint {
             // 回传数据
-            
+            selectLocationDelegate!.selectLocation(self.selectedPoint!)
             self.navigationController?.popViewControllerAnimated(true)
+        } else {
+            print("please choose one location")
         }
     }
     
@@ -93,10 +227,10 @@ class ChooseLocationViewController: UIViewController, UISearchBarDelegate, MapSe
                 return
             }
             
-            for item in response.mapItems {
-                print("search result:\(item.name)")
-                print("content:\(item.description)")
-            }
+//            for item in response.mapItems {
+//                print("search result:\(item.name)")
+//                print("content:\(item.description)")
+//            }
             
             let searchResult = response.mapItems
             
@@ -109,7 +243,22 @@ class ChooseLocationViewController: UIViewController, UISearchBarDelegate, MapSe
         }
     }
     
+    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+        let region = MKCoordinateRegion(center: userLocation.coordinate, span: currentLocationSpan)
+        
+        mapView.setRegion(region, animated: true)
+    }
     
+    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        // TODO: 添加Annotation动画，为啥没起作用？
+        let newAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "selecedPoint")
+        newAnnotation.pinTintColor = MKPinAnnotationView.greenPinColor()
+        newAnnotation.animatesDrop = true
+        newAnnotation.setSelected(true, animated: true)
+        
+        return newAnnotation
+    }
     
     // MARK: - Navigation
     

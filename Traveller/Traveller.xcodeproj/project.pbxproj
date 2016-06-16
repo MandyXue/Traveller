@@ -1031,6 +1031,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = AppleClub.TravellerHT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Traveller/Traveller-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -1047,6 +1049,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = AppleClub.TravellerHT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Traveller/Traveller-Bridging-Header.h";
 			};
 			name = Release;
 		};

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E64a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -26,7 +26,7 @@
                                         <rect key="frame" x="0.0" y="12" width="600" height="243"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="76S-ya-BcA" id="M39-Ki-G8A">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="242.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="243"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Introduction to your post..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="f0U-wE-Wh3">
@@ -40,7 +40,7 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                 </textView>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KVf-t0-VTR">
-                                                    <rect key="frame" x="18" y="123" width="564" height="101.5"/>
+                                                    <rect key="frame" x="18" y="123" width="564" height="102"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="L0G-cU-W6M">
                                                         <size key="itemSize" width="84" height="84"/>
@@ -90,7 +90,7 @@
                                         <rect key="frame" x="0.0" y="255" width="600" height="46"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lQ5-oP-kc8" id="B0V-Gn-TzM">
-                                            <rect key="frame" x="0.0" y="0.0" width="567" height="45.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="46"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location-icon" translatesAutoresizingMaskIntoConstraints="NO" id="1Q7-3F-BH7">
@@ -126,6 +126,7 @@
                     <navigationItem key="navigationItem" title="New Post" id="FDQ-c9-Xkd"/>
                     <connections>
                         <outlet property="collectionView" destination="KVf-t0-VTR" id="nAd-by-bUu"/>
+                        <outlet property="selectedLocationLabel" destination="TiT-J1-AOF" id="pyb-eb-6zz"/>
                         <outlet property="textView" destination="f0U-wE-Wh3" id="hmn-49-Gfe"/>
                     </connections>
                 </tableViewController>

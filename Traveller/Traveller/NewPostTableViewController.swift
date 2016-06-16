@@ -9,12 +9,14 @@
 import UIKit
 import MapKit
 
-class NewPostTableViewController: UITableViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate {
+class NewPostTableViewController: UITableViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate, SelectLocationDelegate {
     
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var selectedLocationLabel: UILabel!  //选择好的点
     
     var images: [UIImage] = []
+    var selectedLocation:MKMapItem?
     
     // MARK: - BaseViewController
     
@@ -40,10 +42,25 @@ class NewPostTableViewController: UITableViewController, UICollectionViewDataSou
         // choose location delegate
         
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // 显示选择好的location
+        if let _ = selectedLocation {
+            self.selectedLocationLabel.text = self.selectedLocation!.name
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func selectLocation(selectedLocation: MKMapItem) {
+        // set location
+        print("selected location:\(selectedLocation.name)")
+        self.selectedLocation = selectedLocation
     }
     
     // MARK: - Table view delegate
@@ -65,7 +82,9 @@ class NewPostTableViewController: UITableViewController, UICollectionViewDataSou
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 1 {
-            let vc = ChooseLocationViewController.loadFromStoryboard()
+            let vc = ChooseLocationViewController.loadFromStoryboard() as! ChooseLocationViewController
+            vc.selectLocationDelegate = self
+            
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
