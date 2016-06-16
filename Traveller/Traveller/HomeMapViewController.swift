@@ -44,6 +44,12 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addAnnotation))
         self.tabBarController?.navigationItem.leftBarButtonItem = nil
     }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        locationManager.stopUpdatingLocation()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -88,6 +94,10 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
 extension HomeMapViewController {
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         // annotation view
+        if annotation.isKindOfClass(MKUserLocation) {
+            return nil
+        }
+        
         var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(annotationViewReuseIdentifier)
         if annotationView == nil {
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: annotationViewReuseIdentifier)

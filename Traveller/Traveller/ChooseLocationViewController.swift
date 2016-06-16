@@ -42,10 +42,11 @@ class ChooseLocationViewController: UIViewController, UISearchBarDelegate, MKMap
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(makeChoice))
         self.searchBar.delegate = self
         
+        mapView.delegate = self
         
         // 长按手势
         let longpressGesutre = UILongPressGestureRecognizer(target: self, action: #selector(ChooseLocationViewController.handleLongpressGesture(_:)))
-        longpressGesutre.minimumPressDuration = 1
+        longpressGesutre.minimumPressDuration = 0.5
         longpressGesutre.allowableMovement = 15
         longpressGesutre.numberOfTouchesRequired = 1
         
@@ -75,7 +76,6 @@ class ChooseLocationViewController: UIViewController, UISearchBarDelegate, MKMap
             newAnnotation.subtitle = selectedPoint!.placemark.thoroughfare
             
             mapView.addAnnotation(newAnnotation)
-//            mapView.add
             mapView.centerCoordinate = newAnnotation.coordinate
             
             let currentRegion = MKCoordinateRegion(center: newAnnotation.coordinate, span: currentLocationSpan)
@@ -227,11 +227,6 @@ class ChooseLocationViewController: UIViewController, UISearchBarDelegate, MKMap
                 return
             }
             
-//            for item in response.mapItems {
-//                print("search result:\(item.name)")
-//                print("content:\(item.description)")
-//            }
-            
             let searchResult = response.mapItems
             
             let viewController = self.storyboard?.instantiateViewControllerWithIdentifier("ChooseLocationTableViewController") as! ChooseLocationTableViewController
@@ -243,29 +238,24 @@ class ChooseLocationViewController: UIViewController, UISearchBarDelegate, MKMap
         }
     }
     
-    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
-        let region = MKCoordinateRegion(center: userLocation.coordinate, span: currentLocationSpan)
-        
-        mapView.setRegion(region, animated: true)
-    }
-    
-    
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        // TODO: 添加Annotation动画，为啥没起作用？
-        let newAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "selecedPoint")
-        newAnnotation.pinTintColor = MKPinAnnotationView.greenPinColor()
-        newAnnotation.animatesDrop = true
-        newAnnotation.setSelected(true, animated: true)
-        
-        return newAnnotation
-    }
-    
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-//    }
 
+        if annotation.isKindOfClass(MKUserLocation) {
+            print("user annotation")
+            return nil
+        } else {
+            print("not user annotation")
+            
+            let newAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "selecedPoint")
+            newAnnotation.pinTintColor = MKPinAnnotationView.greenPinColor()
+            newAnnotation.animatesDrop = true
+            newAnnotation.canShowCallout = true
+            
+                        
+            newAnnotation.setSelected(true, animated: true)
+            
+            return newAnnotation
+        }
+        
+    }
 }
