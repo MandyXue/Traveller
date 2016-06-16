@@ -11,8 +11,9 @@ pod 'SnapKit'
 pod 'SDCycleScrollView','~> 1.64'
 pod 'MJRefresh'
 pod 'UITableView+FDTemplateLayoutCell'
-#pod 'Alamofire', '3.4'
-#pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
+pod 'Alamofire', '~> 3.4'
+pod "PromiseKit", "~> 3.0"
+pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 #pod 'PKHUD'
 #pod 'SDWebImage'
 
