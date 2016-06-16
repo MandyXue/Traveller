@@ -15,7 +15,7 @@ class UserDetailTableViewController: UITableViewController {
     
     let NAVBAR_CHANGE_POINT: CGFloat = 50
     
-    var user = UserModel()
+    var user = UserBean()
     var profile = [String:String]()
     var type: Bool = true //true就是profile,false是posts
     
@@ -77,8 +77,8 @@ class UserDetailTableViewController: UITableViewController {
     
     func prepareData() {
         user.posts = []
-        user.posts.append(PostModel(place: "Tongji University", detail: "testtesttest", location: CLLocationCoordinate2D(latitude: 31.2825510324, longitude: 121.5060841762), address: "1239 Siping Road, Shanghai", creator: self.user))
-        user.posts.append(PostModel(place: "Tongji University (Jiading)", detail: "testtesttest", location: CLLocationCoordinate2D(latitude: 31.2855741398, longitude: 121.2147781261), address: "4800 Caoan Road, Shanghai", creator: self.user))
+        user.posts.append(PostBean(place: "Tongji University", detail: "testtesttest", location: CLLocationCoordinate2D(latitude: 31.2825510324, longitude: 121.5060841762), address: "1239 Siping Road, Shanghai", creator: self.user))
+        user.posts.append(PostBean(place: "Tongji University (Jiading)", detail: "testtesttest", location: CLLocationCoordinate2D(latitude: 31.2855741398, longitude: 121.2147781261), address: "4800 Caoan Road, Shanghai", creator: self.user))
     }
     
     func follow() {

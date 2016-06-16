@@ -10,7 +10,7 @@ import UIKit
 
 class InfoSettingTableViewController: UITableViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate {
     
-    var user = UserModel()
+    var user = UserBean()
     
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!

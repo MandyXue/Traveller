@@ -10,13 +10,13 @@ import Foundation
 import UIKit
 import MapKit
 
-class UserModel: NSObject {
+class UserBean: NSObject {
     
     // MARK: - Properties
     var username: String?       // 用户名
     var avatar: UIImage?        // 用户头像
     var place: String?          // 用户所在地区
-    var posts: [PostModel] = [] // 用户发表的post
+    var posts: [PostBean] = [] // 用户发表的post
     var gender: Bool            // 用户性别，true为男，false为女
     var summary: String?        // 用户简介
     var email: String?          // 邮箱

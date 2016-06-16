@@ -13,9 +13,9 @@ import UITableView_FDTemplateLayoutCell
 class PostListTableViewController: UITableViewController {
     
     var type: Int = 0 // 0: all following posts,1: my posts, false: my comments
-    var comments: [CommentModel] = []
-    var posts: [PostModel] = []
-    var filteredPosts: [PostModel] = []
+    var comments: [CommentBean] = []
+    var posts: [PostBean] = []
+    var filteredPosts: [PostBean] = []
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -69,13 +69,13 @@ class PostListTableViewController: UITableViewController {
     func setInfo() {
         var i = 0
         while i < 20 {
-            comments.append(CommentModel(user: UserModel(username: "user\(i)", avatar: UIImage(named: "avatar")!, place: "place...."), comment: "CommentsComments\(i)", time: NSDate(timeIntervalSinceNow: 0)))
+            comments.append(CommentBean(user: UserBean(username: "user\(i)", avatar: UIImage(named: "avatar")!, place: "place...."), comment: "CommentsComments\(i)", time: NSDate(timeIntervalSinceNow: 0)))
             i += 1
         }
         
         i = 0
         while i < 20 {
-            posts.append(PostModel(place: "Shanghai\(i)", detail: "DetailDetailDetailDetailDetailDetailDetailDetail\(i)", location: CLLocationCoordinate2D(latitude: 31.2855741398, longitude: 121.2147781261), address: "Shanghaishanghai\(i)", creator: UserModel(username: "user\(i)", avatar: UIImage(named: "avatar")!, place: "place....")))
+            posts.append(PostBean(place: "Shanghai\(i)", detail: "DetailDetailDetailDetailDetailDetailDetailDetail\(i)", location: CLLocationCoordinate2D(latitude: 31.2855741398, longitude: 121.2147781261), address: "Shanghaishanghai\(i)", creator: UserBean(username: "user\(i)", avatar: UIImage(named: "avatar")!, place: "place....")))
             i += 1
         }
     }

@@ -71,10 +71,10 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     private func getAnnotations() {
         // 这里应该先用API获取annotation然后放到annotations里
         // 而且应该只获取部分信息就好了
-        let testPost = PostModel(place: "Hong Kong Disney Land", detail: "Such a great place!! I love it so much!!!", location: CLLocationCoordinate2D(latitude: 22.3663913986, longitude: 114.1180044924), address: "香港，大嶼山", creator: UserModel(username: "Huo Teng", avatar: UIImage(named: "avatar")!, place: "Shanghai, Jia Ding District"))
+        let testPost = PostBean(place: "Hong Kong Disney Land", detail: "Such a great place!! I love it so much!!!", location: CLLocationCoordinate2D(latitude: 22.3663913986, longitude: 114.1180044924), address: "香港，大嶼山", creator: UserBean(username: "Huo Teng", avatar: UIImage(named: "avatar")!, place: "Shanghai, Jia Ding District"))
         testPost.addImage(UIImage(named: "testPost")!)
         annotations.append(MapDataPointAnnotation(post: testPost))
-        let testPost2 = PostModel(place: "Hong Kong Disney Land", detail: "Such a great place!! I love it so much!!!", location: CLLocationCoordinate2D(latitude: 31.2855741398, longitude: 121.2147781261), address: "香港，大嶼山", creator: UserModel(username: "Huo Teng", avatar: UIImage(named: "avatar")!, place: "Shanghai, Jia Ding District"))
+        let testPost2 = PostBean(place: "Hong Kong Disney Land", detail: "Such a great place!! I love it so much!!!", location: CLLocationCoordinate2D(latitude: 31.2855741398, longitude: 121.2147781261), address: "香港，大嶼山", creator: UserBean(username: "Huo Teng", avatar: UIImage(named: "avatar")!, place: "Shanghai, Jia Ding District"))
         testPost2.addImage(UIImage(named: "testPost")!)
         annotations.append(MapDataPointAnnotation(post: testPost2))
         self.mapView.showAnnotations(annotations, animated: true)
@@ -125,7 +125,7 @@ extension HomeMapViewController {
             if let detailView = PostDetailTableViewController.loadFromStoryboard() as? PostDetailTableViewController {
                 print(annotationView.title)
                 // TODO: 接上接口以后要改这个参数
-                detailView.post = PostModel(place: "Hong Kong Disney Land", detail: "Hong Kong Disneyland (Chinese: 香港迪士尼樂園) is the first theme parklocated inside the Hong Kong Disneyland Resort and is owned and managed by the Hong Kong International Theme Parks.", location: CLLocationCoordinate2D(latitude: 22.3663913986, longitude: 114.1180044924), address: "香港，大嶼山", creator: UserModel(username: "Huo Teng", avatar: UIImage(named: "avatar")!, place: "Shanghai, Jia Ding District"))
+                detailView.post = PostBean(place: "Hong Kong Disney Land", detail: "Hong Kong Disneyland (Chinese: 香港迪士尼樂園) is the first theme parklocated inside the Hong Kong Disneyland Resort and is owned and managed by the Hong Kong International Theme Parks.", location: CLLocationCoordinate2D(latitude: 22.3663913986, longitude: 114.1180044924), address: "香港，大嶼山", creator: UserBean(username: "Huo Teng", avatar: UIImage(named: "avatar")!, place: "Shanghai, Jia Ding District"))
                 self.navigationController?.pushViewController(detailView, animated: true)
             } else {
                 print("something went wrong...")

@@ -8,21 +8,21 @@
 
 import Foundation
 
-class CommentModel: NSObject {
+class CommentBean: NSObject {
     
     // MARK: - Properties
-    var user: UserModel    // 评论者
+    var user: UserBean    // 评论者
     var comment: String?   // 评论内容
     var time: NSDate       // 评论时间
     
     // MARK: - Init
     override init() {
-        user = UserModel()
+        user = UserBean()
         comment = ""
         time = NSDate()
     }
     
-    init(user: UserModel, comment: String, time: NSDate) {
+    init(user: UserBean, comment: String, time: NSDate) {
         self.user = user
         self.comment = comment
         self.time = time

@@ -29,7 +29,7 @@ class MapDataPointAnnotation: NSObject, MKAnnotation {
         self.image = image
     }
     
-    init(post: PostModel) {
+    init(post: PostBean) {
         self.coordinate = post.location
         self.title = post.place
         self.subtitle = post.address

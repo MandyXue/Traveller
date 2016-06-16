@@ -11,7 +11,7 @@ import UIKit
 class UserListTableViewController: UITableViewController {
     
     var type: Bool = true // true: following, false: follower
-    var users: [UserModel] = []
+    var users: [UserBean] = []
     
     // MARK: - BaseViewController
     
@@ -66,7 +66,7 @@ class UserListTableViewController: UITableViewController {
         // TODO: 根据type使用不同接口
         var i = 0
         while i < 20 {
-            users.append(UserModel(username: "user\(i)", avatar: UIImage(named: "avatar")!, place: "Shanghai\(i)"))
+            users.append(UserBean(username: "user\(i)", avatar: UIImage(named: "avatar")!, place: "Shanghai\(i)"))
             i += 1
         }
     }

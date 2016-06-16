@@ -11,7 +11,7 @@ import MessageUI
 
 class MeTableViewController: UITableViewController, MFMailComposeViewControllerDelegate {
     
-    var user = UserModel(username: "Huo Teng", avatar: UIImage(named: "avatar")!, place: "Jiading District, Shanghai", gender: true, summary: "Like photography and coding", email: "huoteng@huoteng.com", homepage: "www.huoteng.com", registerDate: NSDate(timeIntervalSinceNow: 0))
+    var user = UserBean(username: "Huo Teng", avatar: UIImage(named: "avatar")!, place: "Jiading District, Shanghai", gender: true, summary: "Like photography and coding", email: "huoteng@huoteng.com", homepage: "www.huoteng.com", registerDate: NSDate(timeIntervalSinceNow: 0))
     
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!

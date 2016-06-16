@@ -17,8 +17,8 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
     
     let NAVBAR_CHANGE_POINT: CGFloat = 50
     
-    var post = PostModel()
-    var comments: [CommentModel] = []
+    var post = PostBean()
+    var comments: [CommentBean] = []
     var imageURLs: [String] = []
     var scrollViewWidth: CGFloat = 0
     
@@ -99,7 +99,7 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
         // TODO: 假数据，后续添加接口
         var i = 0
         while i < 20 {
-            comments.append(CommentModel(user: UserModel(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai"), comment: "Great place, I want to go gogogogogogogogogogogogogogo....", time: NSDate(timeIntervalSinceNow: 0)))
+            comments.append(CommentBean(user: UserBean(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai"), comment: "Great place, I want to go gogogogogogogogogogogogogogo....", time: NSDate(timeIntervalSinceNow: 0)))
             i += 1
         }
         // scroll view images
