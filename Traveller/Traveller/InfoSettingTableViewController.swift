@@ -46,7 +46,7 @@ class InfoSettingTableViewController: UITableViewController, UIActionSheetDelega
         avatarImageView.image = user.avatar
         usernameLabel.text = user.username
         locationLabel.text = user.place
-        genderLabel.text = user.gender ? "male": "female"
+        genderLabel.text = user.gender! ? "male": "female"
         summaryLabel.text = (user.summary == nil) ? "unsetted": user.summary
         homepageLabel.text = (user.homepage == nil) ? "unsetted": user.homepage
         emailLabel.text = user.email

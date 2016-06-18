@@ -7,8 +7,17 @@
 //
 
 import UIKit
+import Regex
 
 class SignupTableViewController: UITableViewController {
+
+    let userModel: UserModel = UserModel()
+    
+    @IBOutlet weak var inputEmail: UITextField!
+    @IBOutlet weak var inputUsername: UITextField!
+    @IBOutlet weak var inputPassword: UITextField!
+    @IBOutlet weak var repeatPassword: UITextField!
+    
     
     @IBOutlet weak var confirmView: UIView!
     @IBOutlet weak var passwordView: UIView!
@@ -21,6 +30,38 @@ class SignupTableViewController: UITableViewController {
     @IBAction func signup(sender: AnyObject) {
         // TODO: 连接注册接口
 //        UIApplication.sharedApplication().windows[0].rootViewController = DispatchController.dispatchToMain()
+        
+        // 输入检查
+        let email = inputEmail.text!
+        let emailResult = email.grep("^\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}")
+        
+        let name = inputUsername.text!
+        let nameResult = name.grep("^[A-Za-z0-9_\\-\\u4e00-\\u9fa5]+")
+        
+        let password = inputPassword.text!
+        let repeatPass = repeatPassword.text!
+        
+        if !emailResult.boolValue || !nameResult.boolValue || (password != repeatPass) {
+            print("输入有误，请重新输入")
+            return
+        }
+        
+        // 注册新用户
+        let user = UserBean(name: inputUsername.text!, password: inputPassword.text!, email: inputEmail.text!)
+
+        userModel.signup(user)
+            .then { isSuccess -> Void in
+                if isSuccess {
+                    print("signup successful")
+                } else {
+                    print("signup failed")
+                }
+            }.error { err in
+                print("signup with error")
+                print(err)
+            }
+        
+        
         UIApplication.sharedApplication().windows[0].rootViewController = RootTabBarController.loadFromStoryboard()
     }
     

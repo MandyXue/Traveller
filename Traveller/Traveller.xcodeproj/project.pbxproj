@@ -64,6 +64,17 @@
 		33DA2CFE1CFC993200665709 /* UserProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DA2CFD1CFC993200665709 /* UserProfileTableViewCell.swift */; };
 		33DA2D001CFC994F00665709 /* UserPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DA2CFF1CFC994F00665709 /* UserPostTableViewCell.swift */; };
 		3792D753F4B5F2BE5440B538 /* Pods_Traveller.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B5F18F4A9B09FE0F9E06058 /* Pods_Traveller.framework */; };
+		A41F4CCE1D131203000B7CFF /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F4CCD1D131203000B7CFF /* UserModel.swift */; };
+		A41F4CCF1D131203000B7CFF /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F4CCD1D131203000B7CFF /* UserModel.swift */; };
+		A41F4CD11D131223000B7CFF /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F4CD01D131223000B7CFF /* PostModel.swift */; };
+		A41F4CD21D131223000B7CFF /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F4CD01D131223000B7CFF /* PostModel.swift */; };
+		A41F4CD41D13123F000B7CFF /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F4CD31D13123F000B7CFF /* CommentModel.swift */; };
+		A41F4CD51D13123F000B7CFF /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41F4CD31D13123F000B7CFF /* CommentModel.swift */; };
+		A477FF161D1514C3002428EA /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A477FF151D1514C3002428EA /* DataModel.swift */; };
+		A477FF171D1514C3002428EA /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A477FF151D1514C3002428EA /* DataModel.swift */; };
+		A477FF191D15157D002428EA /* DataBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A477FF181D15157D002428EA /* DataBean.swift */; };
+		A477FF1A1D15157D002428EA /* DataBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A477FF181D15157D002428EA /* DataBean.swift */; };
+		A477FF1C1D152562002428EA /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A477FF1B1D152562002428EA /* ErrorCode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +151,12 @@
 		33DA2CFD1CFC993200665709 /* UserProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileTableViewCell.swift; sourceTree = "<group>"; };
 		33DA2CFF1CFC994F00665709 /* UserPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPostTableViewCell.swift; sourceTree = "<group>"; };
 		4B5F18F4A9B09FE0F9E06058 /* Pods_Traveller.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Traveller.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A41F4CCD1D131203000B7CFF /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		A41F4CD01D131223000B7CFF /* PostModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
+		A41F4CD31D13123F000B7CFF /* CommentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
+		A477FF151D1514C3002428EA /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		A477FF181D15157D002428EA /* DataBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBean.swift; sourceTree = "<group>"; };
+		A477FF1B1D152562002428EA /* ErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
 		E6697C2EDC27A5B41892E040 /* Pods-Traveller.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Traveller.release.xcconfig"; path = "Pods/Target Support Files/Pods-Traveller/Pods-Traveller.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -446,6 +463,8 @@
 				338D979E1CF09B9000F731AE /* PostBean.swift */,
 				338D97AE1CF3291700F731AE /* CommentBean.swift */,
 				338D97B01CF3294F00F731AE /* UserBean.swift */,
+				A477FF181D15157D002428EA /* DataBean.swift */,
+				A477FF1B1D152562002428EA /* ErrorCode.swift */,
 			);
 			name = DataBean;
 			sourceTree = "<group>";
@@ -700,6 +719,10 @@
 		A41F4CCC1D131146000B7CFF /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				A41F4CCD1D131203000B7CFF /* UserModel.swift */,
+				A41F4CD01D131223000B7CFF /* PostModel.swift */,
+				A41F4CD31D13123F000B7CFF /* CommentModel.swift */,
+				A477FF151D1514C3002428EA /* DataModel.swift */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";
@@ -877,19 +900,23 @@
 				338D97AB1CF213A400F731AE /* PostCreatorTableViewCell.swift in Sources */,
 				3381DE1E1D0BFDCD003482F7 /* PostImageCollectionViewCell.swift in Sources */,
 				33DA2CFE1CFC993200665709 /* UserProfileTableViewCell.swift in Sources */,
+				A41F4CCE1D131203000B7CFF /* UserModel.swift in Sources */,
 				3381DE141D0B130D003482F7 /* LoginTableViewController.swift in Sources */,
 				33C1E6201CF033E700C75708 /* WelcomeViewController.swift in Sources */,
 				3356F4351D04652A00329F0F /* InfoSettingTableViewController.swift in Sources */,
 				3356F44F1D05646E00329F0F /* PostTableViewCell.swift in Sources */,
 				3355F2DE1D0DBD1C00DFE697 /* TimelineTableViewController.swift in Sources */,
+				A477FF161D1514C3002428EA /* DataModel.swift in Sources */,
 				338D979B1CF045BE00F731AE /* RAMCustomTransitionAnimation.swift in Sources */,
 				3356F44B1D0561B400329F0F /* PostListTableViewController.swift in Sources */,
 				338D979F1CF09B9000F731AE /* PostBean.swift in Sources */,
+				A477FF191D15157D002428EA /* DataBean.swift in Sources */,
 				338D97AF1CF3291700F731AE /* CommentBean.swift in Sources */,
 				338D97A41CF0B18900F731AE /* PostDetailTableViewController.swift in Sources */,
 				338D97AD1CF213B400F731AE /* PostCommentTableViewCell.swift in Sources */,
 				3381DE1B1D0BF00F003482F7 /* NewPostTableViewController.swift in Sources */,
 				3381DE271D0D2E61003482F7 /* ChooseLocationViewController.swift in Sources */,
+				A477FF1C1D152562002428EA /* ErrorCode.swift in Sources */,
 				3355F2E01D0DBDAD00DFE697 /* TimelineTableViewCell.swift in Sources */,
 				33C1E6141CF01A5D00C75708 /* ScheduleTableViewController.swift in Sources */,
 				3381DE121D0B126E003482F7 /* SignupTableViewController.swift in Sources */,
@@ -898,8 +925,10 @@
 				33C1E6081CEF64A300C75708 /* RootTabBarController.swift in Sources */,
 				338D97A91CF2139300F731AE /* PostDetailTableViewCell.swift in Sources */,
 				33DA2D001CFC994F00665709 /* UserPostTableViewCell.swift in Sources */,
+				A41F4CD41D13123F000B7CFF /* CommentModel.swift in Sources */,
 				3355F2E21D0EA93500DFE697 /* DayDetailTableViewController.swift in Sources */,
 				3356F4511D05647700329F0F /* CommentTableViewCell.swift in Sources */,
+				A41F4CD11D131223000B7CFF /* PostModel.swift in Sources */,
 				3356F4411D0525DD00329F0F /* UserListTableViewController.swift in Sources */,
 				33C1E61C1CF01C1D00C75708 /* MeTableViewController.swift in Sources */,
 				3381DE291D0D383A003482F7 /* ChooseLocationTableViewController.swift in Sources */,
@@ -917,7 +946,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A477FF171D1514C3002428EA /* DataModel.swift in Sources */,
+				A41F4CCF1D131203000B7CFF /* UserModel.swift in Sources */,
+				A41F4CD51D13123F000B7CFF /* CommentModel.swift in Sources */,
+				A41F4CD21D131223000B7CFF /* PostModel.swift in Sources */,
 				33D4F8441CEF3B980082B927 /* TravellerTests.swift in Sources */,
+				A477FF1A1D15157D002428EA /* DataBean.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

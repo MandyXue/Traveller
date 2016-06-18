@@ -82,7 +82,7 @@ class UserDetailTableViewController: UITableViewController {
     }
     
     func follow() {
-        print("follow \(user.username!)")
+        print("follow \(user.username)")
     }
     
 }
@@ -134,13 +134,13 @@ extension UserDetailTableViewController {
                 cell.valueLabel.text = (user.place == nil) ? "unsetted": user.place
             case 2:
                 cell.keyLabel.text = "Gender"
-                cell.valueLabel.text = user.gender ? "male" : "female"
+                cell.valueLabel.text = user.gender! ? "male" : "female"
             case 3:
                 cell.keyLabel.text = "Summary"
                 cell.valueLabel.text = (user.summary == nil) ? "unsetted": user.summary
             case 4:
                 cell.keyLabel.text = "Email"
-                cell.valueLabel.text = (user.email == nil) ? "unsetted": user.email
+                cell.valueLabel.text = user.email
             case 5:
                 cell.keyLabel.text = "Homepage"
                 cell.valueLabel.text = (user.homepage == nil) ? "unsetted": user.homepage
