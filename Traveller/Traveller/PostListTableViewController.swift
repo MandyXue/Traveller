@@ -154,8 +154,8 @@ extension PostListTableViewController {
         } else {
             cell.postImageView.image = UIImage(named: "avatar")
         }
-        cell.nameLabel.text = posts[indexPath.row].place
-        cell.descriptionLabel.text = posts[indexPath.row].detail
+        cell.nameLabel.text = posts[indexPath.row].title
+        cell.descriptionLabel.text = posts[indexPath.row].summary
         cell.locationLabel.text = posts[indexPath.row].address
     }
     
@@ -165,7 +165,7 @@ extension PostListTableViewController {
         } else {
             cell.postImageView.image = UIImage(named: "avatar")
         }
-        cell.nameLabel.text = posts[indexPath.row].place
+        cell.nameLabel.text = posts[indexPath.row].title
         cell.locationLabel.text = posts[indexPath.row].address
         cell.usernameLabel.text = comments[indexPath.row].user.username
         cell.commentLabel.text = comments[indexPath.row].comment

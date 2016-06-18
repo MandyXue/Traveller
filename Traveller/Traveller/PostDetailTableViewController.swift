@@ -12,15 +12,18 @@ import LTNavigationBar
 import SDCycleScrollView
 import MJRefresh
 import UITableView_FDTemplateLayoutCell
+import PromiseKit
 
 class PostDetailTableViewController: UITableViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate, SDCycleScrollViewDelegate {
     
     let NAVBAR_CHANGE_POINT: CGFloat = 50
     
-    var post = PostBean()
+    var post:PostBean?
+    var postId: String?
     var comments: [CommentBean] = []
     var imageURLs: [String] = []
     var scrollViewWidth: CGFloat = 0
+    let postModel = PostModel()
     
     // TODO: 添加图片放大展示效果
     @IBOutlet weak var scrollView: SDCycleScrollView!
@@ -48,8 +51,46 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Refresh", style: .Plain, target: self, action: #selector(refresh))
         
+        postId = "402881e85553a48c015553a4af370001"
+        if let id = postId {
+//            postModel.getPostDetail(byPostID: id)
+//                .then { post -> Void in
+//                    print("post content::::::::::::::::::")
+//                    print(post)
+//                }.error { err in
+//                    print("get post detail error")
+//                    print(err)
+//                }
+            
+            postModel.getComments(byPostID: id)
+                .then { comments -> Void in
+                    print("comment content")
+                    print(comments)
+                }.error { err in
+                    print("get post comment error")
+                    print(err)
+                }
+            
+//            postModel.getCreatorDetail(byPostID: id)
+//                .then { creator -> Void in
+//                    print("creator::::::::")
+//                    print(creator)
+//                }.error { err in
+//                
+//                }
+            
+            // 请求图片数据
+            when(postModel.getImages(["", "", ""])).then { images -> Void in
+                
+                }.error { err in
+                    
+            }
+        }
+        
+        
+        
         prepareData()
-        if post.place != nil {
+        if let _ = self.post {
             setUpUI()
         }
     }
@@ -83,7 +124,7 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
         addButton.layer.borderWidth = 2
         addButton.layer.cornerRadius = 5
         addButton.layer.borderColor = UIColor(red: 255/255, green: 211/255, blue: 0/155, alpha: 0.8).CGColor
-        titleLabel.text = post.place
+        titleLabel.text = post!.title
         // scroll view
         self.scrollView.showPageControl = false
         self.scrollView.placeholderImage = UIImage(named: "testPlace")
@@ -140,9 +181,9 @@ extension PostDetailTableViewController {
             return cell
         case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("CreatorCell", forIndexPath: indexPath) as! PostCreatorTableViewCell
-            cell.creatorImageView.image = post.creator.avatar
-            cell.creatorNameLabel.text = post.creator.username
-            cell.creatorPlaceLabel.text = post.creator.place
+            cell.creatorImageView.image = post!.creator!.avatar
+            cell.creatorNameLabel.text = post!.creator!.username
+            cell.creatorPlaceLabel.text = post!.creator!.place
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! PostCommentTableViewCell
@@ -182,7 +223,7 @@ extension PostDetailTableViewController {
             let alpha = min(1, 1-((NAVBAR_CHANGE_POINT+64-offsetY)/64))
             
             navigationController?.navigationBar.lt_setBackgroundColor(color.colorWithAlphaComponent(alpha))
-            self.title = post.place
+            self.title = post!.title
         } else {
             navigationController?.navigationBar.lt_setBackgroundColor(color.colorWithAlphaComponent(0))
             self.title = ""
@@ -204,8 +245,8 @@ extension PostDetailTableViewController {
         if indexPath.row == 2 {
             if let detailView = UserDetailTableViewController.loadFromStoryboard() as? UserDetailTableViewController {
                 // TODO: 接上接口以后要改这个参数
-                detailView.user = post.creator
-                print(post.creator)
+                detailView.user = post!.creator!
+                print(post!.creator)
                 self.navigationController?.pushViewController(detailView, animated: true)
             } else {
                 print("something went wrong...")
@@ -216,8 +257,8 @@ extension PostDetailTableViewController {
     // helper
     
     func configureDetailCell(cell: PostDetailTableViewCell, indexPath: NSIndexPath) {
-        cell.locationLabel.text = post.address
-        cell.descriptionLabel.text = post.detail
+        cell.locationLabel.text = post!.address
+        cell.descriptionLabel.text = post!.summary
     }
     
     func configureCommentCell(cell: PostCommentTableViewCell, indexPath: NSIndexPath) {
@@ -236,9 +277,9 @@ extension PostDetailTableViewController {
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         let imageToSave = info[UIImagePickerControllerEditedImage]
         if let image = imageToSave as? UIImage {
-            post.addImage(image)
+            post!.addImage(image)
         }
-        print(post.images)
+        print(post!.images)
         
         // TODO: 连后端接口上传图片
         dismissViewControllerAnimated(true, completion: nil)

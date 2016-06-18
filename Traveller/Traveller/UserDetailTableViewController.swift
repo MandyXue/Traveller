@@ -155,7 +155,7 @@ extension UserDetailTableViewController {
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("UserPostCell", forIndexPath: indexPath) as! UserPostTableViewCell
             cell.imageView?.image = UIImage(named: "testPost")
-            cell.postNameLabel.text = user.posts[indexPath.row].place
+            cell.postNameLabel.text = user.posts[indexPath.row].title
             cell.postLocationLabel.text = user.posts[indexPath.row].address
             return cell
         }

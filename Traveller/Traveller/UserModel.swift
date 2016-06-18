@@ -42,6 +42,19 @@ class UserModel: DataModel {
         }
     }
     
+    // 5-1获取一个用户推送的post列表
+    func getPosts(byUserID id:String) -> Promise<[PostBean]> {
+        let requestURL = baseURL + ""
+        
+        return Promise { fulfill, reject in
+            Alamofire.request(.GET, requestURL, parameters: nil, encoding: .URL, headers: nil)
+                .responseJSON{ response in
+                    
+            }
+        }
+
+    }
+    
     // 8-1根据用户id获取用户个人基本信息
     func getUserDetail(byUserID id: String) -> Promise<UserBean> {
         

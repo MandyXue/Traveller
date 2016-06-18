@@ -9,36 +9,56 @@
 import Foundation
 import MapKit
 
-class PostBean: NSObject {
+class PostBean: DataBean {
     
     var pointId: Int = 0
     
     // MARK: - MKAnnotation Property
-    
-    var place: String?                    // 景点名称
-    var address: String?                  // 景点地址
-    var detail: String?                   // 景点详细介绍
-    var comments: [CommentBean] = []     // 景点的相关评论
+    var id: String?
+    var title: String                    // 景点名称
+    var address: String                  // 景点地址
+    var summary: String                   // 景点详细介绍
+    var comments = [CommentBean]()     // 景点的相关评论
     var location: CLLocationCoordinate2D  // 景点的GPS信息
-    var images: [UIImage] = []            // 景点的图片
-    var creator: UserBean                // 创建者
-    
+    var images = [UIImage]()            // 景点的图片
+    var imagesURL = [String]()
+    var creator: UserBean?                // 创建者
+    var creatorID: String
+    var createDate: NSDate
     // MARK: - Init
     
     override init() {
-        place = nil
-        detail = nil
-        address = nil
+        title = ""
+        summary = ""
+        address = ""
+        summary = ""
         location = CLLocationCoordinate2D()
-        creator = UserBean()
+        creatorID = ""
+        createDate = NSDate()
+    }
+    
+    // For remote
+    init(id: String, title: String, address: String, summary:String, latitude: Double, longitude: Double, creatorID:String, createDate: String, imagesURL: [String]) {
+        self.id = id
+        self.title = title
+        self.address = address
+        self.summary = summary
+        self.location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        self.creatorID = creatorID
+        self.createDate = NSDate()
+        self.imagesURL = imagesURL
     }
     
     init(place: String, detail: String, location: CLLocationCoordinate2D, address: String, creator: UserBean) {
-        self.place = place
-        self.detail = detail
+        self.title = place
+        self.summary = detail
         self.location = location
         self.creator = creator
         self.address = address
+        
+        self.creatorID = ""
+        self.createDate = NSDate()
+        
     }
     
     // MARK: - Methods

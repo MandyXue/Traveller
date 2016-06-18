@@ -9,10 +9,16 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import PromiseKit
 
 class DataModel {
     let baseURL = "http://localhost:8000/"
     var token:String
+    
+    init () {
+        // 取token
+        token = "685f5f39-ad7d-4cf8-97c9-556c4ece62f0"
+    }
     
     // 处理http response抛出的异常
     func filterResponse(response: Response<AnyObject, NSError>) throws -> JSON {
@@ -33,8 +39,12 @@ class DataModel {
         }
     }
     
-    init () {
-        // 取token
-        token = ""
+    // 下载数组中所有图片
+    func getImages(urls: [String]) -> [Promise<UIImage>] {
+        let allRequest = urls.map { url -> Promise<UIImage> in
+            return Promise { fulfill, reject in }
+        }
+        
+        return allRequest
     }
 }

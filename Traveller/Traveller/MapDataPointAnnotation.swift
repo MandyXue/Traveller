@@ -31,7 +31,7 @@ class MapDataPointAnnotation: NSObject, MKAnnotation {
     
     init(post: PostBean) {
         self.coordinate = post.location
-        self.title = post.place
+        self.title = post.title
         self.subtitle = post.address
         if post.images.count != 0 {
             self.image = post.images.first!

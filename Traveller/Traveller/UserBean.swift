@@ -16,8 +16,9 @@ class UserBean {
     var username: String        // 用户名
     var password: String?
     var avatar: UIImage?        // 用户头像
+    var avatarURL: String?
     var place: String?          // 用户所在地区
-    var posts: [PostBean] = [] // 用户发表的post
+    var posts = [PostBean]() // 用户发表的post
     var gender: Bool?            // 用户性别，true为男，false为女
     var summary: String?        // 用户简介
     var email: String           // 邮箱
@@ -68,5 +69,22 @@ class UserBean {
         } else {
             self.registerDate = registerDate
         }
+    }
+    
+    //For remote
+    init (name: String, place: String?, gender: Int?, summary: String?, email: String, homepage: String?, registerDate: String) {
+        self.username = name
+        self.place = place
+        
+        if gender != nil && gender == 1 {
+            self.gender = true
+        } else {
+            self.gender = false
+        }
+        
+        self.summary = summary
+        self.email = email
+        self.homepage = homepage
+        self.registerDate = NSDate()
     }
 }
