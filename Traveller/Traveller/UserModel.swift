@@ -17,36 +17,52 @@ class UserModel: DataModel {
     }
     
     func signup(newUser: UserBean) ->Promise<Bool> {
+        let requestURL = baseURL + "user/register/\(newUser.username)"
         let parameters = ["name": newUser.username, "password": newUser.password!, "email": newUser.email]
         
         return Promise{ fulfill, reject in
-            Alamofire.request(.POST, "http://localhost:8000/user/register/\(newUser.username)", parameters: parameters, encoding: .URL, headers: nil)
+            Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
-                    if let serverResp = response.response {
-                        if serverResp.statusCode < 200 || serverResp.statusCode > 299 {
-                            let error = NSError(domain: "http", code: 100, userInfo: ["errDesc": "Server answers with a wrong status:\(serverResp.statusCode)"])
+                    do {
+                        let jsonData = try self.filterResponse(response)
+                        print(jsonData)
+                        
+                        let errCode = jsonData["errCode"].int!
+                        if errCode != 0 {
+                            let error = NSError(domain: "signup", code: errCode, userInfo: ["errDesc": "Signup fialed with error:\(jsonData["errMessage"].string!)"])
                             reject(error)
                         } else {
-                            if let result = response.result.value {
-                                let jsonData = JSON(result)
-                                let errCode = jsonData["errCode"].int!
-                                if errCode != 0 {
-                                    let error = NSError(domain: "signup", code: errCode, userInfo: ["errDesc": "Signup fialed with error:\(jsonData["errMessage"].string!)"])
-                                    reject(error)
-                                } else {
-                                    fulfill(true)
-                                }
-                            }
+                            fulfill(true)
                         }
-                    } else {
-                        // 没有response，可能是网络断了
-                        fulfill(false)
+                    } catch {
+                        print(error)
+                        reject(error)
                     }
+            }
+        }
+    }
+    
+    // 8-1根据用户id获取用户个人基本信息
+    func getUserDetail(byUserID id: String) -> Promise<UserBean> {
+        
+        let requestURL = baseURL + ""
+        
+        return Promise { fulfill, reject in
+            Alamofire.request(.GET, requestURL, parameters: nil, encoding: .URL, headers: nil)
+                .responseJSON{ response in
                     
-//                    print(response.request)  // original URL request
-//                    print(response.response) // URL response
-//                    print(response.data)     // server data
-//                    print(JSON(response.result.value!))
+            }
+        }
+    }
+    
+    func signout(userID: String) -> Promise<Bool> {
+        let requestURL = baseURL + ""
+        let parameters = ["token": "", "id": "id"]
+        
+        return Promise {fulfill, reject in
+            Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
+                .responseJSON { response in
+                    print(response)
             }
         }
     }
