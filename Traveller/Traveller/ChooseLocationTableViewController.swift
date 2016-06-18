@@ -50,12 +50,8 @@ class ChooseLocationTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("searchResultCell", forIndexPath: indexPath)
-
-        let titleLabel = cell.viewWithTag(101) as! UILabel
-        titleLabel.text = searchResult[indexPath.row].name
-        
-        let detailLabel = cell.viewWithTag(102) as! UILabel
-        detailLabel.text = searchResult[indexPath.row].placemark.thoroughfare
+        cell.textLabel!.text = searchResult[indexPath.row].name
+        cell.detailTextLabel!.text = searchResult[indexPath.row].placemark.thoroughfare
 
         return cell
     }

@@ -56,6 +56,10 @@ class ChooseLocationViewController: UIViewController, UISearchBarDelegate, MKMap
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .Follow
         startStandardUpdates()
+        
+        // searchbar UI
+        searchBar.barTintColor = UIColor.customGreenColor()
+        searchBar.tintColor = UIColor.whiteColor()
     }
     
     override func viewWillAppear(animated: Bool) {

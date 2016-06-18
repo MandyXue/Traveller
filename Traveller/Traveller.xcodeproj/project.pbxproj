@@ -780,7 +780,7 @@
 				TargetAttributes = {
 					33D4F82A1CEF3B980082B927 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = XPXAPTEPJX;
+						DevelopmentTeam = WGWLK679J7;
 					};
 					33D4F83E1CEF3B980082B927 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1070,7 +1070,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Traveller/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = AppleClub.TravellerHT;
+				PRODUCT_BUNDLE_IDENTIFIER = AppleClub.Traveller;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Traveller/Traveller-Bridging-Header.h";
@@ -1088,7 +1088,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Traveller/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = AppleClub.TravellerHT;
+				PRODUCT_BUNDLE_IDENTIFIER = AppleClub.Traveller;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Traveller/Traveller-Bridging-Header.h";
