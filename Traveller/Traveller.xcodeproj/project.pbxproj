@@ -75,6 +75,14 @@
 		A477FF191D15157D002428EA /* DataBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A477FF181D15157D002428EA /* DataBean.swift */; };
 		A477FF1A1D15157D002428EA /* DataBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A477FF181D15157D002428EA /* DataBean.swift */; };
 		A477FF1C1D152562002428EA /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A477FF1B1D152562002428EA /* ErrorCode.swift */; };
+		A4D722771D15998500634986 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D722761D15998500634986 /* ScheduleModel.swift */; };
+		A4D722781D15998500634986 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D722761D15998500634986 /* ScheduleModel.swift */; };
+		A4D7227A1D1599A300634986 /* ScheduleBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D722791D1599A300634986 /* ScheduleBean.swift */; };
+		A4D7227B1D1599A300634986 /* ScheduleBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D722791D1599A300634986 /* ScheduleBean.swift */; };
+		A4D7227D1D1599B000634986 /* PlanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D7227C1D1599B000634986 /* PlanModel.swift */; };
+		A4D7227E1D1599B000634986 /* PlanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D7227C1D1599B000634986 /* PlanModel.swift */; };
+		A4D722801D1599CB00634986 /* PlanBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D7227F1D1599CB00634986 /* PlanBean.swift */; };
+		A4D722811D1599CB00634986 /* PlanBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D7227F1D1599CB00634986 /* PlanBean.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +165,10 @@
 		A477FF151D1514C3002428EA /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		A477FF181D15157D002428EA /* DataBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBean.swift; sourceTree = "<group>"; };
 		A477FF1B1D152562002428EA /* ErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
+		A4D722761D15998500634986 /* ScheduleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
+		A4D722791D1599A300634986 /* ScheduleBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleBean.swift; sourceTree = "<group>"; };
+		A4D7227C1D1599B000634986 /* PlanModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanModel.swift; sourceTree = "<group>"; };
+		A4D7227F1D1599CB00634986 /* PlanBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanBean.swift; sourceTree = "<group>"; };
 		E6697C2EDC27A5B41892E040 /* Pods-Traveller.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Traveller.release.xcconfig"; path = "Pods/Target Support Files/Pods-Traveller/Pods-Traveller.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -465,6 +477,8 @@
 				338D97B01CF3294F00F731AE /* UserBean.swift */,
 				A477FF181D15157D002428EA /* DataBean.swift */,
 				A477FF1B1D152562002428EA /* ErrorCode.swift */,
+				A4D722791D1599A300634986 /* ScheduleBean.swift */,
+				A4D7227F1D1599CB00634986 /* PlanBean.swift */,
 			);
 			name = DataBean;
 			sourceTree = "<group>";
@@ -723,6 +737,8 @@
 				A41F4CD01D131223000B7CFF /* PostModel.swift */,
 				A41F4CD31D13123F000B7CFF /* CommentModel.swift */,
 				A477FF151D1514C3002428EA /* DataModel.swift */,
+				A4D722761D15998500634986 /* ScheduleModel.swift */,
+				A4D7227C1D1599B000634986 /* PlanModel.swift */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";
@@ -894,6 +910,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				338D97CB1CF486E900F731AE /* UserDetailTableViewController.swift in Sources */,
+				A4D722771D15998500634986 /* ScheduleModel.swift in Sources */,
 				338D979D1CF099F900F731AE /* MapDataPointAnnotation.swift in Sources */,
 				33C1E6101CF019CA00C75708 /* HomeMapViewController.swift in Sources */,
 				3355F2E81D0EC6D900DFE697 /* SpotTableViewCell.swift in Sources */,
@@ -924,6 +941,7 @@
 				3355F2D21D0D623D00DFE697 /* DestinationTableViewCell.swift in Sources */,
 				33C1E6081CEF64A300C75708 /* RootTabBarController.swift in Sources */,
 				338D97A91CF2139300F731AE /* PostDetailTableViewCell.swift in Sources */,
+				A4D7227A1D1599A300634986 /* ScheduleBean.swift in Sources */,
 				33DA2D001CFC994F00665709 /* UserPostTableViewCell.swift in Sources */,
 				A41F4CD41D13123F000B7CFF /* CommentModel.swift in Sources */,
 				3355F2E21D0EA93500DFE697 /* DayDetailTableViewController.swift in Sources */,
@@ -935,9 +953,11 @@
 				338D97B11CF3294F00F731AE /* UserBean.swift in Sources */,
 				3356F4461D05570200329F0F /* FollowingTableViewCell.swift in Sources */,
 				33C1E60A1CEF654300C75708 /* UIStoryboardManager.swift in Sources */,
+				A4D722801D1599CB00634986 /* PlanBean.swift in Sources */,
 				33C1E6061CEF644800C75708 /* DispatchController.swift in Sources */,
 				33C1E60C1CEF660000C75708 /* UIViewControllerManager.swift in Sources */,
 				3355F2E61D0EC6C500DFE697 /* TransportTableViewCell.swift in Sources */,
+				A4D7227D1D1599B000634986 /* PlanModel.swift in Sources */,
 				3356F4491D05571000329F0F /* FollowerTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -946,12 +966,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4D7227B1D1599A300634986 /* ScheduleBean.swift in Sources */,
 				A477FF171D1514C3002428EA /* DataModel.swift in Sources */,
+				A4D722781D15998500634986 /* ScheduleModel.swift in Sources */,
 				A41F4CCF1D131203000B7CFF /* UserModel.swift in Sources */,
+				A4D722811D1599CB00634986 /* PlanBean.swift in Sources */,
 				A41F4CD51D13123F000B7CFF /* CommentModel.swift in Sources */,
 				A41F4CD21D131223000B7CFF /* PostModel.swift in Sources */,
 				33D4F8441CEF3B980082B927 /* TravellerTests.swift in Sources */,
 				A477FF1A1D15157D002428EA /* DataBean.swift in Sources */,
+				A4D7227E1D1599B000634986 /* PlanModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

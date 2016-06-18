@@ -12,7 +12,7 @@ import SwiftyJSON
 import PromiseKit
 
 class DataModel {
-    let baseURL = "http://localhost:8000/"
+    let baseURL = "http://localhost:8000"
     var token:String
     
     init () {

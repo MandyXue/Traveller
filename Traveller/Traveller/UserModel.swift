@@ -12,15 +12,30 @@ import PromiseKit
 import SwiftyJSON
 
 class UserModel: DataModel {
-    func login() {
+    
+    func login(name:String, password pass:String) -> Promise<Bool> {
+        let requestURL = baseURL + "/user/login/\(name)"
+        let parameters = ["name": name, "password": pass]
         
+        return Promise { fulfill, reject in
+            Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
+                .responseJSON { response in
+                    do {
+                        let jsonData = try self.filterResponse(response)
+                        print(jsonData)
+                        
+                    } catch {
+                        print(error)
+                    }
+            }
+        }
     }
     
     func signup(newUser: UserBean) ->Promise<Bool> {
-        let requestURL = baseURL + "user/register/\(newUser.username)"
+        let requestURL = baseURL + "/user/register/\(newUser.username)"
         let parameters = ["name": newUser.username, "password": newUser.password!, "email": newUser.email]
         
-        return Promise{ fulfill, reject in
+        return Promise { fulfill, reject in
             Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
