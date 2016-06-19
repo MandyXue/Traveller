@@ -44,7 +44,7 @@ class CommentModel: DataModel {
     // TODO:13-2根据用户ID获取用户评论历史列表
     func getComments(byUserID id:String) -> Promise<[CommentBean]> {
         let requestURL = baseURL + "/comment/list"
-        let parameters = ["token": token, "id": id]
+        let parameters = ["token": token, "creator_id": id]
         
         return Promise { fulfill, reject in
             Alamofire.request(.GET, requestURL, parameters: parameters, encoding: .URL, headers: nil)
@@ -56,10 +56,21 @@ class CommentModel: DataModel {
                         if errCode != 0 {
                             // 错误处理
                         } else {
-                            print("get posts by user id:")
+                            print("get comments by user id:")
                             print(jsonData)
+                            let jsonComment = jsonData["comments"].array!
                             
-                            let comments = [CommentBean]()
+                            let comments = jsonComment.map { raw -> CommentBean in
+                                let id = raw["id"].string!
+                                let postId = raw["postId"].string!
+                                let creatorAvatar = raw["creatorAvatar"].string
+                                let content = raw["content"].string!
+                                let createDate = raw["createDate"].string!
+                                let creatorId = raw["creatorId"].string!
+                                
+                                return CommentBean(commentId: id, creatorId: creatorId, avatarURL: creatorAvatar, content: content, postID: postId, createDate: createDate)
+                            }
+                            
                             fulfill(comments)
                         }
                     } catch {

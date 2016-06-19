@@ -113,11 +113,11 @@ extension HomeMapViewController {
         return annotationView
     }
     
-    func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        print("will change")
-        // 这里应该再获取一次annotation
-//        getAnnotations()
-    }
+//    func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+//        print("will change")
+//        // 这里应该再获取一次annotation
+////        getAnnotations()
+//    }
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         

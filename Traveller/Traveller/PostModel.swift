@@ -152,7 +152,7 @@ class PostModel: DataModel {
         let parameters = ["token": token, "id": id]
         
         return Promise { fulfill, reject in
-            Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
+            Alamofire.request(.GET, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
                         let jsonData = try self.filterResponse(response)
@@ -160,8 +160,10 @@ class PostModel: DataModel {
                         
                         if errCode != 0 {
                             // 错误处理
+                            print("errCode is not 0:")
+                            print(jsonData)
                         } else {
-                            print("get post by comment id:")
+                            print("get posts by user id:")
                             print(jsonData)
                             
                             let posts = [PostBean]()

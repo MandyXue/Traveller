@@ -12,10 +12,13 @@ import UITableView_FDTemplateLayoutCell
 
 class PostListTableViewController: UITableViewController {
     
-    var type: Int = 0 // 0: all following posts,1: my posts, false: my comments
+    var type: Int = 0 // 0: all following posts,1: my posts, 2: my comments
     var comments: [CommentBean] = []
     var posts: [PostBean] = []
     var filteredPosts: [PostBean] = []
+    
+    let postModel = PostModel()
+    let commentModel = CommentModel()
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -31,10 +34,31 @@ class PostListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 从NSUserDefault获取user ID
+        let id = "2c85f94f-3427-11e6-99b1-00163e023e0a"
+        
         if type == 1 {
             navigationItem.title = "Posts"
+            // 获取用户的post
+            postModel.getPosts(byUserID: id)
+                .then { posts -> () in
+                    posts.forEach { print($0.id) }
+                }.error { err in
+                    print("get user posts list error")
+                    print(err)
+            }
+            
+            
         } else if type == 2 {
             navigationItem.title = "Comments"
+            // 获取用户的评论
+            commentModel.getComments(byUserID: id)
+                .then { comments -> () in
+                    comments.forEach { print($0.postID) }
+                }.error { err in
+                    print("get user comments list error")
+                    print(err)
+            }
         }
         
         setInfo()
@@ -69,7 +93,9 @@ class PostListTableViewController: UITableViewController {
     func setInfo() {
         var i = 0
         while i < 20 {
-            comments.append(CommentBean(user: UserBean(username: "user\(i)", avatar: UIImage(named: "avatar")!, place: "place...."), content: "CommentsComments\(i)", postID: "test"))
+            let newComment = CommentBean(commentId: "testId", creatorId: "testId", avatarURL: nil, content: "Great place, I want to go gogogogogogogogogogogogogogo....", postID: "test", createDate: "2016-06-18")
+            newComment.user = UserBean(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai")
+            comments.append(newComment)
             i += 1
         }
         
@@ -167,7 +193,7 @@ extension PostListTableViewController {
         }
         cell.nameLabel.text = posts[indexPath.row].title
         cell.locationLabel.text = posts[indexPath.row].address
-        cell.usernameLabel.text = comments[indexPath.row].user.username
+        cell.usernameLabel.text = comments[indexPath.row].user!.username
         cell.commentLabel.text = comments[indexPath.row].content
         cell.timeLabel.text = "TODO"//NSDateFormatter.stringFromDate(comments[indexPath.row].time)
     }

@@ -11,35 +11,41 @@ import Foundation
 class CommentBean: DataBean {
     
     // MARK: - Properties
-    var user: UserBean    // 评论者
+    var user: UserBean?
+    var id: String?
+    var creatorId: String
+    var creatorAvatarURL: String?
     var content: String   // 评论内容
     var postID: String
-    var time: NSDate?       // 评论时间 TODO:需要加个get和set函数
+    var time: String       // 评论时间
     
     // MARK: - Init
     override init() {
-        user = UserBean()
+        self.creatorId = ""
         content = ""
         postID = ""
-        time = NSDate()
+        time = ""
     }
     
     // For remote
-    init(user: UserBean, content: String, postID:String, time: String) {
-        self.user = user
+    init(commentId id:String, creatorId: String, avatarURL: String?, content: String, postID:String, createDate: String) {
+        self.id = id
+        self.creatorId = creatorId
+        self.creatorAvatarURL = avatarURL
         self.content = content
         self.postID = postID
+        self.time = createDate
         
-        // TODO: format date
-        self.time = NSDate()
+        super.init()
     }
     
     // For new
-    init(user: UserBean, content: String, postID: String) {
-        self.user = user
+    init(creatorID: String, content: String, postID: String) {
+        self.creatorId = creatorID
         self.content = content
         self.postID = postID
         
-        time = NSDate()
+        time = DataBean.dateFormatter.stringFromDate(NSDate())
+        super.init()
     }
 }
