@@ -91,43 +91,6 @@ class PostModel: DataModel {
         }
     }
     
-    // 2-3获取post的creator的信息
-    func getCreatorDetail(byPostID id:String) -> Promise<UserBean> {
-        let requestURL = DataModel.baseURL + "/post/creator"
-        let parameters = ["token": token, "id": id]
-        
-        
-        return Promise { fulfill, reject in
-            Alamofire.request(.GET, requestURL, parameters: parameters, encoding: .URL, headers: nil)
-                .responseJSON { response in
-                    do {
-                        let jsonData = try DataModel.filterResponse(response)
-                        let errCode = jsonData["errCode"].int!
-                        
-                        if errCode != 0 {
-                            // 错误处理
-                        } else {
-                            let creator = jsonData["creator"]
-                            
-                            let name = creator["name"].string!
-                            let place = creator["location"].string
-                            let gender = creator["gender"].int
-                            let summary = creator["summary"].string
-                            let email = creator["email"].string!
-                            let homepage = creator["homepage"].string
-                            let registerDate = creator["register_date"].string!
-                            
-                            let user = UserBean(name: name, place: place, gender: gender, summary: summary, email: email, homepage: homepage, registerDate: registerDate)
-                            fulfill(user)
-                        }
-                    } catch {
-                        print(error)
-                        reject(error)
-                    }
-            }
-        }
-    }
-    
     // TODO:获取图片上传token
     func getUpToken() ->Promise<String> {
         let requestURL = DataModel.baseURL + ""

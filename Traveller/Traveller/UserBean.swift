@@ -73,7 +73,7 @@ class UserBean {
     }
     
     //For remote
-    init (name: String, place: String?, gender: Int?, summary: String?, email: String, homepage: String?, registerDate: String) {
+    init (name: String, place: String?, gender: Int?, summary: String?, email: String, homepage: String?, registerDate: String, followerNum: Int, followingNum: Int, avatarURL: String?) {
         self.username = name
         self.place = place
         

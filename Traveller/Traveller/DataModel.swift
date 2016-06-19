@@ -21,28 +21,37 @@ class DataModel {
         // TODO:考虑能不能弄成单例模式
         token = NSUserDefaults.standardUserDefaults().valueForKey("token") as! String
         userID = NSUserDefaults.standardUserDefaults().valueForKey("id") as! String
-//        token = "1ad1658b-1eff-4555-b1fd-f219f8d621da"
-//        userID = ""
     }
     
     // 处理http response抛出的异常
     class func filterResponse(response: Response<AnyObject, NSError>) throws -> JSON {
-        print("http response")
-        print(response)
         if let serverResp = response.response {
             if serverResp.statusCode < 200 || serverResp.statusCode > 299 {
                 throw HttpError.ResponseError
             } else {
                 if let result = response.result.value {
                     let jsonData = JSON(result)
-                    return jsonData
+                    
+                    let errCode = jsonData["errCode"].int!
+                    if 105 == errCode {
+                        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "token")
+                        
+                        throw DataError.TokenInvalid
+                    } else {
+                        return jsonData
+                    }
                 } else {
+                    print("http response")
+                    print(response)
                     throw DataError.ResponseInvalid
                 }
             }
         } else {
             // 没有response，可能是网络断了
+            print("http response")
+            print(response)
             throw HttpError.InternetError
+            
         }
     }
     

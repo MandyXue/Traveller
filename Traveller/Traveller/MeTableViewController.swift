@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageUI
+import PKHUD
 
 class MeTableViewController: UITableViewController, MFMailComposeViewControllerDelegate {
     
@@ -33,17 +34,27 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        avatarImageView.image = user.avatar
-        nameLabel.text = user.username
-        locationLabel.text = user.place
+        avatarImageView.image = UIImage(named: "avatar")!
         
         userModel.getUserDetail(byUserID: userModel.userID)
             .then { userInfo -> Void in
+                print("get user info in Me")
+                
+                self.nameLabel.text = userInfo.username
+                self.locationLabel.text = userInfo.place
+                
                 self.currentUser = userInfo
                 self.tableView.reloadData()
             } .error { err in
                 // 错误处理
-                print(err)
+                switch err {
+                case DataError.TokenInvalid:
+                    let vc = WelcomeViewController.loadFromStoryboard()
+                    self.presentViewController(vc, animated: true, completion: nil)
+                default:
+                    print("get user info error:")
+                    print(err)
+                }
         }
     }
     
@@ -72,7 +83,7 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
         // setting information
         case 0:
             let vc = InfoSettingTableViewController.loadFromStoryboard() as! InfoSettingTableViewController
-            vc.user = self.user
+            vc.user = self.currentUser!
             self.navigationController?.pushViewController(vc, animated: true)
         // followings and followers
         case 1:

@@ -12,6 +12,7 @@ class UserListTableViewController: UITableViewController {
     
     var type: Bool = true // true: following, false: follower
     var users: [UserBean] = []
+    var userModel = UserModel()
     
     // MARK: - BaseViewController
     
@@ -24,7 +25,18 @@ class UserListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = type ? "Following": "Follower"
-        setInfo()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        userModel.getFollowList(byUserID: userModel.userID, isFollowing: type)
+            .then { users -> () in
+                self.users = users
+                self.tableView.reloadData()
+            }.error { err in
+                print(err)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,12 +74,12 @@ class UserListTableViewController: UITableViewController {
     
     // MARK: - Helper
     
-    func setInfo() {
-        // TODO: 根据type使用不同接口
-        var i = 0
-        while i < 20 {
-            users.append(UserBean(username: "user\(i)", avatar: UIImage(named: "avatar")!, place: "Shanghai\(i)"))
-            i += 1
-        }
-    }
+//    func setInfo() {
+//        // TODO: 根据type使用不同接口
+//        var i = 0
+//        while i < 20 {
+//            users.append(UserBean(username: "user\(i)", avatar: UIImage(named: "avatar")!, place: "Shanghai\(i)"))
+//            i += 1
+//        }
+//    }
 }

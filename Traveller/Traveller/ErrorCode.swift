@@ -17,6 +17,7 @@ enum HttpError: ErrorType {
 
 enum DataError: ErrorType {
     case ResponseInvalid
+    case TokenInvalid
 }
 
 enum SignupError: ErrorType {
@@ -24,4 +25,8 @@ enum SignupError: ErrorType {
     case SignupFailled
     case RepeatEmail
     case RepeatName
+}
+
+enum UserError: ErrorType {
+    case GetUserInfoFailled
 }
