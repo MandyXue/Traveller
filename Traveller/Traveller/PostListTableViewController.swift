@@ -69,7 +69,7 @@ class PostListTableViewController: UITableViewController {
     func setInfo() {
         var i = 0
         while i < 20 {
-            comments.append(CommentBean(user: UserBean(username: "user\(i)", avatar: UIImage(named: "avatar")!, place: "place...."), comment: "CommentsComments\(i)", time: NSDate(timeIntervalSinceNow: 0)))
+            comments.append(CommentBean(user: UserBean(username: "user\(i)", avatar: UIImage(named: "avatar")!, place: "place...."), content: "CommentsComments\(i)", postID: "test"))
             i += 1
         }
         
@@ -168,8 +168,8 @@ extension PostListTableViewController {
         cell.nameLabel.text = posts[indexPath.row].title
         cell.locationLabel.text = posts[indexPath.row].address
         cell.usernameLabel.text = comments[indexPath.row].user.username
-        cell.commentLabel.text = comments[indexPath.row].comment
-        cell.timeLabel.text = NSDateFormatter.stringFromDate(comments[indexPath.row].time)
+        cell.commentLabel.text = comments[indexPath.row].content
+        cell.timeLabel.text = "TODO"//NSDateFormatter.stringFromDate(comments[indexPath.row].time)
     }
     
 }

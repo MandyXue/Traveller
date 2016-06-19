@@ -13,6 +13,7 @@ import MapKit
 class UserBean {
     
     // MARK: - Properties
+    var id: String?
     var username: String        // 用户名
     var password: String?
     var avatar: UIImage?        // 用户头像

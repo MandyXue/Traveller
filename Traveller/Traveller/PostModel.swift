@@ -12,7 +12,7 @@ import Alamofire
 
 class PostModel: DataModel {
     
-    // 1-1获取附近post列表
+    // TODO:1-1获取附近post列表
     func getAroundPost() -> Promise<[PostBean]> {
         let requestURL = baseURL + ""
         
@@ -63,7 +63,7 @@ class PostModel: DataModel {
         }
     }
     
-    // 2-2获取post的评论
+    // TODO:2-2获取post的评论
     func getComments(byPostID id:String) -> Promise<[CommentBean]> {
         let requestURL = baseURL + "/comment/plist"
         let parameters = ["token": token, "post_id": id]
@@ -79,7 +79,7 @@ class PostModel: DataModel {
                             // 错误处理
                         } else {
                             let comments = [CommentBean]()
-                            print("commentkjadsfkljadkslfjaskldfj:")
+                            print("comments:")
                             print(jsonData)
                             fulfill(comments)
                         }
@@ -107,9 +107,6 @@ class PostModel: DataModel {
                         if errCode != 0 {
                             // 错误处理
                         } else {
-//                            print("userksdjfklasjdkfl;ajkdsjf;a")
-//                            print(jsonData)
-                            
                             let creator = jsonData["creator"]
                             
                             let name = creator["name"].string!
@@ -131,7 +128,7 @@ class PostModel: DataModel {
         }
     }
     
-    // 获取图片上传token
+    // TODO:获取图片上传token
     func getUpToken() ->Promise<String> {
         let requestURL = baseURL + ""
         
@@ -140,7 +137,7 @@ class PostModel: DataModel {
         }
     }
     
-    // 3-1上传图片到云服务器
+    // TODO:3-1上传图片到云服务器
     func loadImageToQiniu() -> Promise<Bool> {
         let requestURL = baseURL + ""
         
@@ -149,23 +146,90 @@ class PostModel: DataModel {
         }
     }
     
-    // 5-1获取一个用户推送的post列表
-    func getPostsByUserID() -> Promise<[PostBean]> {
-        let requestURL = baseURL + ""
+    // TODO:5-1获取一个用户推送的post列表
+    func getPosts(byUserID id: String) -> Promise<[PostBean]> {
+        let requestURL = baseURL + "/post/posts"
+        let parameters = ["token": token, "id": id]
         
         return Promise { fulfill, reject in
-            Alamofire.request(.POST, requestURL, parameters: nil, encoding: .URL, headers: nil)
+            Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
+                .responseJSON { response in
+                    do {
+                        let jsonData = try self.filterResponse(response)
+                        let errCode = jsonData["errCode"].int!
+                        
+                        if errCode != 0 {
+                            // 错误处理
+                        } else {
+                            print("get post by comment id:")
+                            print(jsonData)
+                            
+                            let posts = [PostBean]()
+                            fulfill(posts)
+                        }
+                    } catch {
+                        print(error)
+                        reject(error)
+                    }
+            }
         }
     }
     
-    // 增加一个新的post
-    func addNewPost() -> Promise<Bool> {
-        let requestURL = baseURL + ""
-        let parameters = ["token": "token"]
+    // 6-1推送一条新的post
+    func addNewPost(newPost: PostBean) -> Promise<Bool> {
+        let requestURL = baseURL + "/post/new"
+        let post = []
+        let urls = newPost.imagesURL
+        
+        let parameters = ["token": token, "post": post, "imageURLs": urls]
         return Promise { fulfill, reject in
             Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
+                .responseJSON { response in
+                    do {
+                        let jsonData = try self.filterResponse(response)
+                        let errCode = jsonData["errCode"].int!
+                        
+                        if errCode != 0 {
+                            // 错误处理
+                        } else {
+                            print("save new post response:")
+                            print(jsonData)
+                            fulfill(true)
+                        }
+                    } catch {
+                        print(error)
+                        reject(error)
+                    }
+            }
         }
     }
     
-    
+    // 13-3根据评论ID获取post
+    func getPost(byCommentID id: String) -> Promise<PostBean> {
+        let requestURL = baseURL + "/post/comment/\(id)"
+        let parameters = ["token": token]
+        
+        return Promise { fulfill, reject in
+            Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
+                .responseJSON { response in
+                    do {
+                        let jsonData = try self.filterResponse(response)
+                        let errCode = jsonData["errCode"].int!
+                        
+                        if errCode != 0 {
+                            // 错误处理
+                        } else {
+                            print("get post by comment id:")
+                            print(jsonData)
+                            
+                            let post = PostBean()
+                            fulfill(post)
+                        }
+                    } catch {
+                        print(error)
+                        reject(error)
+                    }
+            }
+        }
+    }
 }

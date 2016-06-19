@@ -94,4 +94,33 @@ class UserModel: DataModel {
             }
         }
     }
+    
+    //10-1根据用户ID获取用户正在following的用户列表
+    func getFollowing(byUserID id:String) -> Promise<[UserBean]> {
+        let requestURL = baseURL + "/user/\(token)/\(id)/following"
+        
+        return Promise { fulfill, reject in
+            Alamofire.request(.GET, requestURL, parameters: nil, encoding: .URL, headers: nil)
+                .responseJSON { response in
+                    do {
+                        let jsonData = try self.filterResponse(response)
+                        print(jsonData)
+                        
+                        let errCode = jsonData["errCode"].int!
+                        if errCode != 0 {
+                        } else {
+                            let users = [UserBean]()
+                            print("jsonData")
+                            print(jsonData)
+                            
+                            fulfill(users)
+                        }
+                    } catch {
+                        print(error)
+                        reject(error)
+                    }
+
+            }
+        }
+    }
 }
