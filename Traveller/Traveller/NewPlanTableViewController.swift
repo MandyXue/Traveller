@@ -50,7 +50,7 @@ class NewPlanTableViewController: UITableViewController, SelectLocationDelegate,
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(newPlan))
         
         // init day detail
-        // TODO: 改变一些默认值
+        // TODO: 改变默认值: planID, postID
         self.newDayDetail = DayDetailBean(planID: "", postID: "", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "", latitude: 1, longitude: 1, type: 0)
     }
 
@@ -97,6 +97,12 @@ class NewPlanTableViewController: UITableViewController, SelectLocationDelegate,
         print("selected location:\(selectedLocation.name)")
         self.selectedLocation = selectedLocation
         locationCell.detailTextLabel?.text = self.selectedLocation!.name
+        if let name = self.selectedLocation!.name {
+            newDayDetail?.place = name
+        }
+        if let coordinate = self.selectedLocation?.placemark.location?.coordinate {
+            newDayDetail?.coordinate = coordinate
+        }
     }
     
     // MARK: - Select type delegate
@@ -116,7 +122,10 @@ class NewPlanTableViewController: UITableViewController, SelectLocationDelegate,
     // MARK: - Helper
     
     func newPlan() {
-        if self.newDayDetail != nil {
+        if self.newDayDetail?.place != "" {
+            self.newDayDetail?.startTime = startDateCell.date
+            self.newDayDetail?.endTime = endDateCell.date
+            // 用delegate把值传回上一页面
             newPlanDelegate?.newPlan(self.newDayDetail!)
             self.navigationController?.popViewControllerAnimated(true)
         }

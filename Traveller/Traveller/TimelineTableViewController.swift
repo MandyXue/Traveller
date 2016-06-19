@@ -94,13 +94,13 @@ class TimelineTableViewController: UITableViewController {
         places = []
         gradientColors = []
         
-        places.append(PlanBean(scheduleId: schedule!.id!, content: "Shanghai > Taipei"))
-        places.append(PlanBean(scheduleId: schedule!.id!, content: "Taipei > Hualian"))
-        places.append(PlanBean(scheduleId: schedule!.id!, content: "Hualian"))
-        places.append(PlanBean(scheduleId: schedule!.id!, content: "Hualian > Taidong"))
-        places.append(PlanBean(scheduleId: schedule!.id!, content: "Taidong > Kending"))
-        places.append(PlanBean(scheduleId: schedule!.id!, content: "Kending"))
-        places.append(PlanBean(scheduleId: schedule!.id!, content: "Kending > Shanghai"))
+        places.append(PlanBean(planId: "test", scheduleId: schedule!.id!, content: "Shanghai > Taipei"))
+        places.append(PlanBean(planId: "test", scheduleId: schedule!.id!, content: "Taipei > Hualian"))
+        places.append(PlanBean(planId: "test", scheduleId: schedule!.id!, content: "Hualian"))
+        places.append(PlanBean(planId: "test", scheduleId: schedule!.id!, content: "Hualian > Taidong"))
+        places.append(PlanBean(planId: "test", scheduleId: schedule!.id!, content: "Taidong > Kending"))
+        places.append(PlanBean(planId: "test", scheduleId: schedule!.id!, content: "Kending"))
+        places.append(PlanBean(planId: "test", scheduleId: schedule!.id!, content: "Kending > Shanghai"))
         
         // color
         gradientColors.append(UIColor(red: 86/255, green: 158/255, blue: 8/255, alpha: 1))
