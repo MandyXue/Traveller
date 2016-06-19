@@ -44,6 +44,8 @@
 		338D97B11CF3294F00F731AE /* UserBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D97B01CF3294F00F731AE /* UserBean.swift */; };
 		338D97B61CF3FA8F00F731AE /* UserDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 338D97B51CF3FA8F00F731AE /* UserDetail.storyboard */; };
 		338D97CB1CF486E900F731AE /* UserDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D97CA1CF486E900F731AE /* UserDetailTableViewController.swift */; };
+		33A7334C1D161E060036E082 /* NewPlanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A7334B1D161E060036E082 /* NewPlanTableViewController.swift */; };
+		33A7334E1D161F150036E082 /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A7334D1D161F150036E082 /* DatePickerCell.swift */; };
 		33C1E6061CEF644800C75708 /* DispatchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6051CEF644800C75708 /* DispatchController.swift */; };
 		33C1E6081CEF64A300C75708 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6071CEF64A300C75708 /* RootTabBarController.swift */; };
 		33C1E60A1CEF654300C75708 /* UIStoryboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6091CEF654300C75708 /* UIStoryboardManager.swift */; };
@@ -135,6 +137,8 @@
 		338D97B01CF3294F00F731AE /* UserBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBean.swift; sourceTree = "<group>"; };
 		338D97B51CF3FA8F00F731AE /* UserDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserDetail.storyboard; sourceTree = "<group>"; };
 		338D97CA1CF486E900F731AE /* UserDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailTableViewController.swift; sourceTree = "<group>"; };
+		33A7334B1D161E060036E082 /* NewPlanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPlanTableViewController.swift; sourceTree = "<group>"; };
+		33A7334D1D161F150036E082 /* DatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		33C1E6051CEF644800C75708 /* DispatchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchController.swift; sourceTree = "<group>"; };
 		33C1E6071CEF64A300C75708 /* RootTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
 		33C1E6091CEF654300C75708 /* UIStoryboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardManager.swift; sourceTree = "<group>"; };
@@ -424,6 +428,7 @@
 		33C1E5E71CEF5F9900C75708 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				33A7334D1D161F150036E082 /* DatePickerCell.swift */,
 			);
 			name = ThirdParty;
 			sourceTree = "<group>";
@@ -615,6 +620,7 @@
 			isa = PBXGroup;
 			children = (
 				3355F2D01D0D622A00DFE697 /* Cells */,
+				33A7334B1D161E060036E082 /* NewPlanTableViewController.swift */,
 				33C1E6131CF01A5D00C75708 /* ScheduleTableViewController.swift */,
 				3355F2DD1D0DBD1C00DFE697 /* TimelineTableViewController.swift */,
 				3355F2E11D0EA93500DFE697 /* DayDetailTableViewController.swift */,
@@ -928,6 +934,7 @@
 				3356F44B1D0561B400329F0F /* PostListTableViewController.swift in Sources */,
 				338D979F1CF09B9000F731AE /* PostBean.swift in Sources */,
 				A477FF191D15157D002428EA /* DataBean.swift in Sources */,
+				33A7334E1D161F150036E082 /* DatePickerCell.swift in Sources */,
 				338D97AF1CF3291700F731AE /* CommentBean.swift in Sources */,
 				338D97A41CF0B18900F731AE /* PostDetailTableViewController.swift in Sources */,
 				338D97AD1CF213B400F731AE /* PostCommentTableViewCell.swift in Sources */,
@@ -937,6 +944,7 @@
 				3355F2E01D0DBDAD00DFE697 /* TimelineTableViewCell.swift in Sources */,
 				33C1E6141CF01A5D00C75708 /* ScheduleTableViewController.swift in Sources */,
 				3381DE121D0B126E003482F7 /* SignupTableViewController.swift in Sources */,
+				33A7334C1D161E060036E082 /* NewPlanTableViewController.swift in Sources */,
 				33D4F82F1CEF3B980082B927 /* AppDelegate.swift in Sources */,
 				3355F2D21D0D623D00DFE697 /* DestinationTableViewCell.swift in Sources */,
 				33C1E6081CEF64A300C75708 /* RootTabBarController.swift in Sources */,
