@@ -11,6 +11,7 @@ import UIKit
 class DayDetailTableViewController: UITableViewController, NewPlanDelegate {
     
     var spots: [DayDetailBean] = []
+    var planId: String?
     
     // MARK: - Life cycle
 
@@ -101,10 +102,10 @@ class DayDetailTableViewController: UITableViewController, NewPlanDelegate {
     // MARK: - Helper
     
     func prepareData() {
-        spots.append(DayDetailBean(planID: "test", postID: "test", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "鹅銮鼻灯塔", latitude: 1, longitude: 1, type: 2))
-        spots.append(DayDetailBean(planID: "test", postID: "test", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "鹅銮鼻公园", latitude: 1, longitude: 1, type: 2))
-        spots.append(DayDetailBean(planID: "test", postID: "test", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "台湾最南点碑", latitude: 1, longitude: 1, type: 2))
-        spots.append(DayDetailBean(planID: "test", postID: "test", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "垦丁俪山林会馆", latitude: 1, longitude: 1, type: 1))
+        spots.append(DayDetailBean(planID: planId!, postID: "test", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "鹅銮鼻灯塔", latitude: 1, longitude: 1, type: 2))
+        spots.append(DayDetailBean(planID: planId!, postID: "test", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "鹅銮鼻公园", latitude: 1, longitude: 1, type: 2))
+        spots.append(DayDetailBean(planID: planId!, postID: "test", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "台湾最南点碑", latitude: 1, longitude: 1, type: 2))
+        spots.append(DayDetailBean(planID: planId!, postID: "test", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "垦丁俪山林会馆", latitude: 1, longitude: 1, type: 1))
     }
     
     func addSpot() {

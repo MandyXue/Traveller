@@ -126,7 +126,9 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
             let comment = alert.textFields![0].text
             if comment != "" {
                 // TODO: 这里的user应该使用currentUser
-                self.comments.append(CommentBean(user: UserBean(), content: comment!, postID: self.postId!))
+                let newComment = CommentBean(creatorID: "Test", content: comment!, postID: self.postId!)
+                newComment.user = UserBean()
+                self.comments.append(newComment)
                 HUD.flash(.Success, delay: 1.0) { finished in
                     self.tableView.reloadData()
                 }
@@ -156,8 +158,11 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
     func prepareData() {
         // TODO: 假数据，后续添加接口
         var i = 0
-        while i < 5 {
-            comments.append(CommentBean(user: UserBean(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai"), content: "Great place, I want to go gogogogogogogogogogogogogogo....", postID: "Test"))
+        while i < 20 {
+            let newComment = CommentBean(commentId: "testId", creatorId: "testId", avatarURL: nil, content: "Great place, I want to go gogogogogogogogogogogogogogo....", postID: "test", createDate: "2016-06-18")
+            newComment.user = UserBean(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai")
+            comments.append(newComment)
+                
             i += 1
         }
         // scroll view images
@@ -281,10 +286,8 @@ extension PostDetailTableViewController {
     func configureCommentCell(cell: PostCommentTableViewCell, indexPath: NSIndexPath) {
         cell.commentLabel.text = comments[indexPath.row-4].content
         let user = comments[indexPath.row-4].user
-        cell.commentImageView.image = user.avatar
-        cell.commentNameLabel.text = user.username
-        
-        // TODO: comment label
+        cell.commentImageView.image = user!.avatar
+        cell.commentNameLabel.text = user!.username
         cell.commentTimeLabel.text = "TODO"//comments[indexPath.row-4].time
     }
 }
