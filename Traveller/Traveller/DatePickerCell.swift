@@ -215,7 +215,7 @@ public class DatePickerCell: UITableViewCell {
                 toItem: self.contentView,
                 attribute: NSLayoutAttribute.Right,
                 multiplier: 1.0,
-                constant: -self.separatorInset.left
+                constant: 0
             ),
             ])
         

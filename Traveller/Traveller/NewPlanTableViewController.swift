@@ -10,10 +10,10 @@ import UIKit
 import MapKit
 
 protocol NewPlanDelegate {
-    func newPlan(plan: [String:String])
+    func newPlan(plan: DayDetailBean)
 }
 
-class NewPlanTableViewController: UITableViewController, SelectLocationDelegate {
+class NewPlanTableViewController: UITableViewController, SelectLocationDelegate, SelectTypeDelegate {
     
     @IBOutlet weak var startDateCell: DatePickerCell!
     @IBOutlet weak var endDateCell: DatePickerCell!
@@ -22,6 +22,8 @@ class NewPlanTableViewController: UITableViewController, SelectLocationDelegate 
     
     var newPlanDelegate: NewPlanDelegate?
     var selectedLocation: MKMapItem?
+    
+    var newDayDetail: DayDetailBean?
     
     // MARK: - BaseViewController
     
@@ -46,6 +48,10 @@ class NewPlanTableViewController: UITableViewController, SelectLocationDelegate 
         
         // set navigation item
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(newPlan))
+        
+        // init day detail
+        // TODO: 改变一些默认值
+        self.newDayDetail = DayDetailBean(planID: "", postID: "", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "", latitude: 1, longitude: 1, type: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -93,21 +99,36 @@ class NewPlanTableViewController: UITableViewController, SelectLocationDelegate 
         locationCell.detailTextLabel?.text = self.selectedLocation!.name
     }
     
+    // MARK: - Select type delegate
+    
+    func selectType(type: Int) {
+        self.newDayDetail?.type = type
+        switch type {
+        case 0:
+            typeCell.detailTextLabel?.text = "Catering"
+        case 1:
+            typeCell.detailTextLabel?.text = "Accommodation"
+        default:
+            typeCell.detailTextLabel?.text = "Scenery Spot"
+        }
+    }
+    
     // MARK: - Helper
     
     func newPlan() {
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .NoStyle
-        formatter.timeStyle = .MediumStyle
-        
-        let starttime = startDateCell.rightLabel.text
-        let endtime = endDateCell.rightLabel.text
-        let name = locationCell.detailTextLabel?.text
-        let type = typeCell.detailTextLabel?.text
-        
-        if starttime != nil && endtime != nil && name != nil && type != nil {
-            newPlanDelegate?.newPlan(["name": name!, "type": type!, "time": starttime! + " to " + endtime!])
+        if self.newDayDetail != nil {
+            newPlanDelegate?.newPlan(self.newDayDetail!)
             self.navigationController?.popViewControllerAnimated(true)
+        }
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "SelectTypeSegue" {
+            if let detailViewController = segue.destinationViewController as? SelectTypeTableViewController {
+                detailViewController.selectTypeDelegate = self
+            }
         }
     }
 }

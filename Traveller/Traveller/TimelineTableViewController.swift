@@ -10,8 +10,9 @@ import UIKit
 
 class TimelineTableViewController: UITableViewController {
     
-    var places: [[String:String]] = []
+    var places: [PlanBean] = []
     var gradientColors: [UIColor] = []
+    var schedule: ScheduleBean?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,10 +39,13 @@ class TimelineTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TimelineCell", forIndexPath: indexPath) as! TimelineTableViewCell
+        // 算出来的数值
         cell.dayLabel.text = "D\(indexPath.row+1)"
-        cell.placeLabel.text = places[indexPath.row]["place"]
-        cell.timeLabel.text = places[indexPath.row]["time"]
+        let date = NSDate(timeInterval: timeIntervalForOneDay * Double(indexPath.row), sinceDate: schedule!.startDate)
+        cell.timeLabel.text = DataBean.onlyDateFormatter.stringFromDate(date)
         cell.backCircleView.backgroundColor = calculateColor(calculateProgress(indexPath), colors: gradientColors)
+        // 需要设置的内容
+        cell.placeLabel.text = places[indexPath.row].content
         return cell
     }
     
@@ -69,6 +73,7 @@ class TimelineTableViewController: UITableViewController {
                     if let cell = tableView.cellForRowAtIndexPath(indexPath) as? TimelineTableViewCell {
                         // TODO: pass value
                         detailViewController.navigationItem.title = cell.placeLabel.text
+                        detailViewController.planId = places[indexPath.row].id
                         cell.setSelected(false, animated: false)
                     }
                 }
@@ -81,7 +86,7 @@ class TimelineTableViewController: UITableViewController {
     func addDay() {
         // TODO: add day
         print("addday")
-        places.append(["place": "New", "time": NSDate.dateToString(NSDate.init(timeIntervalSinceNow: 0))])
+//        places.append(["place": "New", "time": NSDate.dateToString(NSDate.init(timeIntervalSinceNow: 0))])
         tableView.reloadData()
     }
     
@@ -89,13 +94,13 @@ class TimelineTableViewController: UITableViewController {
         places = []
         gradientColors = []
         
-        places.append(["place": "Shanghai > Taipei", "time": "Jun 13, 2016"])
-        places.append(["place": "Taipei > Hualian", "time": "Jun 14, 2016"])
-        places.append(["place": "Hualian", "time": "Jun 15, 2016"])
-        places.append(["place": "Hualian > Taidong", "time": "Jun 16, 2016"])
-        places.append(["place": "Taidong > Kending", "time": "Jun 17, 2016"])
-        places.append(["place": "Kending", "time": "Jun 18, 2016"])
-        places.append(["place": "Kending > Shanghai", "time": "Jun 19, 2016"])
+        places.append(PlanBean(scheduleId: schedule!.id!, content: "Shanghai > Taipei"))
+        places.append(PlanBean(scheduleId: schedule!.id!, content: "Taipei > Hualian"))
+        places.append(PlanBean(scheduleId: schedule!.id!, content: "Hualian"))
+        places.append(PlanBean(scheduleId: schedule!.id!, content: "Hualian > Taidong"))
+        places.append(PlanBean(scheduleId: schedule!.id!, content: "Taidong > Kending"))
+        places.append(PlanBean(scheduleId: schedule!.id!, content: "Kending"))
+        places.append(PlanBean(scheduleId: schedule!.id!, content: "Kending > Shanghai"))
         
         // color
         gradientColors.append(UIColor(red: 86/255, green: 158/255, blue: 8/255, alpha: 1))
@@ -164,7 +169,7 @@ class TimelineTableViewController: UITableViewController {
                     // update data source
                     let temp = NSMutableArray(array: places)
                     temp.exchangeObjectAtIndex(indexPath!.row, withObjectAtIndex: sourceIndexPath!.row)
-                    self.places = temp as AnyObject as! [[String:String]]
+                    self.places = temp as AnyObject as! [PlanBean]
                     tableView.reloadData()
                     // TODO: 将places存到远端
                     

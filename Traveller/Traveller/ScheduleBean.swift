@@ -14,21 +14,24 @@ class ScheduleBean: DataBean {
     var destination: String
     var order: Int
     var imageURL: String?
+    var startDate: NSDate
     
     // From remote
-    init(scheduleID id: String, creatorId: String, destination: String, order: Int, imageURL: String?) {
+    init(scheduleID id: String, creatorId: String, destination: String, order: Int, imageURL: String?, startDate: NSDate) {
         self.id = id
         self.creatorId = creatorId
         self.destination = destination
         self.order = order
         self.imageURL = imageURL
+        self.startDate = startDate
     }
     
     // From local
-    init(creatorId: String, destination: String, order: Int, imageURL: String?) {
+    init(creatorId: String, destination: String, order: Int, imageURL: String?, startDate: NSDate) {
         self.creatorId = creatorId
         self.destination = destination
         self.order = order
         self.imageURL = imageURL
+        self.startDate = startDate
     }
 }

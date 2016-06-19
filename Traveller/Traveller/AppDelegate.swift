@@ -50,6 +50,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+let timeIntervalForOneDay: Double = 24*60*60
+
 extension NSDate {
     static func dateToString(date: NSDate) -> String {
         let formatter = NSDateFormatter()

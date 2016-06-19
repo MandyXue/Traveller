@@ -13,6 +13,7 @@ import SDCycleScrollView
 import MJRefresh
 import UITableView_FDTemplateLayoutCell
 import PromiseKit
+import PKHUD
 
 class PostDetailTableViewController: UITableViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate, SDCycleScrollViewDelegate {
     
@@ -49,7 +50,7 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.navigationController?.navigationBar.lt_setBackgroundColor(UIColor.clearColor())
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Refresh", style: .Plain, target: self, action: #selector(refresh))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Comment", style: .Plain, target: self, action: #selector(addComment))
         
         postId = "402881e85553a48c015553a4af370001"
         if let id = postId {
@@ -115,9 +116,27 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
     
     // MARK: - Helper
     
-    func refresh() {
-        self.tableView.reloadData()
-        print("refresh")
+    func addComment() {
+        let alert = UIAlertController(title: "Add a comment", message: nil, preferredStyle: .Alert)
+        alert.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = "Your comment..."
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Submit", style: .Default, handler: { (action) in
+            let comment = alert.textFields![0].text
+            if comment != "" {
+                // TODO: 这里的user应该使用currentUser
+                let newComment = CommentBean(creatorID: "Test", content: comment!, postID: self.postId!)
+                newComment.user = UserBean()
+                self.comments.append(newComment)
+                HUD.flash(.Success, delay: 1.0) { finished in
+                    self.tableView.reloadData()
+                }
+            } else {
+                HUD.flash(.LabeledError(title: "Error", subtitle: "Comment cannot be empty"), delay: 2.0)
+            }
+        }))
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     func setUpUI() {

@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ScheduleTableViewController: UITableViewController {
     
-    var cities: [String] = []
+    var cities: [ScheduleBean] = []
     
     // MARK: - BaseViewController
     
@@ -54,8 +55,11 @@ class ScheduleTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DestinationCell", forIndexPath: indexPath) as! DestinationTableViewCell
-        cell.destImageView?.image = UIImage(named: "testPlace")
-        cell.destNameLabel.text = cities[indexPath.row]
+        // TODO: 图片还是加载不出来
+        if let image = cities[indexPath.row].imageURL {
+            cell.destImageView?.sd_setImageWithURL(NSURL(string: image), placeholderImage: UIImage(named: "testPlace"))
+        }
+        cell.destNameLabel.text = cities[indexPath.row].destination
         return cell
     }
 
@@ -83,6 +87,7 @@ class ScheduleTableViewController: UITableViewController {
                     if let cell = tableView.cellForRowAtIndexPath(indexPath) as? DestinationTableViewCell {
                         // TODO: pass value
                         detailViewController.navigationItem.title = cell.destNameLabel.text
+                        detailViewController.schedule = cities[indexPath.row]
                         cell.setSelected(false, animated: false)
                     }
                 }
@@ -93,17 +98,14 @@ class ScheduleTableViewController: UITableViewController {
     // MARK: - Helper
     
     func prepareData() {
-        cities.append("Shanghai, China")
-        cities.append("Uppsala, Sweden")
-        cities.append("Paris, France")
-        cities.append("Guangzhou, China")
+        cities.append(ScheduleBean(scheduleID: "test1", creatorId: "test", destination: "Shanghai, China", order: 0, imageURL: "http://img2.imgtn.bdimg.com/it/u=1562647182,3454169304&fm=21&gp=0.jpg", startDate: NSDate(timeIntervalSinceNow: 0)))
+        cities.append(ScheduleBean(scheduleID: "test1", creatorId: "test", destination: "Uppsala, Sweden", order: 0, imageURL: "http://img1.imgtn.bdimg.com/it/u=1613045286,2980741283&fm=15&gp=0.jpg", startDate: NSDate(timeIntervalSinceNow: 0)))
     }
     
     func addDestination() {
         // TODO: 进入地图选点, add destination
         print("add")
-        cities.append("New")
-        tableView.reloadData()
+//        tableView.reloadData()
     }
     
     
@@ -153,7 +155,7 @@ class ScheduleTableViewController: UITableViewController {
                         // update data source
                         let temp = NSMutableArray(array: cities)
                         temp.exchangeObjectAtIndex(indexPath!.row, withObjectAtIndex: sourceIndexPath!.row)
-                        self.cities = temp as AnyObject as! [String]
+                        self.cities = temp as AnyObject as! [ScheduleBean]
                         // TODO: 将cities存到远端
                         
                         // move the rows
