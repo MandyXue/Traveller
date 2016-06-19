@@ -19,8 +19,12 @@ class DataModel {
     init () {
         // 每次init时从NSUserDefault中取token和userid
         // TODO:考虑能不能弄成单例模式
-        token = NSUserDefaults.standardUserDefaults().valueForKey("token") as! String
-        userID = NSUserDefaults.standardUserDefaults().valueForKey("id") as! String
+//        token = NSUserDefaults.standardUserDefaults().valueForKey("token") as! String
+//        userID = NSUserDefaults.standardUserDefaults().valueForKey("id") as! String
+        
+        //For test
+        token = ""
+        userID = ""
     }
     
     // 处理http response抛出的异常

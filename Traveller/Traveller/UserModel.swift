@@ -114,8 +114,6 @@ class UserModel: DataModel {
         }
     }
     
-
-    
     // 8-1根据用户id获取用户个人基本信息
     func getUserDetail(byUserID id: String) -> Promise<UserBean> {
         let requestURL = DataModel.baseURL + "/user/\(id)/info"
@@ -162,13 +160,12 @@ class UserModel: DataModel {
     func getFollowList(byUserID id:String, isFollowing: Bool) -> Promise<[UserBean]> {
         var requestURL:String
         if isFollowing {
-            requestURL = DataModel.baseURL + "/user/following"
+            requestURL = DataModel.baseURL + "/user/\(token)/\(id)/following"
         } else {
-            requestURL = DataModel.baseURL + "/user/follower"
+            requestURL = DataModel.baseURL + "/user/\(token)/\(id)/follower"
         }
-        let parameters = ["token": token, "id": id]
         return Promise { fulfill, reject in
-            Alamofire.request(.GET, requestURL, parameters: parameters, encoding: .URL, headers: nil)
+            Alamofire.request(.GET, requestURL, parameters: nil, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
