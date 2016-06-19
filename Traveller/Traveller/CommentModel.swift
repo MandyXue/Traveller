@@ -13,12 +13,35 @@ import SwiftyJSON
 
 
 class CommentModel: DataModel {
-    // 增加一条评论
-    func addComment() {
+    
+    // 13-1提交评论
+    func addNewComment(newComment: CommentBean) -> Promise<Bool> {
+        let requestURL = baseURL + "/comment/submit"
+        let parameters = ["token": token, "content": newComment.content, "post_id": newComment.postID, "creator_id": userID]
         
+        return Promise { fulfill, reject in
+            Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
+                .responseJSON { response in
+                    do {
+                        let jsonData = try self.filterResponse(response)
+                        let errCode = jsonData["errCode"].int!
+                        
+                        if errCode != 0 {
+                            // 错误处理
+                        } else {
+                            print("save new comment response:")
+                            print(jsonData)
+                            
+                            fulfill(true)
+                        }
+                    } catch {
+                        print(error)
+                    }
+            }
+        }
     }
 
-    // 13-2根据用户ID获取用户评论历史列表
+    // TODO:13-2根据用户ID获取用户评论历史列表
     func getComments(byUserID id:String) -> Promise<[CommentBean]> {
         let requestURL = baseURL + "/comment/list"
         let parameters = ["token": token, "id": id]
@@ -28,32 +51,21 @@ class CommentModel: DataModel {
                 .responseJSON { response in
                     do {
                         let jsonData = try self.filterResponse(response)
-                        print(jsonData)
+                        let errCode = jsonData["errCode"].int!
                         
+                        if errCode != 0 {
+                            // 错误处理
+                        } else {
+                            print("get posts by user id:")
+                            print(jsonData)
+                            
+                            let comments = [CommentBean]()
+                            fulfill(comments)
+                        }
                     } catch {
                         print(error)
                     }
             }
         }
     }
-    
-    func addNewComment(comment: CommentBean) -> Promise<Bool> {
-        let requestURL = baseURL + "/comment/submit"
-        let parameters = ["token": token, "": ""]
-        
-        return Promise { fulfill, reject in
-            Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
-                .responseJSON { response in
-                    do {
-                        let jsonData = try self.filterResponse(response)
-                        print(jsonData)
-                        
-                    } catch {
-                        print(error)
-                    }
-            }
-        }
-    }
-    
-    
 }

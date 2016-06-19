@@ -14,10 +14,13 @@ import PromiseKit
 class DataModel {
     let baseURL = "http://localhost:8000"
     var token:String
+    var userID:String
     
     init () {
-        // 取token
+        // 每次init时从NSUserDefault中取token和userid
+        // TODO:考虑能不能弄成单例模式
         token = "685f5f39-ad7d-4cf8-97c9-556c4ece62f0"
+        userID = ""
     }
     
     // 处理http response抛出的异常

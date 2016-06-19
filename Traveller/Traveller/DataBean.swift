@@ -9,5 +9,5 @@
 import Foundation
 
 class DataBean {
-    let dateFormatter = "yyyy"
+    let dateFormatterStr = "yyyy-MM-dd HH:ss:mm"
 }
