@@ -85,6 +85,7 @@
 		A4D7227E1D1599B000634986 /* PlanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D7227C1D1599B000634986 /* PlanModel.swift */; };
 		A4D722801D1599CB00634986 /* PlanBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D7227F1D1599CB00634986 /* PlanBean.swift */; };
 		A4D722811D1599CB00634986 /* PlanBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D7227F1D1599CB00634986 /* PlanBean.swift */; };
+		A4F702C51D168C7500BAF46C /* DayDetailBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F702C41D168C7500BAF46C /* DayDetailBean.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -173,6 +174,7 @@
 		A4D722791D1599A300634986 /* ScheduleBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleBean.swift; sourceTree = "<group>"; };
 		A4D7227C1D1599B000634986 /* PlanModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanModel.swift; sourceTree = "<group>"; };
 		A4D7227F1D1599CB00634986 /* PlanBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanBean.swift; sourceTree = "<group>"; };
+		A4F702C41D168C7500BAF46C /* DayDetailBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayDetailBean.swift; sourceTree = "<group>"; };
 		E6697C2EDC27A5B41892E040 /* Pods-Traveller.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Traveller.release.xcconfig"; path = "Pods/Target Support Files/Pods-Traveller/Pods-Traveller.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -484,6 +486,7 @@
 				A477FF1B1D152562002428EA /* ErrorCode.swift */,
 				A4D722791D1599A300634986 /* ScheduleBean.swift */,
 				A4D7227F1D1599CB00634986 /* PlanBean.swift */,
+				A4F702C41D168C7500BAF46C /* DayDetailBean.swift */,
 			);
 			name = DataBean;
 			sourceTree = "<group>";
@@ -921,6 +924,7 @@
 				33C1E6101CF019CA00C75708 /* HomeMapViewController.swift in Sources */,
 				3355F2E81D0EC6D900DFE697 /* SpotTableViewCell.swift in Sources */,
 				338D97AB1CF213A400F731AE /* PostCreatorTableViewCell.swift in Sources */,
+				A4F702C51D168C7500BAF46C /* DayDetailBean.swift in Sources */,
 				3381DE1E1D0BFDCD003482F7 /* PostImageCollectionViewCell.swift in Sources */,
 				33DA2CFE1CFC993200665709 /* UserProfileTableViewCell.swift in Sources */,
 				A41F4CCE1D131203000B7CFF /* UserModel.swift in Sources */,
