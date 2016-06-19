@@ -8,10 +8,9 @@
 
 import UIKit
 import Regex
+import PromiseKit
 
 class SignupTableViewController: UITableViewController {
-
-    let userModel: UserModel = UserModel()
     
     @IBOutlet weak var inputEmail: UITextField!
     @IBOutlet weak var inputUsername: UITextField!
@@ -49,12 +48,22 @@ class SignupTableViewController: UITableViewController {
         // 注册新用户
         let user = UserBean(name: inputUsername.text!, password: inputPassword.text!, email: inputEmail.text!)
 
-        userModel.signup(user)
-            .then { isSuccess -> Void in
+        UserModel.signup(user)
+            .then { isSuccess -> Promise<Bool> in
                 if isSuccess {
                     print("signup successful")
+                    return UserModel.login(user.username, password: user.password!)
                 } else {
                     print("signup failed")
+                    return Promise { fulfill, reject in
+                        reject(SignupError.SignupFailled)
+                    }
+                }
+            }.then { loginSuccess -> () in
+                if loginSuccess {
+                    UIApplication.sharedApplication().windows[0].rootViewController = RootTabBarController.loadFromStoryboard()
+                } else {
+                    // 登录失败
                 }
             }.error { err in
                 print("signup with error")
@@ -62,7 +71,6 @@ class SignupTableViewController: UITableViewController {
             }
         
         
-        UIApplication.sharedApplication().windows[0].rootViewController = RootTabBarController.loadFromStoryboard()
     }
     
     // MARK: - BaseViewController

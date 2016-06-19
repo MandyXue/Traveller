@@ -14,7 +14,7 @@ class PostModel: DataModel {
     
     // TODO:1-1获取附近post列表
     func getAroundPost() -> Promise<[PostBean]> {
-        let requestURL = baseURL + ""
+        let requestURL = DataModel.baseURL + ""
         
         return Promise { fulfill, reject in
             Alamofire.request(.GET, requestURL, parameters: nil, encoding: .URL, headers: nil)
@@ -23,7 +23,7 @@ class PostModel: DataModel {
     
     // 2-1获取post的详情
     func getPostDetail(byPostID id:String) -> Promise<PostBean> {
-        let requestURL = baseURL + "post/detail"
+        let requestURL = DataModel.baseURL + "post/detail"
         let parameters = ["token": token, "id": id]
         
         print("request:\(requestURL)")
@@ -31,7 +31,7 @@ class PostModel: DataModel {
             Alamofire.request(.GET, requestURL, parameters: parameters, encoding: .URLEncodedInURL, headers: nil)
                 .responseJSON { response in
                     do {
-                        let jsonData = try self.filterResponse(response)
+                        let jsonData = try DataModel.filterResponse(response)
                         let errCode = jsonData["errCode"].int!
                         
                         if errCode != 0 {
@@ -65,14 +65,14 @@ class PostModel: DataModel {
     
     // TODO:2-2获取post的评论
     func getComments(byPostID id:String) -> Promise<[CommentBean]> {
-        let requestURL = baseURL + "/comment/plist"
+        let requestURL = DataModel.baseURL + "/comment/plist"
         let parameters = ["token": token, "post_id": id]
         
         return Promise { fulfill, reject in
             Alamofire.request(.GET, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        let jsonData = try self.filterResponse(response)
+                        let jsonData = try DataModel.filterResponse(response)
                         let errCode = jsonData["errCode"].int!
                         
                         if errCode != 0 {
@@ -93,7 +93,7 @@ class PostModel: DataModel {
     
     // 2-3获取post的creator的信息
     func getCreatorDetail(byPostID id:String) -> Promise<UserBean> {
-        let requestURL = baseURL + "/post/creator"
+        let requestURL = DataModel.baseURL + "/post/creator"
         let parameters = ["token": token, "id": id]
         
         
@@ -101,7 +101,7 @@ class PostModel: DataModel {
             Alamofire.request(.GET, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        let jsonData = try self.filterResponse(response)
+                        let jsonData = try DataModel.filterResponse(response)
                         let errCode = jsonData["errCode"].int!
                         
                         if errCode != 0 {
@@ -130,7 +130,7 @@ class PostModel: DataModel {
     
     // TODO:获取图片上传token
     func getUpToken() ->Promise<String> {
-        let requestURL = baseURL + ""
+        let requestURL = DataModel.baseURL + ""
         
         return Promise { fulfill, reject in
             Alamofire.request(.POST, requestURL, parameters: nil, encoding: .URL, headers: nil)
@@ -139,7 +139,7 @@ class PostModel: DataModel {
     
     // TODO:3-1上传图片到云服务器
     func loadImageToQiniu() -> Promise<Bool> {
-        let requestURL = baseURL + ""
+        let requestURL = DataModel.baseURL + ""
         
         return Promise { fulfill, reject in
             Alamofire.request(.POST, requestURL, parameters: nil, encoding: .URL, headers: nil)
@@ -148,14 +148,14 @@ class PostModel: DataModel {
     
     // TODO:5-1获取一个用户推送的post列表
     func getPosts(byUserID id: String) -> Promise<[PostBean]> {
-        let requestURL = baseURL + "/post/posts"
+        let requestURL = DataModel.baseURL + "/post/posts"
         let parameters = ["token": token, "id": id]
         
         return Promise { fulfill, reject in
             Alamofire.request(.GET, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        let jsonData = try self.filterResponse(response)
+                        let jsonData = try DataModel.filterResponse(response)
                         let errCode = jsonData["errCode"].int!
                         
                         if errCode != 0 {
@@ -179,7 +179,7 @@ class PostModel: DataModel {
     
     // 6-1推送一条新的post
     func addNewPost(newPost: PostBean) -> Promise<Bool> {
-        let requestURL = baseURL + "/post/new"
+        let requestURL = DataModel.baseURL + "/post/new"
         let post = []
         let urls = newPost.imagesURL
         
@@ -188,7 +188,7 @@ class PostModel: DataModel {
             Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        let jsonData = try self.filterResponse(response)
+                        let jsonData = try DataModel.filterResponse(response)
                         let errCode = jsonData["errCode"].int!
                         
                         if errCode != 0 {
@@ -208,14 +208,14 @@ class PostModel: DataModel {
     
     // 13-3根据评论ID获取post
     func getPost(byCommentID id: String) -> Promise<PostBean> {
-        let requestURL = baseURL + "/post/comment/\(id)"
+        let requestURL = DataModel.baseURL + "/post/comment/\(id)"
         let parameters = ["token": token]
         
         return Promise { fulfill, reject in
             Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        let jsonData = try self.filterResponse(response)
+                        let jsonData = try DataModel.filterResponse(response)
                         let errCode = jsonData["errCode"].int!
                         
                         if errCode != 0 {

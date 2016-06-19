@@ -37,17 +37,14 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
         nameLabel.text = user.username
         locationLabel.text = user.place
         
-        //从NSUserDefault中取ID
-//        let id = ""
-//        
-//        userModel.getUserDetail(byUserID: id)
-//            .then { userInfo -> Void in
-//                self.currentUser = userInfo
-//                self.tableView.reloadData()
-//            } .error { err in
-//                // 错误处理
-//                print(err)
-//        }
+        userModel.getUserDetail(byUserID: userModel.userID)
+            .then { userInfo -> Void in
+                self.currentUser = userInfo
+                self.tableView.reloadData()
+            } .error { err in
+                // 错误处理
+                print(err)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -106,6 +103,7 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
                 // TODO: logout
                 //        UIApplication.sharedApplication().windows[0].rootViewController = DispatchController.dispatchToMain()
                 UIApplication.sharedApplication().windows[0].rootViewController = WelcomeViewController.loadFromStoryboard()
+                NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "token")
                 print("logout")
             }))
             presentViewController(alert, animated: true, completion: nil)

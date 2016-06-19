@@ -21,6 +21,7 @@ enum DataError: ErrorType {
 
 enum SignupError: ErrorType {
     case InvalidEmailI(coinNeeded: Int)
+    case SignupFailled
     case RepeatEmail
     case RepeatName
 }

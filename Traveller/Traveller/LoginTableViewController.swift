@@ -10,6 +10,9 @@ import UIKit
 
 class LoginTableViewController: UITableViewController {
     
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    
     @IBOutlet weak var passwordView: UIView!
     @IBOutlet weak var usernameView: UIView!
     @IBOutlet weak var loginButton: UIButton!
@@ -19,7 +22,16 @@ class LoginTableViewController: UITableViewController {
     @IBAction func login(sender: AnyObject) {
         // TODO: 连接注册接口
         //        UIApplication.sharedApplication().windows[0].rootViewController = DispatchController.dispatchToMain()
-        UIApplication.sharedApplication().windows[0].rootViewController = RootTabBarController.loadFromStoryboard()
+        
+        if let name = usernameTextField.text, let pass = passwordTextField.text {
+            UserModel.login(name, password: pass)
+                .then { isSuccess -> () in
+                    UIApplication.sharedApplication().windows[0].rootViewController = RootTabBarController.loadFromStoryboard()
+                }.error { err in
+                    // 提示错误
+            }
+        }
+        
     }
     
     // MARK: - BaseViewController

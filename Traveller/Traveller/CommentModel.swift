@@ -16,14 +16,14 @@ class CommentModel: DataModel {
     
     // 13-1提交评论
     func addNewComment(newComment: CommentBean) -> Promise<Bool> {
-        let requestURL = baseURL + "/comment/submit"
+        let requestURL = DataModel.baseURL + "/comment/submit"
         let parameters = ["token": token, "content": newComment.content, "post_id": newComment.postID, "creator_id": userID]
         
         return Promise { fulfill, reject in
             Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        let jsonData = try self.filterResponse(response)
+                        let jsonData = try DataModel.filterResponse(response)
                         let errCode = jsonData["errCode"].int!
                         
                         if errCode != 0 {
@@ -43,14 +43,14 @@ class CommentModel: DataModel {
 
     // TODO:13-2根据用户ID获取用户评论历史列表
     func getComments(byUserID id:String) -> Promise<[CommentBean]> {
-        let requestURL = baseURL + "/comment/list"
+        let requestURL = DataModel.baseURL + "/comment/list"
         let parameters = ["token": token, "creator_id": id]
         
         return Promise { fulfill, reject in
             Alamofire.request(.GET, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        let jsonData = try self.filterResponse(response)
+                        let jsonData = try DataModel.filterResponse(response)
                         let errCode = jsonData["errCode"].int!
                         
                         if errCode != 0 {

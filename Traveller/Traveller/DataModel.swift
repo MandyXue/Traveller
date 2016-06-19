@@ -12,19 +12,21 @@ import SwiftyJSON
 import PromiseKit
 
 class DataModel {
-    let baseURL = "http://localhost:8000"
+    static let baseURL = "http://localhost:8000"
     var token:String
     var userID:String
     
     init () {
         // 每次init时从NSUserDefault中取token和userid
         // TODO:考虑能不能弄成单例模式
-        token = "1ad1658b-1eff-4555-b1fd-f219f8d621da"
-        userID = ""
+        token = NSUserDefaults.standardUserDefaults().valueForKey("token") as! String
+        userID = NSUserDefaults.standardUserDefaults().valueForKey("id") as! String
+//        token = "1ad1658b-1eff-4555-b1fd-f219f8d621da"
+//        userID = ""
     }
     
     // 处理http response抛出的异常
-    func filterResponse(response: Response<AnyObject, NSError>) throws -> JSON {
+    class func filterResponse(response: Response<AnyObject, NSError>) throws -> JSON {
         print("http response")
         print(response)
         if let serverResp = response.response {

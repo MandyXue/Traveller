@@ -13,17 +13,30 @@ import SwiftyJSON
 
 class UserModel: DataModel {
     
-    func login(name:String, password pass:String) -> Promise<Bool> {
-        let requestURL = baseURL + "/user/login/\(name)"
+    class func login(name:String, password pass:String) -> Promise<Bool> {
+        let requestURL = DataModel.baseURL + "/user/login/\(name)"
         let parameters = ["name": name, "password": pass]
         
         return Promise { fulfill, reject in
             Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        let jsonData = try self.filterResponse(response)
+                        let jsonData = try DataModel.filterResponse(response)
                         print(jsonData)
                         
+                        let errCode = jsonData["errCode"].int!
+                        if errCode != 0 {
+                            
+                        } else {
+                            // 将token和userId存NSUserDefault
+                            let token = jsonData["token"].string!
+                            let currentId = jsonData["userId"].string!
+                            
+                            let userInfo = NSUserDefaults.standardUserDefaults()
+                            userInfo.setObject(token, forKey: "token")
+                            userInfo.setObject(currentId, forKey: "id")
+                            fulfill(true)
+                        }
                     } catch {
                         print(error)
                     }
@@ -31,15 +44,15 @@ class UserModel: DataModel {
         }
     }
     
-    func signup(newUser: UserBean) ->Promise<Bool> {
-        let requestURL = baseURL + "/user/register/\(newUser.username)"
+    class func signup(newUser: UserBean) ->Promise<Bool> {
+        let requestURL = DataModel.baseURL + "/user/register/\(newUser.username)"
         let parameters = ["name": newUser.username, "password": newUser.password!, "email": newUser.email]
         
         return Promise { fulfill, reject in
             Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        let jsonData = try self.filterResponse(response)
+                        let jsonData = try DataModel.filterResponse(response)
                         print(jsonData)
                         
                         let errCode = jsonData["errCode"].int!
@@ -59,7 +72,7 @@ class UserModel: DataModel {
     
     // 5-1获取一个用户推送的post列表
     func getPosts(byUserID id:String) -> Promise<[PostBean]> {
-        let requestURL = baseURL + ""
+        let requestURL = DataModel.baseURL + ""
         
         return Promise { fulfill, reject in
             Alamofire.request(.GET, requestURL, parameters: nil, encoding: .URL, headers: nil)
@@ -73,7 +86,7 @@ class UserModel: DataModel {
     // 8-1根据用户id获取用户个人基本信息
     func getUserDetail(byUserID id: String) -> Promise<UserBean> {
         
-        let requestURL = baseURL + ""
+        let requestURL = DataModel.baseURL + ""
         
         return Promise { fulfill, reject in
             Alamofire.request(.GET, requestURL, parameters: nil, encoding: .URL, headers: nil)
@@ -84,7 +97,7 @@ class UserModel: DataModel {
     }
     
     func signout(userID: String) -> Promise<Bool> {
-        let requestURL = baseURL + ""
+        let requestURL = DataModel.baseURL + ""
         let parameters = ["token": "", "id": "id"]
         
         return Promise {fulfill, reject in
@@ -97,13 +110,13 @@ class UserModel: DataModel {
     
     //10-1根据用户ID获取用户正在following的用户列表
     func getFollowing(byUserID id:String) -> Promise<[UserBean]> {
-        let requestURL = baseURL + "/user/\(token)/\(id)/following"
+        let requestURL = DataModel.baseURL + "/user/\(token)/\(id)/following"
         
         return Promise { fulfill, reject in
             Alamofire.request(.GET, requestURL, parameters: nil, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        let jsonData = try self.filterResponse(response)
+                        let jsonData = try DataModel.filterResponse(response)
                         print(jsonData)
                         
                         let errCode = jsonData["errCode"].int!
