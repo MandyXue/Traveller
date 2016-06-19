@@ -7,20 +7,21 @@
 //
 
 import UIKit
+import MapKit
 
 protocol NewPlanDelegate {
     func newPlan(plan: [String:String])
 }
 
-class NewPlanTableViewController: UITableViewController {
+class NewPlanTableViewController: UITableViewController, SelectLocationDelegate {
     
     @IBOutlet weak var startDateCell: DatePickerCell!
     @IBOutlet weak var endDateCell: DatePickerCell!
-    @IBOutlet weak var destinationCell: UITableViewCell!
     @IBOutlet weak var typeCell: UITableViewCell!
     @IBOutlet weak var locationCell: UITableViewCell!
     
     var newPlanDelegate: NewPlanDelegate?
+    var selectedLocation: MKMapItem?
     
     // MARK: - BaseViewController
     
@@ -70,12 +71,26 @@ class NewPlanTableViewController: UITableViewController {
             datePickerTableViewCell.selectedInTableView(tableView)
             self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
+        
+        if indexPath.row == 3 {
+            let vc = ChooseLocationViewController.loadFromStoryboard() as! ChooseLocationViewController
+            vc.selectLocationDelegate = self
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 12))
         view.backgroundColor = UIColor.clearColor()
         return view
+    }
+    
+    // MARK: - Select location delegate
+    
+    func selectLocation(selectedLocation: MKMapItem) {
+        print("selected location:\(selectedLocation.name)")
+        self.selectedLocation = selectedLocation
+        locationCell.detailTextLabel?.text = self.selectedLocation!.name
     }
     
     // MARK: - Helper
@@ -87,10 +102,9 @@ class NewPlanTableViewController: UITableViewController {
         
         let starttime = startDateCell.rightLabel.text
         let endtime = endDateCell.rightLabel.text
-        let name = destinationCell.detailTextLabel?.text
+        let name = locationCell.detailTextLabel?.text
         let type = typeCell.detailTextLabel?.text
         
-        // TODO: location
         if starttime != nil && endtime != nil && name != nil && type != nil {
             newPlanDelegate?.newPlan(["name": name!, "type": type!, "time": starttime! + " to " + endtime!])
             self.navigationController?.popViewControllerAnimated(true)
