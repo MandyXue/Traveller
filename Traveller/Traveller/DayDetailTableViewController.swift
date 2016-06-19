@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DayDetailTableViewController: UITableViewController {
+class DayDetailTableViewController: UITableViewController, NewPlanDelegate {
     
     var spots: [[String:String]] = []
     
@@ -84,6 +84,13 @@ class DayDetailTableViewController: UITableViewController {
         }
     }
     
+    // MARK: - New plan delegate
+    
+    func newPlan(plan: [String:String]) {
+        spots.append(plan)
+        tableView.reloadData()
+    }
+    
     // MARK: - Helper
     
     func prepareData() {
@@ -95,8 +102,11 @@ class DayDetailTableViewController: UITableViewController {
     
     func addSpot() {
         // TODO: add a spot
-        spots.append(["name": "test", "type": "spot", "time": "半夜出来吓人"])
-        tableView.reloadData()
+//        spots.append(["name": "test", "type": "spot", "time": "半夜出来吓人"])
+//        tableView.reloadData()
+        let vc = NewPlanTableViewController.loadFromStoryboard() as! NewPlanTableViewController
+        vc.newPlanDelegate = self
+        navigationController?.pushViewController(vc, animated: true)
     }
 
 }
