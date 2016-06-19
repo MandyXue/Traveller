@@ -10,7 +10,7 @@ import UIKit
 
 class DayDetailTableViewController: UITableViewController, NewPlanDelegate {
     
-    var spots: [[String:String]] = []
+    var spots: [DayDetailBean] = []
     
     // MARK: - Life cycle
 
@@ -49,10 +49,17 @@ class DayDetailTableViewController: UITableViewController, NewPlanDelegate {
                 cell.bottomLineView.image = nil
             }
             
-            // type: eating/living/spot
-            cell.typeImageView.image = UIImage(named: spots[index]["type"]!)
-            cell.nameLabel.text = spots[index]["name"]
-            cell.timeLabel.text = spots[index]["time"]
+            // type: 0:eating/1:living/2:spot
+            switch spots[index].type {
+            case 0:
+                cell.typeImageView.image = UIImage(named: "eating")
+            case 1:
+                cell.typeImageView.image = UIImage(named: "living")
+            default:
+                cell.typeImageView.image = UIImage(named: "spot")
+            }
+            cell.nameLabel.text = spots[index].place
+            cell.timeLabel.text = NSDate.dateToString(spots[index].startTime)
             return cell
         } else {
             // 1, 3, 5, ... 等行数，即过路
@@ -86,7 +93,7 @@ class DayDetailTableViewController: UITableViewController, NewPlanDelegate {
     
     // MARK: - New plan delegate
     
-    func newPlan(plan: [String:String]) {
+    func newPlan(plan: DayDetailBean) {
         spots.append(plan)
         tableView.reloadData()
     }
@@ -94,16 +101,14 @@ class DayDetailTableViewController: UITableViewController, NewPlanDelegate {
     // MARK: - Helper
     
     func prepareData() {
-        spots.append(["name": "鹅銮鼻灯塔", "type": "spot", "time": "10:00 to 10:50"])
-        spots.append(["name": "鹅銮鼻公园", "type": "spot", "time": "10:55 to 18:20"])
-        spots.append(["name": "台湾最南点碑", "type": "spot", "time": "18:50 to 19:20"])
-        spots.append(["name": "垦丁俪山林会馆", "type": "living", "time": "night🌚"])
+        spots.append(DayDetailBean(planID: "test", postID: "test", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "鹅銮鼻灯塔", latitude: 1, longitude: 1, type: 2))
+        spots.append(DayDetailBean(planID: "test", postID: "test", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "鹅銮鼻公园", latitude: 1, longitude: 1, type: 2))
+        spots.append(DayDetailBean(planID: "test", postID: "test", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "台湾最南点碑", latitude: 1, longitude: 1, type: 2))
+        spots.append(DayDetailBean(planID: "test", postID: "test", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "垦丁俪山林会馆", latitude: 1, longitude: 1, type: 1))
     }
     
     func addSpot() {
         // TODO: add a spot
-//        spots.append(["name": "test", "type": "spot", "time": "半夜出来吓人"])
-//        tableView.reloadData()
         let vc = NewPlanTableViewController.loadFromStoryboard() as! NewPlanTableViewController
         vc.newPlanDelegate = self
         navigationController?.pushViewController(vc, animated: true)

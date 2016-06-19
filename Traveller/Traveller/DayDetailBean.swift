@@ -18,7 +18,7 @@ class DayDetailBean: DataBean {
     var endTime: NSDate
     var place: String
     var coordinate: CLLocationCoordinate2D
-    var type: Int
+    var type: Int  // 0: eating; 1: living; 2: spot
     
     // From remote
     init (id: String, planID: String, postID:String?, startTime: NSDate, endTime: NSDate, place: String, latitude: Double, longitude: Double, type: Int) {

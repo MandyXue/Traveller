@@ -15,8 +15,7 @@ pod 'Alamofire', '~> 3.4'
 pod "PromiseKit", "~> 3.0"
 pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 pod 'Regex'
-#pod 'PKHUD'
-#pod 'SDWebImage'
+pod 'PKHUD'
 
 end
 
