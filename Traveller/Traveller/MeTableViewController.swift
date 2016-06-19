@@ -17,6 +17,9 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     
+    let userModel = UserModel()
+    var currentUser: UserBean?
+    
     // MARK: - BaseViewController
     
     static func loadFromStoryboard() -> UIViewController {
@@ -33,6 +36,18 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
         avatarImageView.image = user.avatar
         nameLabel.text = user.username
         locationLabel.text = user.place
+        
+        //从NSUserDefault中取ID
+//        let id = ""
+//        
+//        userModel.getUserDetail(byUserID: id)
+//            .then { userInfo -> Void in
+//                self.currentUser = userInfo
+//                self.tableView.reloadData()
+//            } .error { err in
+//                // 错误处理
+//                print(err)
+//        }
     }
     
     override func viewWillAppear(animated: Bool) {

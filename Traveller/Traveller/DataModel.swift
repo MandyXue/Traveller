@@ -19,12 +19,14 @@ class DataModel {
     init () {
         // 每次init时从NSUserDefault中取token和userid
         // TODO:考虑能不能弄成单例模式
-        token = "685f5f39-ad7d-4cf8-97c9-556c4ece62f0"
+        token = "1ad1658b-1eff-4555-b1fd-f219f8d621da"
         userID = ""
     }
     
     // 处理http response抛出的异常
     func filterResponse(response: Response<AnyObject, NSError>) throws -> JSON {
+        print("http response")
+        print(response)
         if let serverResp = response.response {
             if serverResp.statusCode < 200 || serverResp.statusCode > 299 {
                 throw HttpError.ResponseError

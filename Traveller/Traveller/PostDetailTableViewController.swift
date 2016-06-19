@@ -140,7 +140,10 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
         // TODO: 假数据，后续添加接口
         var i = 0
         while i < 20 {
-            comments.append(CommentBean(user: UserBean(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai"), content: "Great place, I want to go gogogogogogogogogogogogogogo....", postID: "Test"))
+            let newComment = CommentBean(commentId: "testId", creatorId: "testId", avatarURL: nil, content: "Great place, I want to go gogogogogogogogogogogogogogo....", postID: "test", createDate: "2016-06-18")
+            newComment.user = UserBean(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai")
+            comments.append(newComment)
+                
             i += 1
         }
         // scroll view images
@@ -264,8 +267,8 @@ extension PostDetailTableViewController {
     func configureCommentCell(cell: PostCommentTableViewCell, indexPath: NSIndexPath) {
         cell.commentLabel.text = comments[indexPath.row-4].content
         let user = comments[indexPath.row-4].user
-        cell.commentImageView.image = user.avatar
-        cell.commentNameLabel.text = user.username
+        cell.commentImageView.image = user!.avatar
+        cell.commentNameLabel.text = user!.username
         cell.commentTimeLabel.text = "TODO"//comments[indexPath.row-4].time
     }
 }
