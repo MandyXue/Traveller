@@ -69,7 +69,50 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2bc-ho-DYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="311" y="-922"/>
+            <point key="canvasLocation" x="311" y="1095"/>
+        </scene>
+        <!--New Plan Table View Controller-->
+        <scene sceneID="c87-Lf-dio">
+            <objects>
+                <tableViewController storyboardIdentifier="NewPlanTableViewController" id="1PT-56-fkU" customClass="NewPlanTableViewController" customModule="Traveller" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" id="H9C-Ej-gR2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="lxY-2W-RxY">
+                            <rect key="frame" x="0.0" y="88" width="600" height="0.0"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewPlanCell" textLabel="Ksl-nT-7Wl" style="IBUITableViewCellStyleDefault" id="L8H-62-647">
+                                <rect key="frame" x="0.0" y="28" width="600" height="60"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="L8H-62-647" id="ZZl-KX-VBV">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ksl-nT-7Wl">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="60"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="1PT-56-fkU" id="fK1-6q-Flh"/>
+                            <outlet property="delegate" destination="1PT-56-fkU" id="W6M-zI-OvC"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BZz-DB-IEf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="993" y="1095"/>
         </scene>
         <!--Add Destination-->
         <scene sceneID="xAt-10-fUh">
@@ -172,7 +215,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w3v-oJ-2t6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="311" y="-249"/>
+            <point key="canvasLocation" x="1677" y="1095"/>
         </scene>
         <!--Select Type Table View Controller-->
         <scene sceneID="bZ2-sK-ikM">
@@ -270,7 +313,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jLT-gI-7vb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="993" y="-249"/>
+            <point key="canvasLocation" x="1677" y="1807"/>
         </scene>
         <!--Schedule-->
         <scene sceneID="OBF-wX-YSr">
