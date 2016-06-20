@@ -68,7 +68,7 @@ class PostBean: DataBean {
         self.location = location
         self.address = address
         
-        self.creatorID = creator.id!
+        self.creatorID = ""
         self.creator = creator
         self.createDate = NSDate()
         
