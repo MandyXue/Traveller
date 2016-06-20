@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class ScheduleTableViewController: UITableViewController {
+class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
     
     var cities: [ScheduleBean] = []
     
@@ -95,6 +95,13 @@ class ScheduleTableViewController: UITableViewController {
         }
     }
     
+    // MARK: - New schedule delegate
+    
+    func newSchedule(schedule: ScheduleBean) {
+        cities.append(schedule)
+        tableView.reloadData()
+    }
+    
     // MARK: - Helper
     
     func prepareData() {
@@ -105,7 +112,10 @@ class ScheduleTableViewController: UITableViewController {
     func addDestination() {
         // TODO: 进入地图选点, add destination
         print("add")
-//        tableView.reloadData()
+        let vc = NewScheduleTableViewController.loadFromStoryboard() as! NewScheduleTableViewController
+        vc.newScheduleDelegate = self
+        vc.order = cities.count
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     

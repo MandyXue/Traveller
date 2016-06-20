@@ -6,7 +6,72 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Add-->
+        <!--New Schedule Table View Controller-->
+        <scene sceneID="zKG-pf-7aH">
+            <objects>
+                <tableViewController storyboardIdentifier="NewScheduleTableViewController" id="7mS-at-kbJ" customClass="NewScheduleTableViewController" customModule="Traveller" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="12" sectionFooterHeight="28" id="gYy-vq-gsa">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="Thj-r6-Wxh">
+                            <rect key="frame" x="0.0" y="132" width="600" height="0.0"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <sections>
+                            <tableViewSection headerTitle=" " id="GnP-bR-X4H">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="tdU-G7-uAb" detailTextLabel="lao-WZ-1r6" style="IBUITableViewCellStyleValue1" id="ghS-zd-Fiu">
+                                        <rect key="frame" x="0.0" y="12" width="600" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ghS-zd-Fiu" id="VVE-kE-3sm">
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="City / Country Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tdU-G7-uAb">
+                                                    <rect key="frame" x="15" y="20" width="147.5" height="19.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="not selected" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lao-WZ-1r6">
+                                                    <rect key="frame" x="475" y="20" width="90" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="60" id="Y8I-ax-Afr" customClass="DatePickerCell" customModule="Traveller" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="600" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y8I-ax-Afr" id="jCG-K6-ODP">
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="7mS-at-kbJ" id="3QW-Ux-aGR"/>
+                            <outlet property="delegate" destination="7mS-at-kbJ" id="M1S-a4-6L0"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="datePickerCell" destination="Y8I-ax-Afr" id="kqq-q3-S3V"/>
+                        <outlet property="destinationCell" destination="ghS-zd-Fiu" id="DtS-JS-3nM"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2bc-ho-DYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="311" y="-922"/>
+        </scene>
+        <!--Add Destination-->
         <scene sceneID="xAt-10-fUh">
             <objects>
                 <tableViewController storyboardIdentifier="NewPlanTableViewController" id="pKw-x4-xiG" customClass="NewPlanTableViewController" customModule="Traveller" customModuleProvider="target" sceneMemberID="viewController">
@@ -97,7 +162,7 @@
                             <outlet property="delegate" destination="pKw-x4-xiG" id="C7U-cv-aJW"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Add" id="7wx-pj-ZLe"/>
+                    <navigationItem key="navigationItem" title="Add Destination" id="7wx-pj-ZLe"/>
                     <connections>
                         <outlet property="endDateCell" destination="3sh-5Z-ems" id="fB4-ki-Yci"/>
                         <outlet property="locationCell" destination="Yda-Y3-7Xg" id="8GA-7n-MzU"/>
@@ -205,7 +270,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jLT-gI-7vb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="966" y="-249"/>
+            <point key="canvasLocation" x="993" y="-249"/>
         </scene>
         <!--Schedule-->
         <scene sceneID="OBF-wX-YSr">
@@ -457,7 +522,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iJL-tv-qGM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1711" y="407"/>
+            <point key="canvasLocation" x="1677" y="407"/>
         </scene>
     </scenes>
     <resources>
