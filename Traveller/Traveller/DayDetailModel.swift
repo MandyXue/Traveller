@@ -42,11 +42,11 @@ class DayDetailModel: DataModel {
     }
 
     func getDayDetails(planId: String) -> Promise<[DayDetailBean]> {
-        let requestURL = DataModel.baseURL + ""
+        let requestURL = DataModel.baseURL + "/daily/tour"
         
         let parameters = ["token": token, "id": planId]
         return Promise { fulfill, reject in
-            Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
+            Alamofire.request(.GET, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
@@ -59,7 +59,18 @@ class DayDetailModel: DataModel {
                             print("save new schedule response:")
                             print(jsonData)
                             
-                            let news = [DayDetailBean]()
+                            let news = jsonData["details"].array!.map { day -> DayDetailBean in
+                                let id = day["id"].string!
+                                let start = day["start_time"].string!
+                                let end = day["end_time"].string!
+                                let place = day["destination"].string!
+                                let latitude = day["latitude"].double!
+                                let longitude = day["longitude"].double!
+                                let type = day["type"].int!
+                                
+                                return DayDetailBean(id: id, planID: planId, postID: nil, startTime: start, endTime: end, place: place, latitude: latitude, longitude: longitude, type: type)
+                            }
+                            
                             fulfill(news)
                         }
                     } catch {

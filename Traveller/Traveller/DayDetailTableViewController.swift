@@ -28,8 +28,11 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        // For test
+        planId = "7efc4d40-4d59-4a1b-98ac-4e477e8b95af"
         dayDetailModel.getDayDetails(planId!)
             .then { news -> () in
+                news.forEach { print($0.id!) }
             }.error { err in
         }
     }

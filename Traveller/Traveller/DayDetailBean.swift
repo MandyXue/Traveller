@@ -21,12 +21,12 @@ class DayDetailBean: DataBean {
     var type: Int  // 0: eating; 1: living; 2: spot
     
     // From remote
-    init (id: String, planID: String, postID:String?, startTime: NSDate, endTime: NSDate, place: String, latitude: Double, longitude: Double, type: Int) {
+    init (id: String, planID: String, postID:String?, startTime: String, endTime: String, place: String, latitude: Double, longitude: Double, type: Int) {
         self.id = id
         self.planID = planID
         self.postID = postID
-        self.startTime = startTime
-        self.endTime = endTime
+        self.startTime = DataBean.timeFormatter.dateFromString(startTime)!
+        self.endTime = DataBean.timeFormatter.dateFromString(endTime)!
         self.place = place
         self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         self.type = type

@@ -43,11 +43,10 @@ class ScheduleModel: DataModel {
     }
     
     func getSchedule(userId: String) -> Promise<[ScheduleBean]> {
-        let requestURL = DataModel.baseURL + ""
+        let requestURL = DataModel.baseURL + "/schedule/\(token)/\(userId)/list"
         
-        let parameters = ["token": token, "userID": userId]
         return Promise { fulfill, reject in
-            Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
+            Alamofire.request(.GET, requestURL, parameters: nil, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
@@ -57,10 +56,22 @@ class ScheduleModel: DataModel {
                             // 错误处理
                             
                         } else {
-                            print("save new schedule response:")
+                            print("get schedles response:")
                             print(jsonData)
                             
-                            let news = [ScheduleBean]()
+                            var i = 0
+                            let raws = jsonData["scheduleList"].array!
+                            let news = raws.map { schedule -> ScheduleBean in
+                                i += 1
+                                let id = schedule["id"].string!
+                                let destination = schedule["destination"].string!
+                                let url = schedule["imageURL"].string
+                                let date = schedule["scheduleDate"].string!
+                                let creatorId = schedule["creatorId"].string!
+                                
+                                return ScheduleBean(scheduleID: id, creatorId: creatorId, destination: destination, order: i, imageURL: url, startDate: date)
+                            }
+                            
                             fulfill(news)
                         }
                     } catch {

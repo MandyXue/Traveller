@@ -31,6 +31,8 @@ class DataModel {
     class func filterResponse(response: Response<AnyObject, NSError>) throws -> JSON {
         if let serverResp = response.response {
             if serverResp.statusCode < 200 || serverResp.statusCode > 299 {
+                print("http response")
+                print(response)
                 throw HttpError.ResponseError
             } else {
                 if let result = response.result.value {

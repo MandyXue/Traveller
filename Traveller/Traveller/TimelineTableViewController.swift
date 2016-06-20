@@ -13,6 +13,7 @@ class TimelineTableViewController: UITableViewController, NewPlanDelegate {
     var places: [PlanBean] = []
     var gradientColors: [UIColor] = []
     var schedule: ScheduleBean?
+    var scheduleId: String?
     let planModel = PlanModel()
 
     override func viewDidLoad() {
@@ -29,8 +30,9 @@ class TimelineTableViewController: UITableViewController, NewPlanDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        planModel.getPlans(schedule!.id!, userId: planModel.userID)
+        planModel.getPlans(scheduleId!, userId: planModel.userID)
             .then { news -> () in
+                news.forEach { print($0.id!) }
             }.error { err in }
     }
 
@@ -89,6 +91,7 @@ class TimelineTableViewController: UITableViewController, NewPlanDelegate {
                     if let cell = tableView.cellForRowAtIndexPath(indexPath) as? TimelineTableViewCell {
                         // TODO: pass value
                         detailViewController.planId = places[indexPath.row].id
+                        
                         cell.setSelected(false, animated: false)
                     }
                 }

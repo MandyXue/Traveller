@@ -43,6 +43,7 @@ class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
         
         scheduleModel.getSchedule(scheduleModel.userID)
             .then { news -> () in
+                news.forEach { print($0.id!) }
             }.error { err in }
     }
 
@@ -94,6 +95,7 @@ class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
                         // TODO: pass value
                         detailViewController.navigationItem.title = cell.destNameLabel.text
                         detailViewController.schedule = cities[indexPath.row]
+                        detailViewController.scheduleId = "5b81ecd4-ff10-4e9a-b7cf-487f6ba677d7"
                         cell.setSelected(false, animated: false)
                     }
                 }
@@ -111,8 +113,8 @@ class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
     // MARK: - Helper
     
     func prepareData() {
-        cities.append(ScheduleBean(scheduleID: "test1", creatorId: "test", destination: "Shanghai, China", order: 0, imageURL: "http://img2.imgtn.bdimg.com/it/u=1562647182,3454169304&fm=21&gp=0.jpg", startDate: NSDate(timeIntervalSinceNow: 0)))
-        cities.append(ScheduleBean(scheduleID: "test1", creatorId: "test", destination: "Uppsala, Sweden", order: 0, imageURL: "http://img1.imgtn.bdimg.com/it/u=1613045286,2980741283&fm=15&gp=0.jpg", startDate: NSDate(timeIntervalSinceNow: 0)))
+        cities.append(ScheduleBean(scheduleID: "test1", creatorId: "test", destination: "Shanghai, China", order: 0, imageURL: "http://img2.imgtn.bdimg.com/it/u=1562647182,3454169304&fm=21&gp=0.jpg", startDate: "2008-12-10"))
+        cities.append(ScheduleBean(scheduleID: "test1", creatorId: "test", destination: "Uppsala, Sweden", order: 0, imageURL: "http://img1.imgtn.bdimg.com/it/u=1613045286,2980741283&fm=15&gp=0.jpg", startDate: "2008-12-10"))
     }
     
     func addDestination() {

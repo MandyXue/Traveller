@@ -17,13 +17,13 @@ class ScheduleBean: DataBean {
     var startDate: NSDate
     
     // From remote
-    init(scheduleID id: String, creatorId: String, destination: String, order: Int, imageURL: String?, startDate: NSDate) {
+    init(scheduleID id: String, creatorId: String, destination: String, order: Int, imageURL: String?, startDate: String) {
         self.id = id
         self.creatorId = creatorId
         self.destination = destination
         self.order = order
         self.imageURL = imageURL
-        self.startDate = startDate
+        self.startDate = DataBean.onlyDateFormatter.dateFromString(startDate)!
     }
     
     // From local

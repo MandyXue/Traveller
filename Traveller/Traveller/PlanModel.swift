@@ -44,11 +44,10 @@ class PlanModel: DataModel {
     
     
     func getPlans(scheduleId: String, userId: String) -> Promise<[PlanBean]> {
-        let requestURL = DataModel.baseURL + ""
+        let requestURL = DataModel.baseURL + "/user/plan/\(token)/\(userId)/\(scheduleId)"
         
-        let parameters = ["token": token, "id": scheduleId]
         return Promise { fulfill, reject in
-            Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
+            Alamofire.request(.GET, requestURL, parameters: nil, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
@@ -61,7 +60,13 @@ class PlanModel: DataModel {
                             print("save new schedule response:")
                             print(jsonData)
                             
-                            let news = [PlanBean]()
+                            let news = jsonData["planList"].array!.map { plan -> PlanBean in
+                                let id = plan["plan_id"].string!
+                                let plan = plan["plan"].string!
+                                
+                                return PlanBean(planId: id, scheduleId: scheduleId, content: plan)
+                            }
+                                                        
                             fulfill(news)
                         }
                     } catch {
