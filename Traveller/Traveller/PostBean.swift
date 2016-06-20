@@ -27,15 +27,15 @@ class PostBean: DataBean {
     var createDate: NSDate
     // MARK: - Init
     
-    override init() {
-        title = ""
-        summary = ""
-        address = ""
-        summary = ""
-        location = CLLocationCoordinate2D()
-        creatorID = ""
-        createDate = NSDate()
-    }
+//    override init() {
+//        title = ""
+//        summary = ""
+//        address = ""
+//        summary = ""
+//        location = CLLocationCoordinate2D()
+//        creatorID = ""
+//        createDate = NSDate()
+//    }
     
     // For remote
     init(id: String, title: String, address: String, summary:String, latitude: Double, longitude: Double, creatorID:String, createDate: String, imagesURL: [String]) {
@@ -49,14 +49,27 @@ class PostBean: DataBean {
         self.imagesURL = imagesURL
     }
     
+    // From local
+    init(place: String, detail: String, location: CLLocationCoordinate2D, address: String, creatorId: String) {
+        self.title = place
+        self.summary = detail
+        self.location = location
+        self.address = address
+        
+        self.creatorID = creatorId
+        self.createDate = NSDate()
+        
+    }
+    
+    // From remote2
     init(place: String, detail: String, location: CLLocationCoordinate2D, address: String, creator: UserBean) {
         self.title = place
         self.summary = detail
         self.location = location
-        self.creator = creator
         self.address = address
         
-        self.creatorID = ""
+        self.creatorID = creator.id!
+        self.creator = creator
         self.createDate = NSDate()
         
     }

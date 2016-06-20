@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import PromiseKit
 
 class NewPostTableViewController: UITableViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate, SelectLocationDelegate {
     
@@ -16,7 +17,12 @@ class NewPostTableViewController: UITableViewController, UICollectionViewDataSou
     @IBOutlet weak var selectedLocationLabel: UILabel!  //选择好的点
     
     var images: [UIImage] = []
+    var imagesURL = [String]()
     var selectedLocation:MKMapItem?
+    
+    let postModel = PostModel()
+    var newPost:PostBean?
+    var uptoken:String?
     
     // MARK: - BaseViewController
     
@@ -45,6 +51,13 @@ class NewPostTableViewController: UITableViewController, UICollectionViewDataSou
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // 获取uptoken
+        postModel.getUpToken().then { uptoken -> () in
+                self.uptoken = uptoken
+            }.error { err in
+                print(err)
+        }
         
         // 显示选择好的location
         if let _ = selectedLocation {
@@ -177,6 +190,29 @@ class NewPostTableViewController: UITableViewController, UICollectionViewDataSou
         dismissViewControllerAnimated(true) { 
             // TODO: send
             print("send")
+            
+            if let selected = self.selectedLocation {
+                let post = PostBean(place: selected.name!, detail: self.textView.text!, location: selected.placemark.coordinate, address: "\(selected.placemark.title),\(selected.placemark.subtitle!)", creatorId: self.postModel.userID)
+                
+                self.postModel.uploadImageToQiniu(self.images)
+                    .then { urls -> Promise<Bool> in
+                        post.imagesURL = urls
+                        return self.postModel.addNewPost(post)
+                    }.then { isSuccess -> () in
+                        if isSuccess {
+                            
+                        } else {
+                            // 发送新post失败
+                        }
+                    }.error { err in
+                        print(err)
+                }
+            } else {
+                // 没有选点
+                print("没有选点")
+            }
+            
+            
         }
     }
     

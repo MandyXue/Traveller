@@ -9,6 +9,7 @@
 import Foundation
 import PromiseKit
 import Alamofire
+import SwiftyJSON
 
 class PostModel: DataModel {
     
@@ -94,9 +95,10 @@ class PostModel: DataModel {
     // TODO:获取图片上传token
     func getUpToken() ->Promise<String> {
         let requestURL = DataModel.baseURL + ""
+        let parameters = ["token": token]
         
         return Promise { fulfill, reject in
-            Alamofire.request(.POST, requestURL, parameters: nil, encoding: .URL, headers: nil)
+            Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
@@ -118,11 +120,13 @@ class PostModel: DataModel {
     }
     
     // TODO:3-1上传图片到云服务器
-    func loadImageToQiniu() -> Promise<Bool> {
+    func uploadImageToQiniu(images: [UIImage]) -> Promise<[String]> {
         let requestURL = DataModel.baseURL + ""
         
         return Promise { fulfill, reject in
             Alamofire.request(.POST, requestURL, parameters: nil, encoding: .URL, headers: nil)
+                .responseJSON { response in
+            }
         }
     }
     
@@ -174,6 +178,7 @@ class PostModel: DataModel {
                         
                         if errCode != 0 {
                             // 错误处理
+                            fulfill(false)
                         } else {
                             print("save new post response:")
                             print(jsonData)
@@ -205,7 +210,8 @@ class PostModel: DataModel {
                             print("get post by comment id:")
                             print(jsonData)
                             
-                            let post = PostBean()
+                            
+                            let post = self.formatPost(jsonData)
                             fulfill(post)
                         }
                     } catch {
@@ -216,7 +222,17 @@ class PostModel: DataModel {
         }
     }
     
-    func formatPost() {
+    func formatPost(jsonData: JSON) -> PostBean {
+        let id = jsonData["post"]["id"].string!
+        let title = jsonData["post"]["title"].string!
+        let address = jsonData["post"]["locationDesc"].string!
+        let summary = jsonData["post"]["summary"].string!
+        let lat = jsonData["post"]["latitude"].double!
+        let lon = jsonData["post"]["longitude"].double!
+        let creatorId = jsonData["post"]["creatorId"].string!
+        let createDate = jsonData["post"]["createDate"].string!
+        let imagesURL = jsonData["post"]["imageURLs"].array!.map { $0["imageUrl"].string! }
         
+        return PostBean(id: id, title: title, address: address, summary: summary, latitude: lat, longitude: lon, creatorID: creatorId, createDate: createDate, imagesURL: imagesURL)
     }
 }

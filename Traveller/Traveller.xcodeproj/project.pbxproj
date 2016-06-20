@@ -79,6 +79,8 @@
 		A477FF191D15157D002428EA /* DataBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A477FF181D15157D002428EA /* DataBean.swift */; };
 		A477FF1A1D15157D002428EA /* DataBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A477FF181D15157D002428EA /* DataBean.swift */; };
 		A477FF1C1D152562002428EA /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A477FF1B1D152562002428EA /* ErrorCode.swift */; };
+		A4CA85511D17C5BD0045D07F /* DayDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CA85501D17C5BD0045D07F /* DayDetailModel.swift */; };
+		A4CA85521D17C5BD0045D07F /* DayDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CA85501D17C5BD0045D07F /* DayDetailModel.swift */; };
 		A4D722771D15998500634986 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D722761D15998500634986 /* ScheduleModel.swift */; };
 		A4D722781D15998500634986 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D722761D15998500634986 /* ScheduleModel.swift */; };
 		A4D7227A1D1599A300634986 /* ScheduleBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D722791D1599A300634986 /* ScheduleBean.swift */; };
@@ -174,6 +176,7 @@
 		A477FF151D1514C3002428EA /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		A477FF181D15157D002428EA /* DataBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBean.swift; sourceTree = "<group>"; };
 		A477FF1B1D152562002428EA /* ErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
+		A4CA85501D17C5BD0045D07F /* DayDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayDetailModel.swift; sourceTree = "<group>"; };
 		A4D722761D15998500634986 /* ScheduleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
 		A4D722791D1599A300634986 /* ScheduleBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleBean.swift; sourceTree = "<group>"; };
 		A4D7227C1D1599B000634986 /* PlanModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanModel.swift; sourceTree = "<group>"; };
@@ -770,6 +773,7 @@
 				A477FF151D1514C3002428EA /* DataModel.swift */,
 				A4D722761D15998500634986 /* ScheduleModel.swift */,
 				A4D7227C1D1599B000634986 /* PlanModel.swift */,
+				A4CA85501D17C5BD0045D07F /* DayDetailModel.swift */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";
@@ -941,6 +945,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				338D97CB1CF486E900F731AE /* UserDetailTableViewController.swift in Sources */,
+				A4CA85511D17C5BD0045D07F /* DayDetailModel.swift in Sources */,
 				A4D722771D15998500634986 /* ScheduleModel.swift in Sources */,
 				338D979D1CF099F900F731AE /* MapDataPointAnnotation.swift in Sources */,
 				33C1E6101CF019CA00C75708 /* HomeMapViewController.swift in Sources */,
@@ -1005,6 +1010,7 @@
 				A4D7227B1D1599A300634986 /* ScheduleBean.swift in Sources */,
 				A477FF171D1514C3002428EA /* DataModel.swift in Sources */,
 				A4D722781D15998500634986 /* ScheduleModel.swift in Sources */,
+				A4CA85521D17C5BD0045D07F /* DayDetailModel.swift in Sources */,
 				A41F4CCF1D131203000B7CFF /* UserModel.swift in Sources */,
 				A4D722811D1599CB00634986 /* PlanBean.swift in Sources */,
 				A41F4CD51D13123F000B7CFF /* CommentModel.swift in Sources */,

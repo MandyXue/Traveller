@@ -11,12 +11,12 @@ import UIKit
 class DispatchController: NSObject {
     class func dispatchToMain()-> UIViewController {
         
-//        let token = NSUserDefaults.standardUserDefaults().valueForKey("token") as? String
-//        
-//        if let _ = token {
+        let token = NSUserDefaults.standardUserDefaults().valueForKey("token") as? String
+        
+        if let _ = token {
             return RootTabBarController.loadFromStoryboard()
-//        } else {
-//            return WelcomeViewController.loadFromStoryboard()
-//        }
+        } else {
+            return WelcomeViewController.loadFromStoryboard()
+        }
     }
 }

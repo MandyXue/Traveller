@@ -10,4 +10,12 @@ import Foundation
 
 class ScheduleModel: DataModel {
     
+    
+    func addNewSchedule() {
+        
+    }
+    
+    func deleteSchedule() {
+        
+    }
 }
