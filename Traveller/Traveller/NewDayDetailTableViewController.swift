@@ -124,11 +124,17 @@ class NewDayDetailTableViewController: UITableViewController, SelectLocationDele
     func newDayDetailSelector() {
         if self.newDayDetail?.place != "" {
             if self.newDayDetail?.type != -1 {
-                self.newDayDetail?.startTime = startDateCell.date
-                self.newDayDetail?.endTime = endDateCell.date
-                // 用delegate把值传回上一页面
-                newDayDetailDelegate?.newDayDetail(self.newDayDetail!)
-                self.navigationController?.popViewControllerAnimated(true)
+                if startDateCell.date.compare(endDateCell.date) == .OrderedAscending {
+                    self.newDayDetail?.startTime = startDateCell.date
+                    self.newDayDetail?.endTime = endDateCell.date
+                    // 用delegate把值传回上一页面
+                    newDayDetailDelegate?.newDayDetail(self.newDayDetail!)
+                    self.navigationController?.popViewControllerAnimated(true)
+                } else {
+                    let alert = UIAlertController(title: "Error", message: "End time should be after start time, please edit.", preferredStyle: .Alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+                    presentViewController(alert, animated: true, completion: nil)
+                }
             } else {
                 let alert = UIAlertController(title: "Error", message: "Type cannot be empty, please choose one.", preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))

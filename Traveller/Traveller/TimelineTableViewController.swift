@@ -79,7 +79,6 @@ class TimelineTableViewController: UITableViewController, NewPlanDelegate {
                 if let indexPath = tableView.indexPathForSelectedRow {
                     if let cell = tableView.cellForRowAtIndexPath(indexPath) as? TimelineTableViewCell {
                         // TODO: pass value
-                        detailViewController.navigationItem.title = cell.placeLabel.text
                         detailViewController.planId = places[indexPath.row].id
                         cell.setSelected(false, animated: false)
                     }
