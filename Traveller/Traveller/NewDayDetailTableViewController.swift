@@ -1,26 +1,26 @@
 //
-//  NewPlanTableViewController.swift
+//  NewDayDetailTableViewController.swift
 //  Traveller
 //
-//  Created by MandyXue on 16/6/18.
+//  Created by MandyXue on 16/6/20.
 //  Copyright © 2016年 AppleClub. All rights reserved.
 //
 
 import UIKit
 import MapKit
 
-protocol NewPlanDelegate {
-    func newPlan(plan: DayDetailBean)
+protocol NewDayDetailDelegate {
+    func newDayDetail(dayDetail: DayDetailBean)
 }
 
-class NewPlanTableViewController: UITableViewController, SelectLocationDelegate, SelectTypeDelegate {
-    
+class NewDayDetailTableViewController: UITableViewController, SelectLocationDelegate, SelectTypeDelegate{
+
     @IBOutlet weak var startDateCell: DatePickerCell!
     @IBOutlet weak var endDateCell: DatePickerCell!
     @IBOutlet weak var typeCell: UITableViewCell!
     @IBOutlet weak var locationCell: UITableViewCell!
     
-    var newPlanDelegate: NewPlanDelegate?
+    var newDayDetailDelegate: NewDayDetailDelegate?
     var selectedLocation: MKMapItem?
     
     var newDayDetail: DayDetailBean?
@@ -33,7 +33,7 @@ class NewPlanTableViewController: UITableViewController, SelectLocationDelegate,
     }
     
     // MARK: - Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,18 +47,18 @@ class NewPlanTableViewController: UITableViewController, SelectLocationDelegate,
         endDateCell.leftLabel.text = "End Time"
         
         // set navigation item
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(newPlan))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(newDayDetailSelector))
         
         // init day detail
         // TODO: 改变默认值: planID, postID
-        self.newDayDetail = DayDetailBean(planID: "", postID: "", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "", latitude: 1, longitude: 1, type: 0)
+        self.newDayDetail = DayDetailBean(planID: "", postID: "", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "", latitude: 1, longitude: 1, type: -1)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source and delegate
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -121,13 +121,23 @@ class NewPlanTableViewController: UITableViewController, SelectLocationDelegate,
     
     // MARK: - Helper
     
-    func newPlan() {
+    func newDayDetailSelector() {
         if self.newDayDetail?.place != "" {
-            self.newDayDetail?.startTime = startDateCell.date
-            self.newDayDetail?.endTime = endDateCell.date
-            // 用delegate把值传回上一页面
-            newPlanDelegate?.newPlan(self.newDayDetail!)
-            self.navigationController?.popViewControllerAnimated(true)
+            if self.newDayDetail?.type != -1 {
+                self.newDayDetail?.startTime = startDateCell.date
+                self.newDayDetail?.endTime = endDateCell.date
+                // 用delegate把值传回上一页面
+                newDayDetailDelegate?.newDayDetail(self.newDayDetail!)
+                self.navigationController?.popViewControllerAnimated(true)
+            } else {
+                let alert = UIAlertController(title: "Error", message: "Type cannot be empty, please choose one.", preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+                presentViewController(alert, animated: true, completion: nil)
+            }
+        } else {
+            let alert = UIAlertController(title: "Error", message: "Location cannot be empty, please choose one.", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
         }
     }
     

@@ -44,10 +44,10 @@
 		338D97B11CF3294F00F731AE /* UserBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D97B01CF3294F00F731AE /* UserBean.swift */; };
 		338D97B61CF3FA8F00F731AE /* UserDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 338D97B51CF3FA8F00F731AE /* UserDetail.storyboard */; };
 		338D97CB1CF486E900F731AE /* UserDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338D97CA1CF486E900F731AE /* UserDetailTableViewController.swift */; };
-		33A7334C1D161E060036E082 /* NewPlanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A7334B1D161E060036E082 /* NewPlanTableViewController.swift */; };
 		33A7334E1D161F150036E082 /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A7334D1D161F150036E082 /* DatePickerCell.swift */; };
 		33A733501D169DAB0036E082 /* SelectTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A7334F1D169DAB0036E082 /* SelectTypeTableViewController.swift */; };
 		33A733541D16FAA00036E082 /* NewScheduleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A733531D16FAA00036E082 /* NewScheduleTableViewController.swift */; };
+		33A733581D17B5960036E082 /* NewDayDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A733571D17B5960036E082 /* NewDayDetailTableViewController.swift */; };
 		33C1E6061CEF644800C75708 /* DispatchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6051CEF644800C75708 /* DispatchController.swift */; };
 		33C1E6081CEF64A300C75708 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6071CEF64A300C75708 /* RootTabBarController.swift */; };
 		33C1E60A1CEF654300C75708 /* UIStoryboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E6091CEF654300C75708 /* UIStoryboardManager.swift */; };
@@ -140,10 +140,10 @@
 		338D97B01CF3294F00F731AE /* UserBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBean.swift; sourceTree = "<group>"; };
 		338D97B51CF3FA8F00F731AE /* UserDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserDetail.storyboard; sourceTree = "<group>"; };
 		338D97CA1CF486E900F731AE /* UserDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailTableViewController.swift; sourceTree = "<group>"; };
-		33A7334B1D161E060036E082 /* NewPlanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPlanTableViewController.swift; sourceTree = "<group>"; };
 		33A7334D1D161F150036E082 /* DatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		33A7334F1D169DAB0036E082 /* SelectTypeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTypeTableViewController.swift; sourceTree = "<group>"; };
 		33A733531D16FAA00036E082 /* NewScheduleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewScheduleTableViewController.swift; sourceTree = "<group>"; };
+		33A733571D17B5960036E082 /* NewDayDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewDayDetailTableViewController.swift; sourceTree = "<group>"; };
 		33C1E6051CEF644800C75708 /* DispatchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchController.swift; sourceTree = "<group>"; };
 		33C1E6071CEF64A300C75708 /* RootTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
 		33C1E6091CEF654300C75708 /* UIStoryboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardManager.swift; sourceTree = "<group>"; };
@@ -420,13 +420,13 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
-		33A733511D16F9CC0036E082 /* NewPlan */ = {
+		33A733511D16F9CC0036E082 /* NewDayDetail */ = {
 			isa = PBXGroup;
 			children = (
-				33A7334B1D161E060036E082 /* NewPlanTableViewController.swift */,
 				33A7334F1D169DAB0036E082 /* SelectTypeTableViewController.swift */,
+				33A733571D17B5960036E082 /* NewDayDetailTableViewController.swift */,
 			);
-			name = NewPlan;
+			name = NewDayDetail;
 			sourceTree = "<group>";
 		};
 		33A733521D16F9E10036E082 /* NewSchedule */ = {
@@ -435,6 +435,13 @@
 				33A733531D16FAA00036E082 /* NewScheduleTableViewController.swift */,
 			);
 			name = NewSchedule;
+			sourceTree = "<group>";
+		};
+		33A733561D17B44F0036E082 /* NewPlan */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = NewPlan;
 			sourceTree = "<group>";
 		};
 		33C1E5E61CEF5F8F00C75708 /* Utils */ = {
@@ -643,9 +650,10 @@
 		33C1E5FC1CEF63DE00C75708 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				33A733561D17B44F0036E082 /* NewPlan */,
 				3355F2D01D0D622A00DFE697 /* Cells */,
 				33A733521D16F9E10036E082 /* NewSchedule */,
-				33A733511D16F9CC0036E082 /* NewPlan */,
+				33A733511D16F9CC0036E082 /* NewDayDetail */,
 				33C1E6131CF01A5D00C75708 /* ScheduleTableViewController.swift */,
 				3355F2DD1D0DBD1C00DFE697 /* TimelineTableViewController.swift */,
 				3355F2E11D0EA93500DFE697 /* DayDetailTableViewController.swift */,
@@ -942,6 +950,7 @@
 			files = (
 				338D97CB1CF486E900F731AE /* UserDetailTableViewController.swift in Sources */,
 				A4D722771D15998500634986 /* ScheduleModel.swift in Sources */,
+				33A733581D17B5960036E082 /* NewDayDetailTableViewController.swift in Sources */,
 				338D979D1CF099F900F731AE /* MapDataPointAnnotation.swift in Sources */,
 				33C1E6101CF019CA00C75708 /* HomeMapViewController.swift in Sources */,
 				3355F2E81D0EC6D900DFE697 /* SpotTableViewCell.swift in Sources */,
@@ -971,7 +980,6 @@
 				33C1E6141CF01A5D00C75708 /* ScheduleTableViewController.swift in Sources */,
 				33A733501D169DAB0036E082 /* SelectTypeTableViewController.swift in Sources */,
 				3381DE121D0B126E003482F7 /* SignupTableViewController.swift in Sources */,
-				33A7334C1D161E060036E082 /* NewPlanTableViewController.swift in Sources */,
 				33D4F82F1CEF3B980082B927 /* AppDelegate.swift in Sources */,
 				3355F2D21D0D623D00DFE697 /* DestinationTableViewCell.swift in Sources */,
 				33C1E6081CEF64A300C75708 /* RootTabBarController.swift in Sources */,

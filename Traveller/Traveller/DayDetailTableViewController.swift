@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DayDetailTableViewController: UITableViewController, NewPlanDelegate {
+class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate {
     
     var spots: [DayDetailBean] = []
     var planId: String?
@@ -19,7 +19,6 @@ class DayDetailTableViewController: UITableViewController, NewPlanDelegate {
         super.viewDidLoad()
         
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addSpot)), UIBarButtonItem(barButtonSystemItem: .Organize, target: self, action: #selector(addSpot))]
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addSpot))
         
         prepareData()
     }
@@ -95,8 +94,8 @@ class DayDetailTableViewController: UITableViewController, NewPlanDelegate {
     
     // MARK: - New plan delegate
     
-    func newPlan(plan: DayDetailBean) {
-        spots.append(plan)
+    func newDayDetail(dayDetail: DayDetailBean) {
+        spots.append(dayDetail)
         tableView.reloadData()
     }
     
@@ -111,8 +110,8 @@ class DayDetailTableViewController: UITableViewController, NewPlanDelegate {
     
     func addSpot() {
         // TODO: add a spot
-        let vc = NewPlanTableViewController.loadFromStoryboard() as! NewPlanTableViewController
-        vc.newPlanDelegate = self
+        let vc = NewDayDetailTableViewController.loadFromStoryboard() as! NewDayDetailTableViewController
+        vc.newDayDetailDelegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
 
