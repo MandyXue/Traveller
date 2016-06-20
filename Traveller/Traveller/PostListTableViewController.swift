@@ -35,12 +35,10 @@ class PostListTableViewController: UITableViewController {
         super.viewDidLoad()
         
         // 从NSUserDefault获取user ID
-        let id = "2c85f94f-3427-11e6-99b1-00163e023e0a"
-        
         if type == 1 {
             navigationItem.title = "Posts"
             // 获取用户的post
-            postModel.getPosts(byUserID: id)
+            postModel.getPosts(byUserID: postModel.userID)
                 .then { posts -> () in
                     posts.forEach { print($0.id) }
                 }.error { err in
@@ -52,7 +50,7 @@ class PostListTableViewController: UITableViewController {
         } else if type == 2 {
             navigationItem.title = "Comments"
             // 获取用户的评论
-            commentModel.getComments(byUserID: id)
+            commentModel.getComments(byUserID: postModel.userID)
                 .then { comments -> () in
                     comments.forEach { print($0.postID) }
                 }.error { err in
@@ -60,6 +58,7 @@ class PostListTableViewController: UITableViewController {
                     print(err)
             }
         }
+        
         
         setInfo()
         

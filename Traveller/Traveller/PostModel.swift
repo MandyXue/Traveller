@@ -97,6 +97,23 @@ class PostModel: DataModel {
         
         return Promise { fulfill, reject in
             Alamofire.request(.POST, requestURL, parameters: nil, encoding: .URL, headers: nil)
+                .responseJSON { response in
+                    do {
+                        let jsonData = try DataModel.filterResponse(response)
+                        let errCode = jsonData["errCode"].int!
+                        
+                        if errCode != 0 {
+                            // 错误处理
+                        } else {
+                            print("url:")
+                            print(jsonData)
+                            fulfill("URL")
+                        }
+                    } catch {
+                        print(error)
+                        reject(error)
+                    }
+            }
         }
     }
     
@@ -125,6 +142,7 @@ class PostModel: DataModel {
                             // 错误处理
                             print("errCode is not 0:")
                             print(jsonData)
+                            reject(PostError.GetPostsError)
                         } else {
                             print("get posts by user id:")
                             print(jsonData)
@@ -140,7 +158,7 @@ class PostModel: DataModel {
         }
     }
     
-    // 6-1推送一条新的post
+    // TODO:6-1推送一条新的post
     func addNewPost(newPost: PostBean) -> Promise<Bool> {
         let requestURL = DataModel.baseURL + "/post/new"
         let post = []
@@ -169,7 +187,7 @@ class PostModel: DataModel {
         }
     }
     
-    // 13-3根据评论ID获取post
+    // TODO:13-3根据评论ID获取post
     func getPost(byCommentID id: String) -> Promise<PostBean> {
         let requestURL = DataModel.baseURL + "/post/comment/\(id)"
         let parameters = ["token": token]
@@ -196,5 +214,9 @@ class PostModel: DataModel {
                     }
             }
         }
+    }
+    
+    func formatPost() {
+        
     }
 }
