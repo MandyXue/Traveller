@@ -44,17 +44,10 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if edit {
             let index = indexPath.row
-            // 0, 2, 4, ... 等行数，即景点
             let cell = tableView.dequeueReusableCellWithIdentifier("SpotCell", forIndexPath: indexPath) as! SpotTableViewCell
-            // 如果是第一行则不显示上方的辅助线，如果是最后一行则不显示下方辅助线
-            if indexPath.row == 0 {
-                cell.upLineView.image = nil
-                cell.bottomLineView.image = UIImage(named: "line")!
-            }
-            if indexPath.row == spots.count - 1 {
-                cell.upLineView.image = UIImage(named: "line")!
-                cell.bottomLineView.image = nil
-            }
+            // 不显示辅助线
+            cell.upLineView.image = nil
+            cell.bottomLineView.image = nil
             
             // type: 0:eating/1:living/2:spot
             switch spots[index].type {
@@ -77,10 +70,12 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
                 if indexPath.row == 0 {
                     cell.upLineView.image = nil
                     cell.bottomLineView.image = UIImage(named: "line")!
-                }
-                if indexPath.row == spots.count * 2 - 2 {
+                } else if indexPath.row == spots.count * 2 - 2 {
                     cell.upLineView.image = UIImage(named: "line")!
                     cell.bottomLineView.image = nil
+                } else {
+                    cell.upLineView.image = UIImage(named: "line")!
+                    cell.bottomLineView.image = UIImage(named: "line")!
                 }
                 
                 // type: 0:eating/1:living/2:spot
@@ -167,13 +162,95 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
     func editSpot() {
         edit = true
         tableView.reloadData()
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
+        self.tableView.addGestureRecognizer(longPress)
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(done))]
     }
     
     func done() {
         edit = false
         tableView.reloadData()
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
+        self.tableView.removeGestureRecognizer(longPress)
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addSpot)), UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(editSpot))]
+    }
+    
+    // MARK: - Long press gesture
+    
+    var snapshot: UIView? = nil
+    var sourceIndexPath: NSIndexPath? = nil
+    
+    func longPressGestureRecognized(sender: AnyObject?) {
+        if let longPress = sender as? UILongPressGestureRecognizer {
+            let state = longPress.state
+            
+            let location = longPress.locationInView(self.tableView)
+            let indexPath = self.tableView.indexPathForRowAtPoint(location)
+            
+            switch state {
+            case .Began:
+                if indexPath != nil {
+                    sourceIndexPath = indexPath
+                    
+                    let cell = tableView.cellForRowAtIndexPath(indexPath!)
+                    
+                    // take a snapshot of the selected row using helper method
+                    snapshot = UIView.customSnapshotFromView(cell!)
+                    
+                    var center = cell!.center
+                    snapshot!.center = center
+                    snapshot!.alpha = 0.0
+                    self.tableView.addSubview(snapshot!)
+                    UIView.animateWithDuration(0.25, animations: {
+                        center.y = location.y
+                        self.snapshot!.center = center
+                        self.snapshot!.transform = CGAffineTransformMakeScale(1.05, 1.05)
+                        self.snapshot!.alpha = 0.98
+                        cell!.alpha = 0.0
+                        cell!.hidden = true
+                    })
+                }
+                
+                break
+            case .Changed:
+                var center = snapshot!.center
+                center.y = location.y
+                snapshot!.center = center
+                
+                // Is destination valid and is it different from source?
+                if indexPath != nil && !indexPath!.isEqual(sourceIndexPath) {
+                    
+                    // update data source
+                    let temp = NSMutableArray(array: spots)
+                    temp.exchangeObjectAtIndex(indexPath!.row, withObjectAtIndex: sourceIndexPath!.row)
+                    self.spots = temp as AnyObject as! [DayDetailBean]
+                    tableView.reloadData()
+                    // TODO: 将places存到远端
+                    
+                    // move the rows
+                    self.tableView.moveRowAtIndexPath(sourceIndexPath!, toIndexPath: indexPath!)
+                    
+                    // update source with UI changes
+                    sourceIndexPath = indexPath
+                }
+                break
+            default:
+                let cell = self.tableView.cellForRowAtIndexPath(sourceIndexPath!)
+                cell!.alpha = 0.0
+                UIView.animateWithDuration(0.25, animations: {
+                    self.snapshot!.center = cell!.center
+                    self.snapshot!.transform = CGAffineTransformIdentity
+                    self.snapshot!.alpha = 0.0
+                    cell!.alpha = 1.0
+                    }, completion: { (finished: Bool) in
+                        cell!.hidden = false
+                        self.sourceIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+                        self.snapshot!.removeFromSuperview()
+                        self.snapshot = UIView()
+                })
+                break
+            }
+        }
     }
 
 }
