@@ -51,7 +51,7 @@ class NewPlanTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
+    // MARK: - Table view data source and delegate
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if places.count == 0 {
@@ -76,6 +76,21 @@ class NewPlanTableViewController: UITableViewController {
             return 100
         } else {
             return 50
+        }
+    }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            // Delete the row from the data source
+            if indexPath.row < places.count {
+                places.removeAtIndex(indexPath.row)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
+            }
         }
     }
     

@@ -12,13 +12,15 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
     
     var spots: [DayDetailBean] = []
     var planId: String?
+    var edit = false
+    
     
     // MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addSpot)), UIBarButtonItem(barButtonSystemItem: .Organize, target: self, action: #selector(addSpot))]
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addSpot)), UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(editSpot))]
         
         prepareData()
     }
@@ -32,12 +34,16 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return spots.count * 2 - 1
+        if edit {
+            return spots.count
+        } else {
+            return spots.count * 2 - 1
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row % 2 == 0 {
-            let index = (indexPath.row+1)/2
+        if edit {
+            let index = indexPath.row
             // 0, 2, 4, ... 等行数，即景点
             let cell = tableView.dequeueReusableCellWithIdentifier("SpotCell", forIndexPath: indexPath) as! SpotTableViewCell
             // 如果是第一行则不显示上方的辅助线，如果是最后一行则不显示下方辅助线
@@ -45,7 +51,7 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
                 cell.upLineView.image = nil
                 cell.bottomLineView.image = UIImage(named: "line")!
             }
-            if indexPath.row == spots.count * 2 - 2 {
+            if indexPath.row == spots.count - 1 {
                 cell.upLineView.image = UIImage(named: "line")!
                 cell.bottomLineView.image = nil
             }
@@ -63,31 +69,75 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
             cell.timeLabel.text = NSDate.dateToString(spots[index].startTime)
             return cell
         } else {
-            // 1, 3, 5, ... 等行数，即过路
-            let cell = tableView.dequeueReusableCellWithIdentifier("TransportCell", forIndexPath: indexPath) as! TransportTableViewCell
-            cell.timeLabel.text = "1.1km walking"
-            return cell
+            if indexPath.row % 2 == 0 {
+                let index = (indexPath.row+1)/2
+                // 0, 2, 4, ... 等行数，即景点
+                let cell = tableView.dequeueReusableCellWithIdentifier("SpotCell", forIndexPath: indexPath) as! SpotTableViewCell
+                // 如果是第一行则不显示上方的辅助线，如果是最后一行则不显示下方辅助线
+                if indexPath.row == 0 {
+                    cell.upLineView.image = nil
+                    cell.bottomLineView.image = UIImage(named: "line")!
+                }
+                if indexPath.row == spots.count * 2 - 2 {
+                    cell.upLineView.image = UIImage(named: "line")!
+                    cell.bottomLineView.image = nil
+                }
+                
+                // type: 0:eating/1:living/2:spot
+                switch spots[index].type {
+                case 0:
+                    cell.typeImageView.image = UIImage(named: "eating")
+                case 1:
+                    cell.typeImageView.image = UIImage(named: "living")
+                default:
+                    cell.typeImageView.image = UIImage(named: "spot")
+                }
+                cell.nameLabel.text = spots[index].place
+                cell.timeLabel.text = NSDate.dateToString(spots[index].startTime)
+                return cell
+            } else {
+                // 1, 3, 5, ... 等行数，即过路
+                let cell = tableView.dequeueReusableCellWithIdentifier("TransportCell", forIndexPath: indexPath) as! TransportTableViewCell
+                cell.timeLabel.text = "1.1km walking"
+                return cell
+            }
         }
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row % 2 == 0 {
+        if edit {
             return 84
         } else {
-            return 28
+            if indexPath.row % 2 == 0 {
+                return 84
+            } else {
+                return 28
+            }
         }
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if edit {
+            return true
+        }
         return indexPath.row % 2 == 0
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
         if editingStyle == .Delete {
-            // Delete the row from the data source
-            if indexPath.row < spots.count * 2 - 1 {
-                spots.removeAtIndex((indexPath.row + 1)/2)
-                tableView.reloadData()
+            if edit {
+                // Delete the row from the data source
+                if indexPath.row < spots.count {
+                    spots.removeAtIndex(indexPath.row)
+                    tableView.reloadData()
+                }
+            } else {
+                // Delete the row from the data source
+                if indexPath.row < spots.count * 2 - 1 {
+                    spots.removeAtIndex((indexPath.row + 1)/2)
+                    tableView.reloadData()
+                }
             }
         }
     }
@@ -109,10 +159,21 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
     }
     
     func addSpot() {
-        // TODO: add a spot
         let vc = NewDayDetailTableViewController.loadFromStoryboard() as! NewDayDetailTableViewController
         vc.newDayDetailDelegate = self
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func editSpot() {
+        edit = true
+        tableView.reloadData()
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(done))]
+    }
+    
+    func done() {
+        edit = false
+        tableView.reloadData()
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addSpot)), UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(editSpot))]
     }
 
 }
