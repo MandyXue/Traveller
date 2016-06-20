@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TimelineTableViewController: UITableViewController {
+class TimelineTableViewController: UITableViewController, NewPlanDelegate {
     
     var places: [PlanBean] = []
     var gradientColors: [UIColor] = []
@@ -64,6 +64,13 @@ class TimelineTableViewController: UITableViewController {
         }
     }
     
+    // MARK: - New plan delegate
+    
+    func newPlan(plan: PlanBean) {
+        self.places.append(plan)
+        self.tableView.reloadData()
+    }
+    
     // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -72,7 +79,6 @@ class TimelineTableViewController: UITableViewController {
                 if let indexPath = tableView.indexPathForSelectedRow {
                     if let cell = tableView.cellForRowAtIndexPath(indexPath) as? TimelineTableViewCell {
                         // TODO: pass value
-                        detailViewController.navigationItem.title = cell.placeLabel.text
                         detailViewController.planId = places[indexPath.row].id
                         cell.setSelected(false, animated: false)
                     }
@@ -86,8 +92,10 @@ class TimelineTableViewController: UITableViewController {
     func addDay() {
         // TODO: add day
         print("addday")
-//        places.append(["place": "New", "time": NSDate.dateToString(NSDate.init(timeIntervalSinceNow: 0))])
-        tableView.reloadData()
+        let vc = NewPlanTableViewController.loadFromStoryboard() as! NewPlanTableViewController
+        vc.newPlanDelegate = self
+        vc.scheduleId = self.schedule?.id
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func prepareData() {

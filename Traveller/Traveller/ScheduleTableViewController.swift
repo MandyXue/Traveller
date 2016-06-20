@@ -27,6 +27,7 @@ class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
 
         // delete selection between presentations
         self.clearsSelectionOnViewWillAppear = true
+        navigationItem.title = "Schedule"
         
         prepareData()
         
@@ -60,6 +61,7 @@ class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
             cell.destImageView?.sd_setImageWithURL(NSURL(string: image), placeholderImage: UIImage(named: "testPlace"))
         }
         cell.destNameLabel.text = cities[indexPath.row].destination
+        cell.destDateLabel.text = "Start time: " + DataBean.onlyDateFormatter.stringFromDate(cities[indexPath.row].startDate)
         return cell
     }
 

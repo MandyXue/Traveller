@@ -2,28 +2,25 @@
 //  NewPlanTableViewController.swift
 //  Traveller
 //
-//  Created by MandyXue on 16/6/18.
+//  Created by MandyXue on 16/6/20.
 //  Copyright © 2016年 AppleClub. All rights reserved.
 //
 
 import UIKit
-import MapKit
+import PKHUD
 
 protocol NewPlanDelegate {
-    func newPlan(plan: DayDetailBean)
+    func newPlan(plan: PlanBean)
 }
 
-class NewPlanTableViewController: UITableViewController, SelectLocationDelegate, SelectTypeDelegate {
+class NewPlanTableViewController: UITableViewController {
     
-    @IBOutlet weak var startDateCell: DatePickerCell!
-    @IBOutlet weak var endDateCell: DatePickerCell!
-    @IBOutlet weak var typeCell: UITableViewCell!
-    @IBOutlet weak var locationCell: UITableViewCell!
+    var places: [String] = []
+    
+    var plan: PlanBean?
+    var scheduleId: String?
     
     var newPlanDelegate: NewPlanDelegate?
-    var selectedLocation: MKMapItem?
-    
-    var newDayDetail: DayDetailBean?
     
     // MARK: - BaseViewController
     
@@ -37,21 +34,16 @@ class NewPlanTableViewController: UITableViewController, SelectLocationDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // set date picker cell
-        startDateCell.dateStyle = .NoStyle
-        startDateCell.datePicker.datePickerMode = .Time
-        startDateCell.leftLabel.text = "Start Time"
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addSelector)), UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(doneSelector))]
         
-        endDateCell.dateStyle = .NoStyle
-        endDateCell.datePicker.datePickerMode = .Time
-        endDateCell.leftLabel.text = "End Time"
-        
-        // set navigation item
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(newPlan))
-        
-        // init day detail
-        // TODO: 改变默认值: planID, postID
-        self.newDayDetail = DayDetailBean(planID: "", postID: "", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "", latitude: 1, longitude: 1, type: 0)
+        // TODO: 把planId去掉
+        if scheduleId != nil {
+            plan = PlanBean(planId: "test", scheduleId: scheduleId!, content: "")
+        } else {
+            let alert = UIAlertController(title: "Error", message: "Something went wrong, please exit this page.", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,84 +52,84 @@ class NewPlanTableViewController: UITableViewController, SelectLocationDelegate,
     }
 
     // MARK: - Table view data source and delegate
+
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if places.count == 0 {
+            return 1
+        }
+        return places.count
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if places.count == 0 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("NewPlanCell", forIndexPath: indexPath) as UITableViewCell
+            cell.textLabel?.text = "Press the right bar button to make a route for your destination cities ➚"
+            return cell
+        }
+        let cell = tableView.dequeueReusableCellWithIdentifier("NewPlanCell", forIndexPath: indexPath) as UITableViewCell
+        cell.textLabel?.text = places[indexPath.row]
+        return cell
+    }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let cell = self.tableView(tableView, cellForRowAtIndexPath: indexPath)
-        if cell.isKindOfClass(DatePickerCell) {
-            return (cell as! DatePickerCell).datePickerHeight()
-        }
-        return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = self.tableView(tableView, cellForRowAtIndexPath: indexPath)
-        if cell.isKindOfClass(DatePickerCell) {
-            let datePickerTableViewCell = cell as! DatePickerCell
-            
-            datePickerTableViewCell.selectedInTableView(tableView)
-            self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        }
-        
-        if indexPath.row == 3 {
-            let vc = ChooseLocationViewController.loadFromStoryboard() as! ChooseLocationViewController
-            vc.selectLocationDelegate = self
-            navigationController?.pushViewController(vc, animated: true)
+        if places.count == 0 {
+            return 100
+        } else {
+            return 50
         }
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 12))
-        view.backgroundColor = UIColor.clearColor()
-        return view
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
     }
     
-    // MARK: - Select location delegate
-    
-    func selectLocation(selectedLocation: MKMapItem) {
-        print("selected location:\(selectedLocation.name)")
-        self.selectedLocation = selectedLocation
-        locationCell.detailTextLabel?.text = self.selectedLocation!.name
-        if let name = self.selectedLocation!.name {
-            newDayDetail?.place = name
-        }
-        if let coordinate = self.selectedLocation?.placemark.location?.coordinate {
-            newDayDetail?.coordinate = coordinate
-        }
-    }
-    
-    // MARK: - Select type delegate
-    
-    func selectType(type: Int) {
-        self.newDayDetail?.type = type
-        switch type {
-        case 0:
-            typeCell.detailTextLabel?.text = "Catering"
-        case 1:
-            typeCell.detailTextLabel?.text = "Accommodation"
-        default:
-            typeCell.detailTextLabel?.text = "Scenery Spot"
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            // Delete the row from the data source
+            if indexPath.row < places.count {
+                places.removeAtIndex(indexPath.row)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
+            }
         }
     }
     
     // MARK: - Helper
     
-    func newPlan() {
-        if self.newDayDetail?.place != "" {
-            self.newDayDetail?.startTime = startDateCell.date
-            self.newDayDetail?.endTime = endDateCell.date
-            // 用delegate把值传回上一页面
-            newPlanDelegate?.newPlan(self.newDayDetail!)
-            self.navigationController?.popViewControllerAnimated(true)
+    func addSelector() {
+        let alert = UIAlertController(title: "Add a place", message: nil, preferredStyle: .Alert)
+        alert.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = "Place name..."
         }
-    }
-    
-    // MARK: - Navigation
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "SelectTypeSegue" {
-            if let detailViewController = segue.destinationViewController as? SelectTypeTableViewController {
-                detailViewController.selectTypeDelegate = self
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Submit", style: .Default, handler: { (action) in
+            if alert.textFields![0].text != "" {
+                self.places.append(alert.textFields![0].text!)
+                self.tableView.reloadData()
+                HUD.flash(.Success, delay: 1.0)
+            } else {
+                HUD.flash(.LabeledError(title: "Error", subtitle: "Destination city name cannot be empty."), delay: 2.0)
             }
+        }))
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func doneSelector() {
+        if places.count != 0 {
+            var string = places[0]
+            for i in 1 ..< places.count {
+                string.appendContentsOf(" > ")
+                string.appendContentsOf(places[i])
+            }
+            self.plan?.content = string
+            newPlanDelegate?.newPlan(self.plan!)
+            HUD.flash(.Success, delay: 1.0)
+            navigationController?.popViewControllerAnimated(true)
+        } else {
+            let alert = UIAlertController(title: "Error", message: "Plan destination cities cannot be empty!", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
         }
     }
+
 }

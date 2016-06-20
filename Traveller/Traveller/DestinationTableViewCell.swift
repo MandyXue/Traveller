@@ -12,6 +12,7 @@ class DestinationTableViewCell: UITableViewCell {
 
     @IBOutlet weak var destNameLabel: UILabel!
     @IBOutlet weak var destImageView: UIImageView!
+    @IBOutlet weak var destDateLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

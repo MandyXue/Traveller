@@ -9,8 +9,8 @@
 import Foundation
 
 class DataBean {
-    let dateFormatStr = "yyyy-MM-dd HH:ss:mm"
-    let timeFormatStr = "HH:ss:mm"
+    let dateFormatStr = "yyyy-MM-dd HH:mm:ss"
+    let timeFormatStr = "HH:mm:ss"
     let onlyDateFormat = "yyyy-MM-dd"
     static let dateFormatter = NSDateFormatter()
     static let timeFormatter = NSDateFormatter()
