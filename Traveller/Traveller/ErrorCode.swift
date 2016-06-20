@@ -30,3 +30,7 @@ enum SignupError: ErrorType {
 enum UserError: ErrorType {
     case GetUserInfoFailled
 }
+
+enum PostError: ErrorType {
+    case GetPostsError
+}
