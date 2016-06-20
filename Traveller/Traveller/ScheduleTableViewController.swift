@@ -12,7 +12,7 @@ import SDWebImage
 class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
     
     var cities: [ScheduleBean] = []
-    
+    let scheduleModel = ScheduleModel()
     // MARK: - BaseViewController
     
     static func loadFromStoryboard() -> UIViewController {
@@ -40,6 +40,10 @@ class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
         self.tabBarController?.navigationItem.title = "Schedule"
         self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addDestination))
         self.tabBarController?.navigationItem.leftBarButtonItem = self.editButtonItem()
+        
+        scheduleModel.getSchedule(scheduleModel.userID)
+            .then { news -> () in
+            }.error { err in }
     }
 
     override func didReceiveMemoryWarning() {

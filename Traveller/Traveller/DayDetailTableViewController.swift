@@ -13,7 +13,7 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
     var spots: [DayDetailBean] = []
     var planId: String?
     var edit = false
-    
+    let dayDetailModel = DayDetailModel()
     
     // MARK: - Life cycle
 
@@ -23,6 +23,15 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addSpot)), UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(editSpot))]
         
         prepareData()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        dayDetailModel.getDayDetails(planId!)
+            .then { news -> () in
+            }.error { err in
+        }
     }
 
     override func didReceiveMemoryWarning() {

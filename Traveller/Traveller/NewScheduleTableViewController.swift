@@ -22,6 +22,7 @@ class NewScheduleTableViewController: UITableViewController {
     var schedule: ScheduleBean?
     
     var order: Int = 0
+    let scheduleModel = ScheduleModel()
     
     // MARK: - BaseViewController
     
@@ -43,7 +44,7 @@ class NewScheduleTableViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(newSchedule))
         // TODO: 修改creatorId的默认值，去掉scheduleID
         // TODO: imageURL
-        schedule = ScheduleBean(scheduleID: "test", creatorId: "creator", destination: "", order: order, imageURL: nil, startDate: NSDate(timeIntervalSinceNow: 0))
+//        schedule = ScheduleBean(scheduleID: "test", creatorId: "creator", destination: "", order: order, imageURL: nil, startDate: NSDate(timeIntervalSinceNow: 0))
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,16 +93,24 @@ class NewScheduleTableViewController: UITableViewController {
     // MARK: - Helper
     
     func newSchedule() {
-        if schedule != nil && schedule?.creatorId != "" {
-            schedule?.startDate = datePickerCell.date
-            if destinationCell.detailTextLabel?.text == "" || destinationCell.detailTextLabel?.text == nil || destinationCell.detailTextLabel?.text == "not selected" {
-                HUD.flash(.LabeledError(title: "Error", subtitle: "Destination cannot be empty"), delay: 2.0)
-            } else {
-                schedule?.destination = (destinationCell.detailTextLabel?.text)!
-                // 用delegate传回
-                newScheduleDelegate?.newSchedule(schedule!)
-                navigationController?.popViewControllerAnimated(true)
+        if destinationCell.detailTextLabel?.text == "" || destinationCell.detailTextLabel?.text == nil || destinationCell.detailTextLabel?.text == "not selected" {
+            HUD.flash(.LabeledError(title: "Error", subtitle: "Destination cannot be empty"), delay: 2.0)
+        } else {
+            self.schedule = ScheduleBean(creatorId: scheduleModel.userID, destination: (destinationCell.detailTextLabel?.text)!, order: order, imageURL: nil, startDate: datePickerCell.date)
+            scheduleModel.addNewSchedule(self.schedule!)
+                .then { newId -> () in
+                    if let _ = newId {
+                        self.schedule!.id = newId!
+                        // 用delegate传回
+                        self.newScheduleDelegate?.newSchedule(self.schedule!)
+                        self.navigationController?.popViewControllerAnimated(true)
+                    } else {
+                        
+                    }
+                }.error { err in
+                    print (err)
             }
+            
         }
     }
 }

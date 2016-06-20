@@ -13,6 +13,7 @@ class TimelineTableViewController: UITableViewController, NewPlanDelegate {
     var places: [PlanBean] = []
     var gradientColors: [UIColor] = []
     var schedule: ScheduleBean?
+    let planModel = PlanModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,14 @@ class TimelineTableViewController: UITableViewController, NewPlanDelegate {
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
         self.tableView.addGestureRecognizer(longPress)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        planModel.getPlans(schedule!.id!, userId: planModel.userID)
+            .then { news -> () in
+            }.error { err in }
     }
 
     override func didReceiveMemoryWarning() {

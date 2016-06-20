@@ -20,6 +20,8 @@ class NewPlanTableViewController: UITableViewController {
     var plan: PlanBean?
     var scheduleId: String?
     
+    let planModel = PlanModel()
+    
     var newPlanDelegate: NewPlanDelegate?
     
     // MARK: - BaseViewController
@@ -122,9 +124,20 @@ class NewPlanTableViewController: UITableViewController {
                 string.appendContentsOf(places[i])
             }
             self.plan?.content = string
-            newPlanDelegate?.newPlan(self.plan!)
-            HUD.flash(.Success, delay: 1.0)
-            navigationController?.popViewControllerAnimated(true)
+            
+            self.planModel.addNewPlan(self.plan!)
+                .then { newId -> () in
+                    if let _ = newId {
+                        self.plan!.id = newId!
+                        self.newPlanDelegate?.newPlan(self.plan!)
+                        HUD.flash(.Success, delay: 1.0)
+                        self.navigationController?.popViewControllerAnimated(true)
+                    } else {
+                       // 保存失败
+                    }
+                }.error { err in
+                    print(err)
+            }
         } else {
             let alert = UIAlertController(title: "Error", message: "Plan destination cities cannot be empty!", preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
