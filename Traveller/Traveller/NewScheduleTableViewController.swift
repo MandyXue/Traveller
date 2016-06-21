@@ -107,8 +107,8 @@ class NewScheduleTableViewController: UITableViewController {
                     self.navigationController?.popViewControllerAnimated(true)
                 }.error { err in
                     print (err)
-                    // TODO: 错误处理
-                    HUD.flash(.LabeledError(title: "Error", subtitle: "Failed due to unknown reason."))
+                    // 错误处理
+                    self.handleErrorMsg(err)
             }
             
         }

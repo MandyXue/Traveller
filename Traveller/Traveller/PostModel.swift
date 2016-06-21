@@ -123,7 +123,8 @@ class PostModel: DataModel {
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
-                        
+                        print("get user posts:")
+                        print(jsonData)
                         let posts = [PostBean]()
                         fulfill(posts)
 

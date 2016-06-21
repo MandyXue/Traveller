@@ -71,9 +71,6 @@ class UserModel: DataModel {
                         
                         let creator = jsonData["creator"]
                         fulfill(self.formatUser(fromRemote: creator))
-                    } catch DataError.TokenInvalid {
-                        print("token invalid")
-                        reject(DataError.TokenInvalid)
                     } catch {
                         reject(error)
                     }
@@ -91,13 +88,9 @@ class UserModel: DataModel {
                 .responseJSON{ response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
-                        
                         let userInfo = jsonData["data"]
                         
                         fulfill(self.formatUser(fromRemote: userInfo))
-                    } catch DataError.TokenInvalid {
-                        print("token invalid")
-                        reject(DataError.TokenInvalid)
                     } catch {
                         reject(error)
                     }

@@ -64,6 +64,23 @@ class ScheduleModel: DataModel {
                     }
             }
         }
-
+    }
+    
+    func deleteSchedule(scheduleId: String, userId: String) -> Promise<Bool> {
+        let requestURL = DataModel.baseURL + "/schedule/\(token)/\(userId)/\(scheduleId)"
+        
+        return Promise { fulfill, reject in
+            Alamofire.request(.DELETE, requestURL, parameters: nil, encoding: .URL, headers: nil)
+                .responseJSON { response in
+                    do {
+                        try DataModel.filterResponse(response)
+                        
+                        fulfill(true)
+                    } catch {
+                        print(error)
+                        reject(error)
+                    }
+            }
+        }
     }
 }

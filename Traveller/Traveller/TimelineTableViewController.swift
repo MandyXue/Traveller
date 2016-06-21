@@ -90,7 +90,14 @@ class TimelineTableViewController: UITableViewController, NewPlanDelegate {
         if editingStyle == .Delete {
             // Delete the row from the data source
             if indexPath.row < places.count {
-                places.removeAtIndex(indexPath.row)
+                HUD.show(.LabeledProgress(title: nil, subtitle: "Deleting..."))
+                let deletedPlan = places.removeAtIndex(indexPath.row)
+                planModel.deletePlan(deletedPlan.id!, userId: planModel.userID)
+                    .then { isSuccess -> () in
+                        HUD.flash(.Success)
+                    }.error { err in
+                        self.handleErrorMsg(err)
+                }
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
             }
         }

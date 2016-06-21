@@ -137,9 +137,8 @@ class NewPlanTableViewController: UITableViewController {
                     self.navigationController?.popViewControllerAnimated(true)
                 }.error { err in
                     print(err)
-                    // TODO: 错误处理
-                    // 保存失败
-                    HUD.flash(.LabeledError(title: "Error", subtitle: "Failed due to unknown reason."))
+                    // 错误处理
+                    self.handleErrorMsg(err)
             }
         } else {
             let alert = UIAlertController(title: "Error", message: "Plan destination cities cannot be empty!", preferredStyle: .Alert)

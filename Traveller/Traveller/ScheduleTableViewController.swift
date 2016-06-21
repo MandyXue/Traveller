@@ -91,7 +91,15 @@ class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
         if editingStyle == .Delete {
             // Delete the row from the data source
             if indexPath.row < cities.count {
-                cities.removeAtIndex(indexPath.row)
+                HUD.show(.LabeledProgress(title: nil, subtitle: "Deleting..."))
+                let deletedSchedule = cities.removeAtIndex(indexPath.row)
+                scheduleModel.deleteSchedule(deletedSchedule.id!, userId: scheduleModel.userID)
+                    .then { isSuccess -> () in
+                        HUD.flash(.Success)
+                    }.error { err in
+                        self.handleErrorMsg(err)
+                }
+                
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
             }
         }

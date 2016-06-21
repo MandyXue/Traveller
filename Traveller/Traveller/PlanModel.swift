@@ -60,4 +60,22 @@ class PlanModel: DataModel {
         }
         
     }
+    
+    func deletePlan(planId: String, userId: String) -> Promise<Bool> {
+        let requestURL = DataModel.baseURL + "/user/plan/\(token)/\(userId)/\(planId)"
+        
+        return Promise { fulfill, reject in
+            Alamofire.request(.DELETE, requestURL, parameters: nil, encoding: .URL, headers: nil)
+                .responseJSON { response in
+                    do {
+                        try DataModel.filterResponse(response)
+                        
+                        fulfill(true)
+                    } catch {
+                        print(error)
+                        reject(error)
+                    }
+            }
+        }
+    }
 }
