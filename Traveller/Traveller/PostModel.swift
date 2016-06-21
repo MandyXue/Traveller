@@ -85,15 +85,15 @@ class PostModel: DataModel {
     
     // TODO:获取图片上传token
     func getUpToken() ->Promise<String> {
-        let requestURL = DataModel.baseURL + ""
-        let parameters = ["token": token]
+        let requestURL = DataModel.baseURL + "/\(token)/uptoken"
         
         return Promise { fulfill, reject in
-            Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
+            Alamofire.request(.GET, requestURL, parameters: nil, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
-
+                        print("uptoken response")
+                        print(jsonData)
                     } catch {
                         print(error)
                         reject(error)
@@ -123,11 +123,16 @@ class PostModel: DataModel {
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
-                        print("get user posts:")
-                        print(jsonData)
-                        let posts = [PostBean]()
+                        
+                        let posts = jsonData["post"].array!.map { post -> PostBean in
+                            let id = post["id"].string!
+                            let title = post["title"].string!
+                            let url = post["imageURL"].string!
+                            let location = post["location"].string!
+                            
+                            return PostBean(id: id, title: title, address: location, summary: "", latitude: 0, longitude: 0, creatorID: "", createDate: "1999-01-01", imagesURL: [url])
+                        }
                         fulfill(posts)
-
                     } catch {
                         print(error)
                         reject(error)

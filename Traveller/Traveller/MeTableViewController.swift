@@ -11,9 +11,7 @@ import MessageUI
 import PKHUD
 
 class MeTableViewController: UITableViewController, MFMailComposeViewControllerDelegate, ModifyUserInfoDelegate {
-    
-    var user = UserBean(username: "not setted", avatar: UIImage(named: "avatar")!, place: "not setted", gender: true, summary: "not setted", email: "not setted", homepage: "not setted", registerDate: NSDate(timeIntervalSinceNow: 0))
-    
+        
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
@@ -86,6 +84,7 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
         case 2:
             let vc = PostListTableViewController.loadFromStoryboard() as! PostListTableViewController
             vc.type = (indexPath.row == 0) ? 1: 2
+            vc.user = self.currentUser!
             self.navigationController?.pushViewController(vc, animated: true)
         // about traveller and feedback
         case 3:
@@ -93,7 +92,7 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
                 let vc = storyboard?.instantiateViewControllerWithIdentifier("AboutTraveller")
                 navigationController?.pushViewController(vc!, animated: true)
             } else {
-                let title = "Feedback of Traveller @"+user.username
+                let title = "Feedback of Traveller @\(currentUser?.username)"
                 let messageBody = ""
                 let toRecipents = ["xuemengdi513@gmail.com"]
                 self.send(title, messageBody: messageBody, toRecipients: toRecipents)
@@ -154,7 +153,7 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
     }
     
     func setNewUserInfo(newInfo: UserBean) {
-        self.user = newInfo
+        self.currentUser = newInfo
     }
 
 }

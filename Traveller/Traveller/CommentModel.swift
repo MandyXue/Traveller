@@ -52,8 +52,14 @@ class CommentModel: DataModel {
                             let content = raw["content"].string!
                             let createDate = raw["createDate"].string!
                             let creatorId = raw["creatorId"].string!
+                            let postTitle = raw["post_title"].string!
+                            let postLocation = raw["post_location"].string!
                             
-                            return CommentBean(commentId: id, creatorId: creatorId, avatarURL: creatorAvatar, content: content, postID: postId, createDate: createDate)
+                            let new = CommentBean(commentId: id, creatorId: creatorId, avatarURL: creatorAvatar, content: content, postID: postId, createDate: createDate)
+                            new.postTitle = postTitle
+                            new.postLocation = postLocation
+                            
+                            return new
                         }
                         
                         fulfill(comments)

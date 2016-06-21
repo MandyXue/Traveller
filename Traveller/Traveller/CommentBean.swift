@@ -17,14 +17,17 @@ class CommentBean: DataBean {
     var creatorAvatarURL: String?
     var content: String   // 评论内容
     var postID: String
-    var time: String       // 评论时间
+    var time: NSDate       // 评论时间
+    
+    var postTitle:String?
+    var postLocation:String?
     
     // MARK: - Init
     override init() {
         self.creatorId = ""
         content = ""
         postID = ""
-        time = ""
+        time = NSDate()
     }
     
     // For remote
@@ -34,7 +37,7 @@ class CommentBean: DataBean {
         self.creatorAvatarURL = avatarURL
         self.content = content
         self.postID = postID
-        self.time = createDate
+        self.time = DataBean.dateFormatter.dateFromString(createDate)!
         
         super.init()
     }
@@ -45,7 +48,7 @@ class CommentBean: DataBean {
         self.content = content
         self.postID = postID
         
-        time = DataBean.dateFormatter.stringFromDate(NSDate())
+        time = NSDate()
         super.init()
     }
 }

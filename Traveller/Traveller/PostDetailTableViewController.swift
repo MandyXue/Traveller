@@ -52,25 +52,27 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Comment", style: .Plain, target: self, action: #selector(addComment))
         
-        postId = "402881e85553a48c015553a4af370001"
         if let id = postId {
-//            postModel.getPostDetail(byPostID: id)
-//                .then { post -> Void in
-//                    print("post content::::::::::::::::::")
-//                    print(post)
+            HUD.show(.LabeledProgress(title: nil, subtitle: "Loading....."))
+            postModel.getPostDetail(byPostID: id)
+                .then { post -> () in
+                    HUD.flash(.Success)
+                    print("post content::::::::::::::::::")
+                    print(post)
+                    self.post = post
+                    self.tableView.reloadData()
+                }.error { err in
+                    self.handleErrorMsg(err)
+                }
+            
+//            postModel.getComments(byPostID: id)
+//                .then { comments -> Void in
+//                    print("comment content")
+//                    print(comments)
 //                }.error { err in
-//                    print("get post detail error")
+//                    print("get post comment error")
 //                    print(err)
 //                }
-            
-            postModel.getComments(byPostID: id)
-                .then { comments -> Void in
-                    print("comment content")
-                    print(comments)
-                }.error { err in
-                    print("get post comment error")
-                    print(err)
-                }
             
 //            postModel.getCreatorDetail(byPostID: id)
 //                .then { creator -> Void in
@@ -81,16 +83,16 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
 //                }
             
             // 请求图片数据
-            when(postModel.getImages(["", "", ""])).then { images -> Void in
-                
-                }.error { err in
-                    
-            }
+//            when(postModel.getImages(["", "", ""])).then { images -> Void in
+//                
+//                }.error { err in
+//                    
+//            }
         }
         
         
         
-        prepareData()
+//        prepareData()
         if let _ = self.post {
             setUpUI()
         }
@@ -155,23 +157,23 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
 //        self.tableView.tableFooterView = view
     }
     
-    func prepareData() {
-        // TODO: 假数据，后续添加接口
-        var i = 0
-        while i < 20 {
-            let newComment = CommentBean(commentId: "testId", creatorId: "testId", avatarURL: nil, content: "Great place, I want to go gogogogogogogogogogogogogogo....", postID: "test", createDate: "2016-06-18")
-            newComment.user = UserBean(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai")
-            comments.append(newComment)
-                
-            i += 1
-        }
-        // scroll view images
-        imageURLs.append("http://www.khxing.com/files/2014-9/20140915132828105078.jpg")
-        imageURLs.append("http://file21.mafengwo.net/M00/B3/05/wKgB21AXIVfkK_6eABs2chtBOg409.groupinfo.w600.jpeg")
-        imageURLs.append("http://www.oruchina.com/files/2014-9/f20140930095244175411.jpg")
-        imageURLs.append("http://youimg1.c-ctrip.com/target/tg/920/427/911/5c52e590249244499dbeede58832e865_jupiter.jpg")
-        scrollViewWidth = self.scrollView.frame.size.width
-    }
+//    func prepareData() {
+//        // TODO: 假数据，后续添加接口
+//        var i = 0
+//        while i < 20 {
+//            let newComment = CommentBean(commentId: "testId", creatorId: "testId", avatarURL: nil, content: "Great place, I want to go gogogogogogogogogogogogogogo....", postID: "test", createDate: "2016-06-18")
+//            newComment.user = UserBean(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai")
+//            comments.append(newComment)
+//                
+//            i += 1
+//        }
+//        // scroll view images
+//        imageURLs.append("http://www.khxing.com/files/2014-9/20140915132828105078.jpg")
+//        imageURLs.append("http://file21.mafengwo.net/M00/B3/05/wKgB21AXIVfkK_6eABs2chtBOg409.groupinfo.w600.jpeg")
+//        imageURLs.append("http://www.oruchina.com/files/2014-9/f20140930095244175411.jpg")
+//        imageURLs.append("http://youimg1.c-ctrip.com/target/tg/920/427/911/5c52e590249244499dbeede58832e865_jupiter.jpg")
+//        scrollViewWidth = self.scrollView.frame.size.width
+//    }
 
 }
 
@@ -203,9 +205,9 @@ extension PostDetailTableViewController {
             return cell
         case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("CreatorCell", forIndexPath: indexPath) as! PostCreatorTableViewCell
-            cell.creatorImageView.image = post!.creator!.avatar
-            cell.creatorNameLabel.text = post!.creator!.username
-            cell.creatorPlaceLabel.text = post!.creator!.place
+            cell.creatorImageView.image = post?.creator?.avatar
+            cell.creatorNameLabel.text = post?.creator?.username
+            cell.creatorPlaceLabel.text = post?.creator?.place
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! PostCommentTableViewCell
@@ -279,8 +281,8 @@ extension PostDetailTableViewController {
     // helper
     
     func configureDetailCell(cell: PostDetailTableViewCell, indexPath: NSIndexPath) {
-        cell.locationLabel.text = post!.address
-        cell.descriptionLabel.text = post!.summary
+        cell.locationLabel.text = post?.address
+        cell.descriptionLabel.text = post?.summary
     }
     
     func configureCommentCell(cell: PostCommentTableViewCell, indexPath: NSIndexPath) {

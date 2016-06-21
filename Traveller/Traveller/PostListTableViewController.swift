@@ -17,6 +17,7 @@ class PostListTableViewController: UITableViewController {
     var comments: [CommentBean] = []
     var posts: [PostBean] = []
     var filteredPosts: [PostBean] = []
+    var user:UserBean?
     
     let postModel = PostModel()
     let commentModel = CommentModel()
@@ -58,8 +59,8 @@ class PostListTableViewController: UITableViewController {
             // 获取用户的评论
             commentModel.getComments(byUserID: postModel.userID)
                 .then { comments -> () in
-//                    self.comments = comments
-//                    self.tableView.reloadData()
+                    self.comments = comments
+                    self.tableView.reloadData()
                     HUD.flash(.Success)
                     comments.forEach { print($0.postID) }
                 }.error { err in
@@ -69,7 +70,7 @@ class PostListTableViewController: UITableViewController {
         }
         
         
-        setInfo()
+//        setInfo()
         
         if type == 0 {
             searchController.searchBar.delegate = self
@@ -98,22 +99,22 @@ class PostListTableViewController: UITableViewController {
     
     // MARK: - Helper
     
-    func setInfo() {
-        var i = 0
-        while i < 20 {
-            let newComment = CommentBean(commentId: "testId", creatorId: "testId", avatarURL: nil, content: "Great place, I want to go gogogogogogogogogogogogogogo....", postID: "test", createDate: "2016-06-18")
-            newComment.user = UserBean(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai")
-            comments.append(newComment)
-            i += 1
-        }
-        
-        i = 0
-        while i < 20 {
-            posts.append(PostBean(place: "Shanghai\(i)", detail: "DetailDetailDetailDetailDetailDetailDetailDetail\(i)", location: CLLocationCoordinate2D(latitude: 31.2855741398, longitude: 121.2147781261), address: "Shanghaishanghai\(i)", creator: UserBean(username: "user\(i)", avatar: UIImage(named: "avatar")!, place: "place....")))
-            i += 1
-        }
-    }
-    
+//    func setInfo() {
+//        var i = 0
+//        while i < 20 {
+//            let newComment = CommentBean(commentId: "testId", creatorId: "testId", avatarURL: nil, content: "Great place, I want to go gogogogogogogogogogogogogogo....", postID: "test", createDate: "2016-06-18")
+//            newComment.user = UserBean(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai")
+//            comments.append(newComment)
+//            i += 1
+//        }
+//        
+//        i = 0
+//        while i < 20 {
+//            posts.append(PostBean(place: "Shanghai\(i)", detail: "DetailDetailDetailDetailDetailDetailDetailDetail\(i)", location: CLLocationCoordinate2D(latitude: 31.2855741398, longitude: 121.2147781261), address: "Shanghaishanghai\(i)", creator: UserBean(username: "user\(i)", avatar: UIImage(named: "avatar")!, place: "place....")))
+//            i += 1
+//        }
+//    }
+//    
 }
 
 // MARK: - Search bar setting
@@ -180,7 +181,11 @@ extension PostListTableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let vc = PostDetailTableViewController.loadFromStoryboard() as! PostDetailTableViewController
-        vc.post = posts[indexPath.row]
+        if type == 0 || type == 1 {
+            vc.postId = posts[indexPath.row].id!
+        } else {
+            vc.postId = comments[indexPath.row].postID
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -198,16 +203,17 @@ extension PostListTableViewController {
     }
     
     func configureCommentCell(cell: CommentTableViewCell, indexPath: NSIndexPath) {
-        if posts[indexPath.row].images.count > 0 {
-            cell.postImageView.image = posts[indexPath.row].images[0]
-        } else {
-            cell.postImageView.image = UIImage(named: "avatar")
-        }
-        cell.nameLabel.text = posts[indexPath.row].title
-        cell.locationLabel.text = posts[indexPath.row].address
-        cell.usernameLabel.text = comments[indexPath.row].user!.username
+//        if posts[indexPath.row].images.count > 0 {
+//            cell.postImageView.image = posts[indexPath.row].images[0]
+//        } else {
+//            cell.postImageView.image = UIImage(named: "avatar")
+//        }
+        cell.postImageView.image = UIImage(named: "avatar")
+        cell.nameLabel.text = comments[indexPath.row].postTitle
+        cell.locationLabel.text = comments[indexPath.row].postLocation        
+        cell.usernameLabel.text = self.user!.username
         cell.commentLabel.text = comments[indexPath.row].content
-        cell.timeLabel.text = "TODO"//NSDateFormatter.stringFromDate(comments[indexPath.row].time)
+        cell.timeLabel.text = DataBean.dateFormatter.stringFromDate(comments[indexPath.row].time)
     }
     
 }

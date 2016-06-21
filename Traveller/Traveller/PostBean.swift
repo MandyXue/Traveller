@@ -45,7 +45,7 @@ class PostBean: DataBean {
         self.summary = summary
         self.location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         self.creatorID = creatorID
-        self.createDate = NSDate()
+        self.createDate = DataBean.onlyDateFormatter.dateFromString(createDate)!
         self.imagesURL = imagesURL
     }
     
