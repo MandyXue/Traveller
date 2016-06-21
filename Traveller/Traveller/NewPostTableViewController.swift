@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 import PromiseKit
-
+import PKHUD
 class NewPostTableViewController: UITableViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate, SelectLocationDelegate {
     
     @IBOutlet weak var textView: UITextView!
@@ -51,13 +51,6 @@ class NewPostTableViewController: UITableViewController, UICollectionViewDataSou
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // 获取uptoken
-        postModel.getUpToken().then { uptoken -> () in
-                self.uptoken = uptoken
-            }.error { err in
-                print(err)
-        }
         
         // 显示选择好的location
         if let _ = selectedLocation {
@@ -192,20 +185,22 @@ class NewPostTableViewController: UITableViewController, UICollectionViewDataSou
             print("send")
             
             if let selected = self.selectedLocation {
-                let post = PostBean(place: selected.name!, detail: self.textView.text!, location: selected.placemark.coordinate, address: "\(selected.placemark.title),\(selected.placemark.subtitle!)", creatorId: self.postModel.userID)
+                HUD.show(.LabeledProgress(title: nil, subtitle: "Uploading....."))
                 
-                self.postModel.uploadImageToQiniu(self.images)
-                    .then { urls -> Promise<Bool> in
+                let post = PostBean(place: selected.name!, detail: self.textView.text!, location: selected.placemark.coordinate, address: "\(selected.placemark.title)", creatorId: self.postModel.userID)
+                // 获取uptoken
+                self.postModel.getUpToken().then { uptoken -> Promise<[String]> in
+                        self.uptoken = uptoken
+                    
+                        return when(self.postModel.uploadImageToQiniu(self.images, uptoken: self.uptoken!))
+                    }.then { urls -> Promise<Bool> in
                         post.imagesURL = urls
+                        print(urls)
                         return self.postModel.addNewPost(post)
-                    }.then { isSuccess -> () in
-                        if isSuccess {
-                            
-                        } else {
-                            // 发送新post失败
-                        }
+                    }.then { _ -> () in
+                        HUD.flash(.Success)
                     }.error { err in
-                        print(err)
+                        self.handleErrorMsg(err)
                 }
             } else {
                 // 没有选点
@@ -218,6 +213,7 @@ class NewPostTableViewController: UITableViewController, UICollectionViewDataSou
     
     func addImage() {
         print("add a picture")
+        textView.resignFirstResponder()
         let actionSheet = getImagePickerActionSheet()
         actionSheet.showInView(self.view)
     }

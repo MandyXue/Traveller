@@ -89,8 +89,9 @@ class UserModel: DataModel {
                     do {
                         let jsonData = try DataModel.filterResponse(response)
                         let userInfo = jsonData["data"]
-                        
-                        fulfill(self.formatUser(fromRemote: userInfo))
+                        let user = self.formatUser(fromRemote: userInfo)
+                        user.id = id
+                        fulfill(user)
                     } catch {
                         reject(error)
                     }

@@ -10,8 +10,11 @@ import Foundation
 import PromiseKit
 import Alamofire
 import SwiftyJSON
+import Qiniu
 
 class PostModel: DataModel {
+    
+    static let upManager = QNUploadManager()
     
     // TODO:1-1获取附近post列表
     func getAroundPost() -> Promise<[PostBean]> {
@@ -56,7 +59,7 @@ class PostModel: DataModel {
     }
     
         
-    // TODO:获取图片上传token
+    // 获取图片上传token
     func getUpToken() ->Promise<String> {
         let requestURL = DataModel.baseURL + "/\(token)/uptoken"
         
@@ -65,25 +68,34 @@ class PostModel: DataModel {
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
-                        print("uptoken response")
-                        print(jsonData)
+                        
+                        fulfill(jsonData["uptoken"].string!)
                     } catch {
-                        print(error)
                         reject(error)
                     }
             }
         }
     }
     
-    // TODO:3-1上传图片到云服务器
-    func uploadImageToQiniu(images: [UIImage]) -> Promise<[String]> {
-        let requestURL = DataModel.baseURL + ""
+    // 3-1上传图片到云服务器
+    func uploadImageToQiniu(images: [UIImage], uptoken: String) -> [Promise<String>] {
         
-        return Promise { fulfill, reject in
-            Alamofire.request(.POST, requestURL, parameters: nil, encoding: .URL, headers: nil)
-                .responseJSON { response in
+        let datas = images.map { UIImagePNGRepresentation($0)! }
+        let promises = datas.map { data -> Promise<String> in
+            return Promise { fulfill, reject in
+                PostModel.upManager.putData(data, key: nil, token: uptoken, complete: { info, key, response in
+//                        print("key:\(key)")
+//                        print("response:\(response)")
+                    if info.statusCode == 200 {
+                        fulfill("http://7xutg8.com1.z0.glb.clouddn.com/\(response["key"] as! String)")
+                    } else {
+                        reject(DataError.UploadImageFail)
+                    }
+                }, option: nil)
+
             }
         }
+        return promises
     }
     
     // 5-1获取一个用户推送的post列表
@@ -117,13 +129,21 @@ class PostModel: DataModel {
     // TODO:6-1推送一条新的post
     func addNewPost(newPost: PostBean) -> Promise<Bool> {
         let requestURL = DataModel.baseURL + "/post/new"
-        let post = []
+        let post = ["title": newPost.title,
+                    "creatorId": newPost.creatorID,
+                    "locationDesc": newPost.address,
+                    "latitude": newPost.location.latitude,
+                    "longitude": newPost.location.longitude,
+                    "summary": newPost.summary,
+                    "createDate": DataBean.onlyDateFormatter.stringFromDate(newPost.createDate)]
         let urls = newPost.imagesURL
         
-        let parameters = ["token": token, "post": post, "imageURLs": urls]
+        let parameters = ["token": token, "post": post, "imageURLs": urls] 
         return Promise { fulfill, reject in
             Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
+                    print(response.request!)
+                    
                     do {
                         try DataModel.filterResponse(response)
                         fulfill(true)

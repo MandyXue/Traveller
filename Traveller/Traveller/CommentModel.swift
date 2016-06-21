@@ -33,7 +33,12 @@ class CommentModel: DataModel {
                             let time = comment["createDate"].string!
                             let creatorId = comment["creatorId"].string!
                             
-                            return CommentBean(commentId: id, creatorId: creatorId, avatarURL: creatorAvatarURL, content: content, postID: postId, createDate: time)
+                            let name = comment["creator_name"].string!
+                            
+                            let comment = CommentBean(commentId: id, creatorId: creatorId, avatarURL: creatorAvatarURL, content: content, postID: postId, createDate: time)
+                            comment.user = UserBean(id: creatorId, username: name, avatar: nil)
+                            
+                            return comment
                         }
                         print("comments:")
                         print(jsonData)

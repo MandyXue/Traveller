@@ -45,10 +45,22 @@ class UserBean {
     }
 
     //For
+    init(id: String, username: String, avatar: UIImage?) {
+        self.id = id
+        self.username = username
+        self.avatar = avatar
+        self.place = ""
+        gender = true
+        summary = nil
+        email = ""
+        homepage = nil
+        registerDate = NSDate(timeIntervalSinceNow: 0)
+    }
+    
     init(username: String, avatar: UIImage, place: String) {
         self.username = username
         self.avatar = avatar
-        self.place = place
+        self.place = ""
         gender = true
         summary = nil
         email = ""

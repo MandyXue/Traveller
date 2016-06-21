@@ -18,6 +18,7 @@ enum DataError: ErrorType {
     case ResponseInvalid
     case TokenInvalid
     case UnknowError
+    case UploadImageFail
 }
 
 

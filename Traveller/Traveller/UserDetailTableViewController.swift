@@ -47,11 +47,13 @@ class UserDetailTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Follow", style: .Plain, target: self, action: #selector(follow))
         
         setUpUI()
-        prepareData()
+//        prepareData()
         
         postModel.getPosts(byUserID: self.user.id!)
             .then { posts -> () in
-                
+                self.user.posts = posts
+                print(posts)
+                self.tableView.reloadData()
             }.error { err in
                 self.handleErrorMsg(err)
         }
@@ -85,11 +87,11 @@ class UserDetailTableViewController: UITableViewController {
         followingLabel.text = "0 Followers | 0 Following"
     }
     
-    func prepareData() {
-        user.posts = []
-        user.posts.append(PostBean(place: "Tongji University", detail: "testtesttest", location: CLLocationCoordinate2D(latitude: 31.2825510324, longitude: 121.5060841762), address: "1239 Siping Road, Shanghai", creator: self.user))
-        user.posts.append(PostBean(place: "Tongji University (Jiading)", detail: "testtesttest", location: CLLocationCoordinate2D(latitude: 31.2855741398, longitude: 121.2147781261), address: "4800 Caoan Road, Shanghai", creator: self.user))
-    }
+//    func prepareData() {
+//        user.posts = []
+//        user.posts.append(PostBean(place: "Tongji University", detail: "testtesttest", location: CLLocationCoordinate2D(latitude: 31.2825510324, longitude: 121.5060841762), address: "1239 Siping Road, Shanghai", creator: self.user))
+//        user.posts.append(PostBean(place: "Tongji University (Jiading)", detail: "testtesttest", location: CLLocationCoordinate2D(latitude: 31.2855741398, longitude: 121.2147781261), address: "4800 Caoan Road, Shanghai", creator: self.user))
+//    }
     
     func follow() {
         print("follow \(user.username)")

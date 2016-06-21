@@ -16,6 +16,7 @@ pod "PromiseKit", "~> 3.0"
 pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 pod 'Regex'
 pod 'PKHUD'
+pod "Qiniu", "~> 7.0"
 
 end
 

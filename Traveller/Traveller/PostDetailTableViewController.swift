@@ -68,6 +68,7 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
                     self.comments = comments
                     HUD.flash(.Success)
                     self.tableView.reloadData()
+                    self.titleLabel.text = self.post!.title
                 }.error { err in
                     self.handleErrorMsg(err)
                 }
@@ -199,7 +200,7 @@ extension PostDetailTableViewController {
             return cell
         case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("CreatorCell", forIndexPath: indexPath) as! PostCreatorTableViewCell
-            cell.creatorImageView.image = post?.creator?.avatar
+//            cell.creatorImageView.image = post?.creator?.avatar
             cell.creatorNameLabel.text = post?.creator?.username
             cell.creatorPlaceLabel.text = post?.creator?.place
             return cell
@@ -281,9 +282,8 @@ extension PostDetailTableViewController {
     
     func configureCommentCell(cell: PostCommentTableViewCell, indexPath: NSIndexPath) {
         cell.commentLabel.text = comments[indexPath.row-4].content
-        let user = comments[indexPath.row-4].user
         cell.commentImageView.image = UIImage(named: "avatar")// user!.avatar
-        cell.commentNameLabel.text = user!.username
+        cell.commentNameLabel.text = comments[indexPath.row-4].user!.username
         cell.commentTimeLabel.text = DataBean.dateFormatter.stringFromDate(comments[indexPath.row-4].time)
     }
 }

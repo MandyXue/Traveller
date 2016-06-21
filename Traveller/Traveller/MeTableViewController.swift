@@ -92,7 +92,7 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
                 let vc = storyboard?.instantiateViewControllerWithIdentifier("AboutTraveller")
                 navigationController?.pushViewController(vc!, animated: true)
             } else {
-                let title = "Feedback of Traveller @\(currentUser?.username)"
+                let title = "Feedback of Traveller @\(currentUser!.username)"
                 let messageBody = ""
                 let toRecipents = ["xuemengdi513@gmail.com"]
                 self.send(title, messageBody: messageBody, toRecipients: toRecipents)
