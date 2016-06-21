@@ -73,7 +73,7 @@ class SignupTableViewController: UITableViewController {
                     HUD.flash(.LabeledError(title: "Error", subtitle: "Register failed, please try again."), delay: 1.0)
                     print("signup failed")
                     return Promise { fulfill, reject in
-                        reject(SignupError.SignupFailled)
+                        reject(UserError.SignupFailed)
                     }
                 }
             }.then { loginSuccess -> () in

@@ -23,17 +23,8 @@ class CommentModel: DataModel {
             Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        let jsonData = try DataModel.filterResponse(response)
-                        let errCode = jsonData["errCode"].int!
-                        
-                        if errCode != 0 {
-                            // 错误处理
-                        } else {
-                            print("save new comment response:")
-                            print(jsonData)
-                            
-                            fulfill(true)
-                        }
+                        try DataModel.filterResponse(response)
+                        fulfill(true)
                     } catch {
                         print(error)
                     }
@@ -51,28 +42,21 @@ class CommentModel: DataModel {
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
-                        let errCode = jsonData["errCode"].int!
                         
-                        if errCode != 0 {
-                            // 错误处理
-                        } else {
-                            print("get comments by user id:")
-                            print(jsonData)
-                            let jsonComment = jsonData["comments"].array!
+                        let jsonComment = jsonData["comments"].array!
+                        
+                        let comments = jsonComment.map { raw -> CommentBean in
+                            let id = raw["id"].string!
+                            let postId = raw["postId"].string!
+                            let creatorAvatar = raw["creatorAvatar"].string
+                            let content = raw["content"].string!
+                            let createDate = raw["createDate"].string!
+                            let creatorId = raw["creatorId"].string!
                             
-                            let comments = jsonComment.map { raw -> CommentBean in
-                                let id = raw["id"].string!
-                                let postId = raw["postId"].string!
-                                let creatorAvatar = raw["creatorAvatar"].string
-                                let content = raw["content"].string!
-                                let createDate = raw["createDate"].string!
-                                let creatorId = raw["creatorId"].string!
-                                
-                                return CommentBean(commentId: id, creatorId: creatorId, avatarURL: creatorAvatar, content: content, postID: postId, createDate: createDate)
-                            }
-                            
-                            fulfill(comments)
+                            return CommentBean(commentId: id, creatorId: creatorId, avatarURL: creatorAvatar, content: content, postID: postId, createDate: createDate)
                         }
+                        
+                        fulfill(comments)
                     } catch {
                         print(error)
                     }

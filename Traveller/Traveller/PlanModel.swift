@@ -22,20 +22,22 @@ class PlanModel: DataModel {
             Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        let jsonData = try DataModel.filterResponse(response)
-                        let errCode = jsonData["errCode"].int!
+                        try DataModel.filterResponse(response)
+                        fulfill(true)
+
                         
-                        if errCode != 0 {
-                            // 错误处理
-                            
-                            print("errCode:\(errCode)")
-                            print(jsonData)
-                            fulfill(false)
-                        } else {
-                            print("save new plan response:")
-                            print(jsonData)
-                            fulfill(true)
-                        }
+//                        let errCode = jsonData["errCode"].int!
+//                        
+//                        if errCode != 0 {
+//                            // 错误处理
+//                            
+//                            print("errCode:\(errCode)")
+//                            print(jsonData)
+//                            fulfill(false)
+//                        } else {
+//                            print("save new plan response:")
+//                            print(jsonData)
+//                        }
                     } catch {
                         print(error)
                         reject(error)
@@ -54,24 +56,15 @@ class PlanModel: DataModel {
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
-                        let errCode = jsonData["errCode"].int!
                         
-                        if errCode != 0 {
-                            // 错误处理
+                        let news = jsonData["planList"].array!.map { plan -> PlanBean in
+                            let id = plan["plan_id"].string!
+                            let plan = plan["plan"].string!
                             
-                        } else {
-                            print("get plans response:")
-                            print(jsonData)
-                            
-                            let news = jsonData["planList"].array!.map { plan -> PlanBean in
-                                let id = plan["plan_id"].string!
-                                let plan = plan["plan"].string!
-                                
-                                return PlanBean(planId: id, scheduleId: scheduleId, content: plan)
-                            }
-                                                        
-                            fulfill(news)
+                            return PlanBean(planId: id, scheduleId: scheduleId, content: plan)
                         }
+                        
+                        fulfill(news)
                     } catch {
                         print(error)
                         reject(error)

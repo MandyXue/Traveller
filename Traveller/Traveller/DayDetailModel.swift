@@ -33,19 +33,8 @@ class DayDetailModel: DataModel {
             Alamofire.request(.POST, requestURL, parameters: parameters as? [String : AnyObject], encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        let jsonData = try DataModel.filterResponse(response)
-                        let errCode = jsonData["errCode"].int!
-                        
-                        if errCode != 0 {
-                            // 错误处理
-                            fulfill(false)
-                            print(jsonData)
-                            
-                        } else {
-                            print("save new day detail response:")
-                            print(jsonData)
-                            fulfill(true)
-                        }
+                        try DataModel.filterResponse(response)
+                        fulfill(true)
                     } catch {
                         print(error)
                         reject(error)
@@ -64,29 +53,21 @@ class DayDetailModel: DataModel {
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
-                        let errCode = jsonData["errCode"].int!
                         
-                        if errCode != 0 {
-                            // 错误处理
+                        
+                        let news = jsonData["details"].array!.map { day -> DayDetailBean in
+                            let id = day["id"].string!
+                            let start = day["start_time"].string!
+                            let end = day["end_time"].string!
+                            let place = day["destination"].string!
+                            let latitude = day["latitude"].double!
+                            let longitude = day["longitude"].double!
+                            let type = day["type"].int!
                             
-                        } else {
-                            print("get daydetail response:")
-                            print(jsonData)
-                            
-                            let news = jsonData["details"].array!.map { day -> DayDetailBean in
-                                let id = day["id"].string!
-                                let start = day["start_time"].string!
-                                let end = day["end_time"].string!
-                                let place = day["destination"].string!
-                                let latitude = day["latitude"].double!
-                                let longitude = day["longitude"].double!
-                                let type = day["type"].int!
-                                
-                                return DayDetailBean(id: id, planID: planId, postID: nil, startTime: start, endTime: end, place: place, latitude: latitude, longitude: longitude, type: type)
-                            }
-                            
-                            fulfill(news)
+                            return DayDetailBean(id: id, planID: planId, postID: nil, startTime: start, endTime: end, place: place, latitude: latitude, longitude: longitude, type: type)
                         }
+                        
+                        fulfill(news)
                     } catch {
                         print(error)
                         reject(error)
