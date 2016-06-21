@@ -24,7 +24,7 @@ class PostModel: DataModel {
     
     // 2-1获取post的详情
     func getPostDetail(byPostID id:String) -> Promise<PostBean> {
-        let requestURL = DataModel.baseURL + "post/detail"
+        let requestURL = DataModel.baseURL + "/post/detail"
         let parameters = ["token": token, "id": id]
         
         print("request:\(requestURL)")
@@ -55,34 +55,7 @@ class PostModel: DataModel {
         }
     }
     
-    // TODO:2-2获取post的评论
-    func getComments(byPostID id:String) -> Promise<[CommentBean]> {
-        let requestURL = DataModel.baseURL + "/comment/plist"
-        let parameters = ["token": token, "post_id": id]
         
-        return Promise { fulfill, reject in
-            Alamofire.request(.GET, requestURL, parameters: parameters, encoding: .URL, headers: nil)
-                .responseJSON { response in
-                    do {
-                        let jsonData = try DataModel.filterResponse(response)
-                        let errCode = jsonData["errCode"].int!
-                        
-                        if errCode != 0 {
-                            // 错误处理
-                        } else {
-                            let comments = [CommentBean]()
-                            print("comments:")
-                            print(jsonData)
-                            fulfill(comments)
-                        }
-                    } catch {
-                        print(error)
-                        reject(error)
-                    }
-            }
-        }
-    }
-    
     // TODO:获取图片上传token
     func getUpToken() ->Promise<String> {
         let requestURL = DataModel.baseURL + "/\(token)/uptoken"
@@ -113,7 +86,7 @@ class PostModel: DataModel {
         }
     }
     
-    // TODO:5-1获取一个用户推送的post列表
+    // 5-1获取一个用户推送的post列表
     func getPosts(byUserID id: String) -> Promise<[PostBean]> {
         let requestURL = DataModel.baseURL + "/post/posts"
         let parameters = ["token": token, "id": id]

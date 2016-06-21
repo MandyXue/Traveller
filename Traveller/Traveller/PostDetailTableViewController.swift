@@ -24,7 +24,10 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
     var comments: [CommentBean] = []
     var imageURLs: [String] = []
     var scrollViewWidth: CGFloat = 0
+    
     let postModel = PostModel()
+    let userModel = UserModel()
+    let commentModel = CommentModel()
     
     // TODO: 添加图片放大展示效果
     @IBOutlet weak var scrollView: SDCycleScrollView!
@@ -55,32 +58,19 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
         if let id = postId {
             HUD.show(.LabeledProgress(title: nil, subtitle: "Loading....."))
             postModel.getPostDetail(byPostID: id)
-                .then { post -> () in
-                    HUD.flash(.Success)
-                    print("post content::::::::::::::::::")
-                    print(post)
+                .then { post -> Promise<UserBean> in
                     self.post = post
+                    return self.userModel.getUserDetail(byUserID: self.post!.creatorID)
+                }.then { user -> Promise<[CommentBean]> in
+                    self.post!.creator = user
+                    return self.commentModel.getComments(byPostID: self.post!.id!)
+                }.then { comments -> () in
+                    self.comments = comments
+                    HUD.flash(.Success)
                     self.tableView.reloadData()
                 }.error { err in
                     self.handleErrorMsg(err)
                 }
-            
-//            postModel.getComments(byPostID: id)
-//                .then { comments -> Void in
-//                    print("comment content")
-//                    print(comments)
-//                }.error { err in
-//                    print("get post comment error")
-//                    print(err)
-//                }
-            
-//            postModel.getCreatorDetail(byPostID: id)
-//                .then { creator -> Void in
-//                    print("creator::::::::")
-//                    print(creator)
-//                }.error { err in
-//                
-//                }
             
             // 请求图片数据
 //            when(postModel.getImages(["", "", ""])).then { images -> Void in
@@ -127,12 +117,16 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
         alert.addAction(UIAlertAction(title: "Submit", style: .Default, handler: { (action) in
             let comment = alert.textFields![0].text
             if comment != "" {
-                // TODO: 这里的user应该使用currentUser
-                let newComment = CommentBean(creatorID: "Test", content: comment!, postID: self.postId!)
-                newComment.user = UserBean()
-                self.comments.append(newComment)
-                HUD.flash(.Success, delay: 0) { finished in
-                    self.tableView.reloadData()
+                let newComment = CommentBean(creatorID: self.commentModel.userID, content: comment!, postID: self.postId!)
+                
+                self.commentModel.addNewComment(newComment)
+                    .then { isSuccess -> () in
+                        self.comments.append(newComment)
+                        HUD.flash(.Success, delay: 0) { finished in
+                            self.tableView.reloadData()
+                        }
+                    }.error { err in
+                        self.handleErrorMsg(err)
                 }
             } else {
                 HUD.flash(.LabeledError(title: "Error", subtitle: "Comment cannot be empty"))
@@ -288,9 +282,9 @@ extension PostDetailTableViewController {
     func configureCommentCell(cell: PostCommentTableViewCell, indexPath: NSIndexPath) {
         cell.commentLabel.text = comments[indexPath.row-4].content
         let user = comments[indexPath.row-4].user
-        cell.commentImageView.image = user!.avatar
+        cell.commentImageView.image = UIImage(named: "avatar")// user!.avatar
         cell.commentNameLabel.text = user!.username
-        cell.commentTimeLabel.text = "TODO"//comments[indexPath.row-4].time
+        cell.commentTimeLabel.text = DataBean.dateFormatter.stringFromDate(comments[indexPath.row-4].time)
     }
 }
 

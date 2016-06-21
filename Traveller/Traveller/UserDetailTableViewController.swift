@@ -19,6 +19,9 @@ class UserDetailTableViewController: UITableViewController {
     var profile = [String:String]()
     var type: Bool = true //true就是profile,false是posts
     
+    let userModel = UserModel()
+    let postModel = PostModel()
+    
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var followingLabel: UILabel!
@@ -45,6 +48,13 @@ class UserDetailTableViewController: UITableViewController {
         
         setUpUI()
         prepareData()
+        
+        postModel.getPosts(byUserID: self.user.id!)
+            .then { posts -> () in
+                
+            }.error { err in
+                self.handleErrorMsg(err)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {

@@ -14,6 +14,39 @@ import SwiftyJSON
 
 class CommentModel: DataModel {
     
+    // 2-2获取post的评论
+    func getComments(byPostID id:String) -> Promise<[CommentBean]> {
+        let requestURL = DataModel.baseURL + "/comment/plist"
+        let parameters = ["token": token, "post_id": id]
+        
+        return Promise { fulfill, reject in
+            Alamofire.request(.GET, requestURL, parameters: parameters, encoding: .URL, headers: nil)
+                .responseJSON { response in
+                    do {
+                        let jsonData = try DataModel.filterResponse(response)
+
+                        let comments = jsonData["comments"].array!.map { comment -> CommentBean in
+                            let postId = comment["postId"].string!
+                            let content = comment["content"].string!
+                            let id = comment["id"].string!
+                            let creatorAvatarURL = comment["creatorAvatar"].string
+                            let time = comment["createDate"].string!
+                            let creatorId = comment["creatorId"].string!
+                            
+                            return CommentBean(commentId: id, creatorId: creatorId, avatarURL: creatorAvatarURL, content: content, postID: postId, createDate: time)
+                        }
+                        print("comments:")
+                        print(jsonData)
+                        fulfill(comments)
+                    } catch {
+                        print(error)
+                        reject(error)
+                    }
+            }
+        }
+    }
+
+    
     // 13-1提交评论
     func addNewComment(newComment: CommentBean) -> Promise<Bool> {
         let requestURL = DataModel.baseURL + "/comment/submit"

@@ -159,6 +159,38 @@ class UserModel: DataModel {
         }
     }
     
+    func followUser(followingId id:String, followeeId: String) -> Promise<Bool> {
+        let requestURL = DataModel.baseURL + "/user/\(token)/\(id)/follow/\(followeeId)"
+        
+        return Promise { fulfill, reject in
+            Alamofire.request(.POST, requestURL, parameters: nil, encoding: .URL, headers: nil)
+                .responseJSON { response in
+                    do {
+                        try DataModel.filterResponse(response)
+                        fulfill(true)
+                    } catch {
+                        print(error)
+                    }
+            }
+        }
+    }
+    
+    func cancelFollow(followingId id:String, followeeId: String) -> Promise<Bool> {
+        let requestURL = DataModel.baseURL + "/user/\(token)/\(id)/follow/\(followeeId)"
+        
+        return Promise { fulfill, reject in
+            Alamofire.request(.DELETE, requestURL, parameters: nil, encoding: .URL, headers: nil)
+                .responseJSON { response in
+                    do {
+                        try DataModel.filterResponse(response)
+                        fulfill(true)
+                    } catch {
+                        print(error)
+                    }
+            }
+        }
+    }
+    
     func formatUser(fromRemote userInfo: JSON) -> UserBean {
         let name = userInfo["name"].string!
         let place = userInfo["location"].string

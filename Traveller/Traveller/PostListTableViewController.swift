@@ -114,7 +114,7 @@ class PostListTableViewController: UITableViewController {
 //            i += 1
 //        }
 //    }
-//    
+    
 }
 
 // MARK: - Search bar setting
@@ -210,7 +210,7 @@ extension PostListTableViewController {
 //        }
         cell.postImageView.image = UIImage(named: "avatar")
         cell.nameLabel.text = comments[indexPath.row].postTitle
-        cell.locationLabel.text = comments[indexPath.row].postLocation        
+        cell.locationLabel.text = comments[indexPath.row].postLocation
         cell.usernameLabel.text = self.user!.username
         cell.commentLabel.text = comments[indexPath.row].content
         cell.timeLabel.text = DataBean.dateFormatter.stringFromDate(comments[indexPath.row].time)
