@@ -56,7 +56,7 @@ class SignupTableViewController: UITableViewController {
                 } else {
                     print("signup failed")
                     return Promise { fulfill, reject in
-                        reject(SignupError.SignupFailled)
+                        reject(UserError.SignupFailed)
                     }
                 }
             }.then { loginSuccess -> () in

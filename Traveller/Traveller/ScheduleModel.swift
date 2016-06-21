@@ -22,18 +22,9 @@ class ScheduleModel: DataModel {
             Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        let jsonData = try DataModel.filterResponse(response)
-                        let errCode = jsonData["errCode"].int!
+                        try DataModel.filterResponse(response)
                         
-                        if errCode != 0 {
-                            // 错误处理
-                            fulfill(false)
-                        } else {
-                            print("save new schedule response:")
-                            print(jsonData)
-
-                            fulfill(true)
-                        }
+                        fulfill(true)
                     } catch {
                         print(error)
                         reject(error)
@@ -51,30 +42,21 @@ class ScheduleModel: DataModel {
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
-                        let errCode = jsonData["errCode"].int!
                         
-                        if errCode != 0 {
-                            // 错误处理
+                        var i = 0
+                        let raws = jsonData["scheduleList"].array!
+                        let news = raws.map { schedule -> ScheduleBean in
+                            i += 1
+                            let id = schedule["id"].string!
+                            let destination = schedule["destination"].string!
+                            let url = schedule["imageURL"].string
+                            let date = schedule["scheduleDate"].string!
+                            let creatorId = schedule["creatorId"].string!
                             
-                        } else {
-                            print("get schedles response:")
-                            print(jsonData)
-                            
-                            var i = 0
-                            let raws = jsonData["scheduleList"].array!
-                            let news = raws.map { schedule -> ScheduleBean in
-                                i += 1
-                                let id = schedule["id"].string!
-                                let destination = schedule["destination"].string!
-                                let url = schedule["imageURL"].string
-                                let date = schedule["scheduleDate"].string!
-                                let creatorId = schedule["creatorId"].string!
-                                
-                                return ScheduleBean(scheduleID: id, creatorId: creatorId, destination: destination, order: i, imageURL: url, startDate: date)
-                            }
-                            
-                            fulfill(news)
+                            return ScheduleBean(scheduleID: id, creatorId: creatorId, destination: destination, order: i, imageURL: url, startDate: date)
                         }
+                        
+                        fulfill(news)
                     } catch {
                         print(error)
                         reject(error)

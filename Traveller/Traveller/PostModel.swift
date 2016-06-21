@@ -33,29 +33,20 @@ class PostModel: DataModel {
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
-                        let errCode = jsonData["errCode"].int!
                         
-                        if errCode != 0 {
-                            // 错误处理
-                            print("resposne error code is:\(errCode)")
-                        } else {
-                            print("post detail:")
-                            print(jsonData)
-                            
-                            let id = jsonData["post"]["id"].string!
-                            let title = jsonData["post"]["title"].string!
-                            let address = jsonData["post"]["locationDesc"].string!
-                            let summary = jsonData["post"]["summary"].string!
-                            let lat = jsonData["post"]["latitude"].double!
-                            let lon = jsonData["post"]["longitude"].double!
-                            let creatorId = jsonData["post"]["creatorId"].string!
-                            let createDate = jsonData["post"]["createDate"].string!
-                            let imagesURL = jsonData["post"]["imageURLs"].array!.map { $0["imageUrl"].string! }
-                            
-                            let post = PostBean(id: id, title: title, address: address, summary: summary, latitude: lat, longitude: lon, creatorID: creatorId, createDate: createDate, imagesURL: imagesURL)
-                            
-                            fulfill(post)
-                        }
+                        let id = jsonData["post"]["id"].string!
+                        let title = jsonData["post"]["title"].string!
+                        let address = jsonData["post"]["locationDesc"].string!
+                        let summary = jsonData["post"]["summary"].string!
+                        let lat = jsonData["post"]["latitude"].double!
+                        let lon = jsonData["post"]["longitude"].double!
+                        let creatorId = jsonData["post"]["creatorId"].string!
+                        let createDate = jsonData["post"]["createDate"].string!
+                        let imagesURL = jsonData["post"]["imageURLs"].array!.map { $0["imageUrl"].string! }
+                        
+                        let post = PostBean(id: id, title: title, address: address, summary: summary, latitude: lat, longitude: lon, creatorID: creatorId, createDate: createDate, imagesURL: imagesURL)
+                        
+                        fulfill(post)
                     } catch {
                         print(error)
                         reject(error)
@@ -102,15 +93,7 @@ class PostModel: DataModel {
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
-                        let errCode = jsonData["errCode"].int!
-                        
-                        if errCode != 0 {
-                            // 错误处理
-                        } else {
-                            print("url:")
-                            print(jsonData)
-                            fulfill("URL")
-                        }
+
                     } catch {
                         print(error)
                         reject(error)
@@ -140,20 +123,10 @@ class PostModel: DataModel {
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
-                        let errCode = jsonData["errCode"].int!
                         
-                        if errCode != 0 {
-                            // 错误处理
-                            print("errCode is not 0:")
-                            print(jsonData)
-                            reject(PostError.GetPostsError)
-                        } else {
-                            print("get posts by user id:")
-                            print(jsonData)
-                            
-                            let posts = [PostBean]()
-                            fulfill(posts)
-                        }
+                        let posts = [PostBean]()
+                        fulfill(posts)
+
                     } catch {
                         print(error)
                         reject(error)
@@ -173,17 +146,8 @@ class PostModel: DataModel {
             Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        let jsonData = try DataModel.filterResponse(response)
-                        let errCode = jsonData["errCode"].int!
-                        
-                        if errCode != 0 {
-                            // 错误处理
-                            fulfill(false)
-                        } else {
-                            print("save new post response:")
-                            print(jsonData)
-                            fulfill(true)
-                        }
+                        try DataModel.filterResponse(response)
+                        fulfill(true)
                     } catch {
                         print(error)
                         reject(error)
@@ -202,18 +166,9 @@ class PostModel: DataModel {
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
-                        let errCode = jsonData["errCode"].int!
                         
-                        if errCode != 0 {
-                            // 错误处理
-                        } else {
-                            print("get post by comment id:")
-                            print(jsonData)
-                            
-                            
-                            let post = self.formatPost(jsonData)
-                            fulfill(post)
-                        }
+                        let post = self.formatPost(jsonData)
+                        fulfill(post)
                     } catch {
                         print(error)
                         reject(error)
