@@ -50,7 +50,8 @@ class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
                 self.cities = news
                 self.tableView.reloadData()
             }.error { err in
-                // TODO: 错误处理
+                // 错误处理
+                self.handleErrorMsg(err)
         }
     }
     

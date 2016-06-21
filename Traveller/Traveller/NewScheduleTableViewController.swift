@@ -110,7 +110,8 @@ class NewScheduleTableViewController: UITableViewController {
                     }
                 }.error { err in
                     print (err)
-                    // TODO: 错误处理
+                    // 错误处理
+                    self.handleErrorMsg(err)
             }
             
         }

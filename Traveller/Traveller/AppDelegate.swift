@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import PKHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -106,5 +107,18 @@ extension UIView {
         snapshot.layer.shadowOpacity = 0.4
         
         return snapshot
+    }
+}
+
+extension UIViewController {
+    func handleErrorMsg(err: ErrorType) {
+        switch err {
+        case DataError.TokenInvalid:
+            let vc = WelcomeViewController.loadFromStoryboard()
+            HUD.flash(.LabeledError(title: "Error", subtitle: "Your session has expired, please login again"), delay: 1.5)
+            self.presentViewController(vc, animated: true, completion: nil)
+        default:
+            HUD.flash(.LabeledError(title: "Error", subtitle: DataBean.getErrorMessage(err)), delay: 1.5)
+        }
     }
 }

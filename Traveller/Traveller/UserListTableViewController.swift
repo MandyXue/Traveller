@@ -40,7 +40,8 @@ class UserListTableViewController: UITableViewController {
                 HUD.flash(.Success)
             }.error { err in
                 print(err)
-                // TODO: 错误处理
+                // 错误处理
+                self.handleErrorMsg(err)
         }
     }
 

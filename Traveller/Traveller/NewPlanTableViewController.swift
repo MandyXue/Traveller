@@ -142,7 +142,8 @@ class NewPlanTableViewController: UITableViewController {
                     }
                 }.error { err in
                     print(err)
-                    // TODO: 错误处理
+                    // 错误处理
+                    self.handleErrorMsg(err)
             }
         } else {
             let alert = UIAlertController(title: "Error", message: "Plan destination cities cannot be empty!", preferredStyle: .Alert)
@@ -152,3 +153,4 @@ class NewPlanTableViewController: UITableViewController {
     }
 
 }
+

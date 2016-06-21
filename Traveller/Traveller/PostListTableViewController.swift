@@ -47,9 +47,8 @@ class PostListTableViewController: UITableViewController {
                     self.tableView.reloadData()
                     posts.forEach { print($0.id) }
                 }.error { err in
-                    print("get user posts list error")
-                    print(err)
-                    // TODO: 错误处理
+                    // 错误处理
+                    self.handleErrorMsg(err)
             }
             
             
