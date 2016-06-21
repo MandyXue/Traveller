@@ -7,10 +7,16 @@
 //
 
 import UIKit
+import PKHUD
+import Regex
+
+protocol ModifyUserInfoDelegate {
+    func setNewUserInfo(newInfo: UserBean)
+}
 
 class InfoSettingTableViewController: UITableViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate {
     
-    var user = UserBean()
+    var user:UserBean?
     
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
@@ -20,6 +26,9 @@ class InfoSettingTableViewController: UITableViewController, UIActionSheetDelega
     @IBOutlet weak var homepageLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var registerDateLabel: UILabel!
+    
+    let userModel = UserModel()
+    var modifyInfoDelegate:ModifyUserInfoDelegate?
     
     // MARK: - BaseViewController
     
@@ -32,6 +41,7 @@ class InfoSettingTableViewController: UITableViewController, UIActionSheetDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setInfo()
     }
 
@@ -43,14 +53,14 @@ class InfoSettingTableViewController: UITableViewController, UIActionSheetDelega
     // MARK: - Helper
     
     func setInfo() {
-        avatarImageView.image = (user.avatar == nil) ? UIImage(named: "avatar"): user.avatar
-        usernameLabel.text = user.username
-        locationLabel.text = (user.place == nil || user.place! == "") ? "not setted": user.place
-        genderLabel.text = user.gender! ? "male": "female"
-        summaryLabel.text = (user.summary == nil || user.summary! == "") ? "not setted": user.summary
-        homepageLabel.text = (user.homepage == nil || user.homepage! == "") ? "not setted": user.homepage
-        emailLabel.text = user.email
-        registerDateLabel.text = NSDateFormatter.stringFromDate(user.registerDate!)
+        avatarImageView.image = (user!.avatar == nil) ? UIImage(named: "avatar"): user!.avatar
+        usernameLabel.text = user!.username
+        locationLabel.text = (user!.place == nil || user!.place! == "") ? "not setted": user!.place
+        genderLabel.text = user!.gender! ? "male": "female"
+        summaryLabel.text = (user!.summary == nil || user!.summary! == "") ? "not setted": user!.summary
+        homepageLabel.text = (user!.homepage == nil || user!.homepage! == "") ? "not setted": user!.homepage
+        emailLabel.text = user!.email
+        registerDateLabel.text = NSDateFormatter.stringFromDate(user!.registerDate!)
     }
 }
 
@@ -84,6 +94,37 @@ extension InfoSettingTableViewController {
                 // TODO: upload
                 let newText = alert.textFields![0].text
                 cell?.detailTextLabel?.text = newText
+                
+                // 给user赋值
+                switch cell!.textLabel!.text! {
+                    case "Location":
+                    self.user!.place = newText
+                    case "Gender":
+                        if newText!.grep("female").boolValue {
+                            self.user!.gender = false
+                        } else {
+                            self.user!.gender = true
+                        }
+                    case "Summary":
+                    self.user!.summary = newText
+                    case "Homepage":
+                    self.user!.homepage = newText
+                default:
+                    print()
+                }
+                
+                self.user!.id = self.userModel.userID
+                self.userModel.modifyUserInfo(self.user!)
+                    .then { isSuccess -> () in
+                        if isSuccess {
+                            // 更新成功，给用户提示
+                            print("update uesr info successful")
+                            self.modifyInfoDelegate?.setNewUserInfo(self.user!)
+                        }
+                    }.error { err in
+                
+                }
+                
             }))
             presentViewController(alert, animated: true, completion: nil)
         }

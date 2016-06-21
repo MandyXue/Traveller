@@ -14,7 +14,7 @@ import Alamofire
 class ScheduleModel: DataModel {
     
     
-    func addNewSchedule(schedule: ScheduleBean, userId: String) -> Promise<Bool> {
+    func addNewSchedule(schedule: ScheduleBean, userId: String) -> Promise<String> {
         let requestURL = DataModel.baseURL + "/schedule/\(token)/\(userId)/newschedule"
         
         let parameters = ["destination": schedule.destination, "scheduleDate": DataBean.onlyDateFormatter.stringFromDate(schedule.startDate)]
@@ -22,9 +22,10 @@ class ScheduleModel: DataModel {
             Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        try DataModel.filterResponse(response)
+                        let jsonData = try DataModel.filterResponse(response)
+                        let id = jsonData["errMessage"].string!
                         
-                        fulfill(true)
+                        fulfill(id)
                     } catch {
                         print(error)
                         reject(error)

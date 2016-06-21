@@ -130,19 +130,16 @@ class NewPlanTableViewController: UITableViewController {
             self.plan?.content = string
             
             self.planModel.addNewPlan(self.plan!, userId: planModel.userID)
-                .then { isSuccess -> () in
-                    print("get save plan response")
-                    if isSuccess {
-                        self.newPlanDelegate?.newPlan(self.plan!)
-                        HUD.flash(.LabeledSuccess(title: "Success", subtitle: "You have added a day for plan."))
-                        self.navigationController?.popViewControllerAnimated(true)
-                    } else {
-                        // 保存失败
-                        HUD.flash(.LabeledError(title: "Error", subtitle: "Failed due to unknown reason."))
-                    }
+                .then { newId -> () in
+                    self.plan!.id = newId
+                    self.newPlanDelegate?.newPlan(self.plan!)
+                    HUD.flash(.LabeledSuccess(title: "Success", subtitle: "You have added a day for plan."))
+                    self.navigationController?.popViewControllerAnimated(true)
                 }.error { err in
                     print(err)
                     // TODO: 错误处理
+                    // 保存失败
+                    HUD.flash(.LabeledError(title: "Error", subtitle: "Failed due to unknown reason."))
             }
         } else {
             let alert = UIAlertController(title: "Error", message: "Plan destination cities cannot be empty!", preferredStyle: .Alert)

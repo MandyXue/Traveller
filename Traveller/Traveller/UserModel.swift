@@ -141,6 +141,31 @@ class UserModel: DataModel {
         }
     }
     
+    func modifyUserInfo(newUserInfo: UserBean) -> Promise<Bool> {
+        let requestURL = DataModel.baseURL + "/user/info/update"
+        
+        let parameters = ["token": token,
+                          "userid": newUserInfo.id!,
+                          "avatar": newUserInfo.avatarURL == nil ? "" : newUserInfo.avatarURL!,
+                          "location": newUserInfo.place == nil ? "" : newUserInfo.place!,
+                          "gender": newUserInfo.gender! ? 1 : 2,
+                          "summary": newUserInfo.summary == nil ? "" : newUserInfo.summary!,
+                          "homepage": newUserInfo.homepage == nil ? "" : newUserInfo.homepage!]
+        
+        return Promise { fulfill, reject in
+            Alamofire.request(.PUT, requestURL, parameters: parameters as? [String : AnyObject], encoding: .URL, headers: nil)
+                .responseJSON{ response in
+                    do {
+                        try DataModel.filterResponse(response)
+                        
+                        fulfill(true)
+                    } catch let err {
+                        reject(err)
+                    }
+            }
+        }
+    }
+    
     func formatUser(fromRemote userInfo: JSON) -> UserBean {
         let name = userInfo["name"].string!
         let place = userInfo["location"].string

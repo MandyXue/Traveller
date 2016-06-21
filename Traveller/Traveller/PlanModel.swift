@@ -14,7 +14,7 @@ import Alamofire
 
 class PlanModel: DataModel {
     
-    func addNewPlan(plan: PlanBean, userId: String) -> Promise<Bool> {
+    func addNewPlan(plan: PlanBean, userId: String) -> Promise<String> {
         let requestURL = DataModel.baseURL + "/user/plan/\(token)/\(userId)"
         
         let parameters = ["token": token, "id": userId, "scheduleId": plan.scheduleId, "plan": plan.content, "travelDate": "1999-01-01"]
@@ -22,22 +22,9 @@ class PlanModel: DataModel {
             Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        try DataModel.filterResponse(response)
-                        fulfill(true)
-
-                        
-//                        let errCode = jsonData["errCode"].int!
-//                        
-//                        if errCode != 0 {
-//                            // 错误处理
-//                            
-//                            print("errCode:\(errCode)")
-//                            print(jsonData)
-//                            fulfill(false)
-//                        } else {
-//                            print("save new plan response:")
-//                            print(jsonData)
-//                        }
+                        let jsonData = try DataModel.filterResponse(response)
+                        let id = jsonData["errMessage"].string!
+                        fulfill(id)
                     } catch {
                         print(error)
                         reject(error)

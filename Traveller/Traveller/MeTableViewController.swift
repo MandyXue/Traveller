@@ -10,7 +10,7 @@ import UIKit
 import MessageUI
 import PKHUD
 
-class MeTableViewController: UITableViewController, MFMailComposeViewControllerDelegate {
+class MeTableViewController: UITableViewController, MFMailComposeViewControllerDelegate, ModifyUserInfoDelegate {
     
     var user = UserBean(username: "not setted", avatar: UIImage(named: "avatar")!, place: "not setted", gender: true, summary: "not setted", email: "not setted", homepage: "not setted", registerDate: NSDate(timeIntervalSinceNow: 0))
     
@@ -33,15 +33,14 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        avatarImageView.image = UIImage(named: "avatar")!
-        
+        HUD.show(.LabeledProgress(title: nil, subtitle: "Loading..."))
         userModel.getUserDetail(byUserID: userModel.userID)
             .then { userInfo -> Void in
                 print("get user info in Me")
                 
                 self.nameLabel.text = userInfo.username
                 self.locationLabel.text = (userInfo.place == nil || userInfo.place! == "") ? "not setted": userInfo.place
-                
+                HUD.flash(.Success)
                 self.currentUser = userInfo
                 self.tableView.reloadData()
             } .error { err in
@@ -83,6 +82,7 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
         case 0:
             let vc = InfoSettingTableViewController.loadFromStoryboard() as! InfoSettingTableViewController
             vc.user = self.currentUser!
+            vc.modifyInfoDelegate = self
             self.navigationController?.pushViewController(vc, animated: true)
         // followings and followers
         case 1:
@@ -158,8 +158,10 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
             presentViewController(alert, animated: true, completion: nil)
         default: break
         }
-        
-        
+    }
+    
+    func setNewUserInfo(newInfo: UserBean) {
+        self.user = newInfo
     }
 
 }

@@ -34,6 +34,8 @@ class DataBean {
             message = "网络错误，无法发送请求"
         case HttpError.ResponseError:
             message = "没有获取到Response"
+        case HttpError.StatusNot200:
+            message = "网络请求错误"
             
         case UserError.GetUserInfoFailled:
             message = "该邮箱已被注册"
