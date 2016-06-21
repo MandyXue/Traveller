@@ -97,12 +97,11 @@ class NewScheduleTableViewController: UITableViewController {
             HUD.flash(.LabeledError(title: "Error", subtitle: "Destination cannot be empty"), delay: 2.0)
         } else {
             self.schedule = ScheduleBean(creatorId: scheduleModel.userID, destination: (destinationCell.detailTextLabel?.text)!, order: order, imageURL: nil, startDate: datePickerCell.date)
-            scheduleModel.addNewSchedule(self.schedule!)
-                .then { newId -> () in
-                    if let _ = newId {
-                        self.schedule!.id = newId!
+            scheduleModel.addNewSchedule(self.schedule!, userId: scheduleModel.userID)
+                .then { isSuccess -> () in
+                    if isSuccess {
                         // 用delegate传回
-                        self.newScheduleDelegate?.newSchedule(self.schedule!)
+//                        self.newScheduleDelegate?.newSchedule(self.schedule!)
                         self.navigationController?.popViewControllerAnimated(true)
                     } else {
                         

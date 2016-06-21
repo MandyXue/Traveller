@@ -22,17 +22,18 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
         
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addSpot)), UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(editSpot))]
         
-        prepareData()
+//        prepareData()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         // For test
-        planId = "7efc4d40-4d59-4a1b-98ac-4e477e8b95af"
         dayDetailModel.getDayDetails(planId!)
             .then { news -> () in
                 news.forEach { print($0.id!) }
+                self.spots = news
+                self.tableView.reloadData()
             }.error { err in
         }
     }

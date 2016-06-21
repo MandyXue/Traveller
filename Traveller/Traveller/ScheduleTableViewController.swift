@@ -29,7 +29,7 @@ class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
         self.clearsSelectionOnViewWillAppear = true
         navigationItem.title = "Schedule"
         
-        prepareData()
+//        prepareData()
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
         self.tableView.addGestureRecognizer(longPress)
@@ -44,6 +44,8 @@ class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
         scheduleModel.getSchedule(scheduleModel.userID)
             .then { news -> () in
                 news.forEach { print($0.id!) }
+                self.cities = news
+                self.tableView.reloadData()
             }.error { err in }
     }
 
@@ -95,7 +97,6 @@ class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
                         // TODO: pass value
                         detailViewController.navigationItem.title = cell.destNameLabel.text
                         detailViewController.schedule = cities[indexPath.row]
-                        detailViewController.scheduleId = "5b81ecd4-ff10-4e9a-b7cf-487f6ba677d7"
                         cell.setSelected(false, animated: false)
                     }
                 }

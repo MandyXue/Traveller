@@ -13,10 +13,22 @@ import Alamofire
 
 class DayDetailModel: DataModel {
     
-    func addNewDayDetail(day: DayDetailBean) -> Promise<String?> {
-        let requestURL = DataModel.baseURL + ""
+    func addNewDayDetail(day: DayDetailBean, userId: String) -> Promise<Bool> {
+        let requestURL = DataModel.baseURL + "/daily/add"
         
-        let parameters = ["token": token, "post": day]
+        print("day detail start time:\(DataBean.timeFormatter.stringFromDate(day.startTime))")
+        
+        let parameters = ["token": token,
+                          "user_id": userId,
+                          "plan_id": day.planID,
+                          "post_id": "",
+                          "start_time": DataBean.timeFormatter.stringFromDate(day.startTime),
+                          "end_time": DataBean.timeFormatter.stringFromDate(day.endTime),
+                          "destination": day.place,
+                          "latitude": Double(day.coordinate.latitude),
+                          "longitude": Double(day.coordinate.longitude),
+                          "type": day.type]
+        
         return Promise { fulfill, reject in
             Alamofire.request(.POST, requestURL, parameters: parameters as? [String : AnyObject], encoding: .URL, headers: nil)
                 .responseJSON { response in
@@ -26,11 +38,13 @@ class DayDetailModel: DataModel {
                         
                         if errCode != 0 {
                             // 错误处理
-                            fulfill(nil)
-                        } else {
-                            print("save new schedule response:")
+                            fulfill(false)
                             print(jsonData)
-                            fulfill("new day detail id")
+                            
+                        } else {
+                            print("save new day detail response:")
+                            print(jsonData)
+                            fulfill(true)
                         }
                     } catch {
                         print(error)
@@ -56,7 +70,7 @@ class DayDetailModel: DataModel {
                             // 错误处理
                             
                         } else {
-                            print("save new schedule response:")
+                            print("get daydetail response:")
                             print(jsonData)
                             
                             let news = jsonData["details"].array!.map { day -> DayDetailBean in

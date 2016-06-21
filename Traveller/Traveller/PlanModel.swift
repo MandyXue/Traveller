@@ -14,12 +14,12 @@ import Alamofire
 
 class PlanModel: DataModel {
     
-    func addNewPlan(plan: PlanBean) -> Promise<String?> {
-        let requestURL = DataModel.baseURL + ""
+    func addNewPlan(plan: PlanBean, userId: String) -> Promise<Bool> {
+        let requestURL = DataModel.baseURL + "/user/plan/\(token)/\(userId)"
         
-        let parameters = ["token": token, "post": plan]
+        let parameters = ["token": token, "id": userId, "scheduleId": plan.scheduleId, "plan": plan.content, "travelDate": "1999-01-01"]
         return Promise { fulfill, reject in
-            Alamofire.request(.POST, requestURL, parameters: parameters as? [String : AnyObject], encoding: .URL, headers: nil)
+            Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
@@ -27,11 +27,14 @@ class PlanModel: DataModel {
                         
                         if errCode != 0 {
                             // 错误处理
-                            fulfill(nil)
+                            
+                            print("errCode:\(errCode)")
+                            print(jsonData)
+                            fulfill(false)
                         } else {
                             print("save new plan response:")
                             print(jsonData)
-                            fulfill("new plan id")
+                            fulfill(true)
                         }
                     } catch {
                         print(error)
@@ -57,7 +60,7 @@ class PlanModel: DataModel {
                             // 错误处理
                             
                         } else {
-                            print("save new schedule response:")
+                            print("get plans response:")
                             print(jsonData)
                             
                             let news = jsonData["planList"].array!.map { plan -> PlanBean in
