@@ -45,14 +45,7 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
                 self.tableView.reloadData()
             } .error { err in
                 // 错误处理
-                switch err {
-                case DataError.TokenInvalid:
-                    let vc = WelcomeViewController.loadFromStoryboard()
-                    self.presentViewController(vc, animated: true, completion: nil)
-                default:
-                    print("get user info error:")
-                    print(err)
-                }
+                self.handleErrorMsg(err)
         }
     }
     

@@ -85,10 +85,8 @@ class SignupTableViewController: UITableViewController {
                     HUD.flash(.LabeledError(title: "Error", subtitle: "Login failed, please try again"), delay: 1.0)
                 }
             }.error { err in
-                print("signup with error")
-                print(err)
-                // TODO: 错误处理
-                HUD.flash(.LabeledError(title: "Error", subtitle: "\(err)"), delay: 1.0)
+                // 错误处理
+                self.handleErrorMsg(err)
             }
         
         
