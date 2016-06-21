@@ -12,7 +12,7 @@ import PKHUD
 
 class MeTableViewController: UITableViewController, MFMailComposeViewControllerDelegate {
     
-    var user = UserBean(username: "Huo Teng", avatar: UIImage(named: "avatar")!, place: "Jiading District, Shanghai", gender: true, summary: "Like photography and coding", email: "huoteng@huoteng.com", homepage: "www.huoteng.com", registerDate: NSDate(timeIntervalSinceNow: 0))
+    var user = UserBean(username: "not setted", avatar: UIImage(named: "avatar")!, place: "not setted", gender: true, summary: "not setted", email: "not setted", homepage: "not setted", registerDate: NSDate(timeIntervalSinceNow: 0))
     
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -25,7 +25,6 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
     
     static func loadFromStoryboard() -> UIViewController {
         let controller = UIStoryboard.traveller_meStoryboard().instantiateViewControllerWithIdentifier(self.traveller_className())
-//        let navigationController: UINavigationController = UINavigationController.init(rootViewController: controller)
         return controller
     }
     
@@ -41,7 +40,7 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
                 print("get user info in Me")
                 
                 self.nameLabel.text = userInfo.username
-                self.locationLabel.text = userInfo.place
+                self.locationLabel.text = (userInfo.place == nil || userInfo.place! == "") ? "not setted": userInfo.place
                 
                 self.currentUser = userInfo
                 self.tableView.reloadData()
@@ -111,8 +110,6 @@ class MeTableViewController: UITableViewController, MFMailComposeViewControllerD
             let alert = UIAlertController(title: "Are you sure to log out?", message: nil, preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action) in
-                // TODO: logout
-                //        UIApplication.sharedApplication().windows[0].rootViewController = DispatchController.dispatchToMain()
                 UIApplication.sharedApplication().windows[0].rootViewController = WelcomeViewController.loadFromStoryboard()
                 NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "token")
                 print("logout")

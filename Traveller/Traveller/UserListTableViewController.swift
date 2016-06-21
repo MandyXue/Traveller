@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKHUD
 
 class UserListTableViewController: UITableViewController {
     
@@ -30,12 +31,16 @@ class UserListTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        // 获取数据
+        HUD.show(.LabeledProgress(title: nil, subtitle: "Loading"))
         userModel.getFollowList(byUserID: userModel.userID, isFollowing: type)
             .then { users -> () in
                 self.users = users
                 self.tableView.reloadData()
+                HUD.flash(.Success, delay: 0.5)
             }.error { err in
                 print(err)
+                // TODO: 错误处理
         }
     }
 
@@ -53,15 +58,19 @@ class UserListTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if type {
             let cell = tableView.dequeueReusableCellWithIdentifier("FollowingCell", forIndexPath: indexPath) as! FollowingTableViewCell
-            cell.avatarImageView.image = users[indexPath.row].avatar
+            let avatarImage = users[indexPath.row].avatar
+            cell.avatarImageView.image = (avatarImage == nil) ? UIImage(named: "avatar"): avatarImage
             cell.usernameLabel.text = users[indexPath.row].username
-            cell.locationLabel.text = users[indexPath.row].place
+            let username = users[indexPath.row].place
+            cell.locationLabel.text = (username == nil || username! == "") ? "not setted": username
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("FollowerCell", forIndexPath: indexPath) as! FollowerTableViewCell
-            cell.avatarImageView.image = users[indexPath.row].avatar
+            let avatarImage = users[indexPath.row].avatar
+            cell.avatarImageView.image = (avatarImage == nil) ? UIImage(named: "avatar"): avatarImage
             cell.usernameLabel.text = users[indexPath.row].username
-            cell.locationLabel.text = users[indexPath.row].place
+            let username = users[indexPath.row].place
+            cell.locationLabel.text = (username == nil || username! == "") ? "not setted": username
             return cell
         }
     }
@@ -71,15 +80,4 @@ class UserListTableViewController: UITableViewController {
         vc.user = users[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    // MARK: - Helper
-    
-//    func setInfo() {
-//        // TODO: 根据type使用不同接口
-//        var i = 0
-//        while i < 20 {
-//            users.append(UserBean(username: "user\(i)", avatar: UIImage(named: "avatar")!, place: "Shanghai\(i)"))
-//            i += 1
-//        }
-//    }
 }

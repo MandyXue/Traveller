@@ -131,25 +131,25 @@ extension UserDetailTableViewController {
                 cell.valueLabel.text = user.username
             case 1:
                 cell.keyLabel.text = "Place"
-                cell.valueLabel.text = (user.place == nil) ? "unsetted": user.place
+                cell.valueLabel.text = (user.place == nil || user.place! == "") ? "not setted": user.place
             case 2:
                 cell.keyLabel.text = "Gender"
                 cell.valueLabel.text = user.gender! ? "male" : "female"
             case 3:
                 cell.keyLabel.text = "Summary"
-                cell.valueLabel.text = (user.summary == nil) ? "unsetted": user.summary
+                cell.valueLabel.text = (user.summary == nil || user.summary! == "") ? "not setted": user.summary
             case 4:
                 cell.keyLabel.text = "Email"
                 cell.valueLabel.text = user.email
             case 5:
                 cell.keyLabel.text = "Homepage"
-                cell.valueLabel.text = (user.homepage == nil) ? "unsetted": user.homepage
+                cell.valueLabel.text = (user.homepage == nil || user.homepage! == "") ? "not setted": user.homepage
             case 6:
                 cell.keyLabel.text = "Register Date"
                 cell.valueLabel.text = NSDateFormatter.stringFromDate(user.registerDate!)
             default:
-                cell.keyLabel.text = ""
-                cell.valueLabel.text = ""
+                cell.keyLabel.text = "not setted"
+                cell.valueLabel.text = "not setted"
             }
             return cell
         } else {
