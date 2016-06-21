@@ -167,11 +167,11 @@ class PostModel: DataModel {
                         let jsonData = try DataModel.filterResponse(response)
                         
                         let posts = jsonData["post"].array!.map { post -> PostBean in
-                            let id = post["id"].string!
-                            let title = post["title"].string!
-                            let url = post["imageURL"].string!
-                            let location = post["location"].string!
-                            let summary = post["summary"].string!
+                            let id = (post["id"].string == nil) ? "": post["id"].string!
+                            let title = (post["title"].string == nil) ? "": post["title"]
+                            let url = (post["imageURL"].string == nil) ? "": post["imageURL"].string!
+                            let location = (post["location"].string == nil) ? "": post["location"].string!
+                            let summary = (post["summary"].string == nil) ? "": post["summary"].string!
                             
                             return PostBean(id: id, title: title, address: location, summary: summary, latitude: 0, longitude: 0, creatorID: "", createDate: "1999-01-01", imagesURL: [url])
                         }

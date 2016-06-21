@@ -12,7 +12,8 @@ import SwiftyJSON
 import PromiseKit
 
 class DataModel {
-    static let baseURL = "http://10.0.1.30:8000"
+//    static let baseURL = "http://10.0.1.30:8000"
+    static let baseURL = "http://localhost:8000"
     var token:String
     var userID:String
     
