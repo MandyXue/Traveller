@@ -37,7 +37,7 @@ class UserListTableViewController: UITableViewController {
             .then { users -> () in
                 self.users = users
                 self.tableView.reloadData()
-                HUD.flash(.Success, delay: 0.5)
+                HUD.flash(.Success)
             }.error { err in
                 print(err)
                 // TODO: 错误处理

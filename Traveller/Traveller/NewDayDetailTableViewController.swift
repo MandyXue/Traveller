@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import PKHUD
 
 protocol NewDayDetailDelegate {
     func newDayDetail(dayDetail: DayDetailBean)
@@ -25,6 +26,7 @@ class NewDayDetailTableViewController: UITableViewController, SelectLocationDele
     
     var newDayDetail: DayDetailBean?
     let dayDetailModel = DayDetailModel()
+    var planId: String?
     
     // MARK: - BaseViewController
     
@@ -124,9 +126,10 @@ class NewDayDetailTableViewController: UITableViewController, SelectLocationDele
     
     func newDayDetailSelector() {
         //For test
-        self.newDayDetail?.planID = "7efc4d40-4d59-4a1b-98ac-4e477e8b95af"
-        
-        print("day detail content:\(newDayDetail?.startTime)")
+//        self.newDayDetail?.planID = "7efc4d40-4d59-4a1b-98ac-4e477e8b95af"
+        self.newDayDetail?.planID = self.planId!
+//        print("day detail content:\(newDayDetail?.startTime)")
+        print("planid:\(self.planId)")
         
         if self.newDayDetail?.place != "" {
             if self.newDayDetail?.type != -1 {
@@ -137,9 +140,10 @@ class NewDayDetailTableViewController: UITableViewController, SelectLocationDele
                     self.dayDetailModel.addNewDayDetail(self.newDayDetail!, userId: dayDetailModel.userID)
                         .then { isSuccess -> () in
                             if isSuccess {
+                                HUD.flash(.LabeledSuccess(title: "Success", subtitle: "You have added a day for plan."))
 //                                self.newDayDetail!.id = newId!
                                 // 用delegate把值传回上一页面
-//                                self.newDayDetailDelegate?.newDayDetail(self.newDayDetail!)
+                                self.newDayDetailDelegate?.newDayDetail(self.newDayDetail!)
                                 self.navigationController?.popViewControllerAnimated(true)
                             } else {
                                 print("save new day detail failed")

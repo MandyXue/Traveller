@@ -42,7 +42,7 @@ class PostListTableViewController: UITableViewController {
             // 获取用户的post
             postModel.getPosts(byUserID: postModel.userID)
                 .then { posts -> () in
-                    HUD.flash(.Success, delay: 0.5)
+                    HUD.flash(.Success)
                     self.posts = posts
                     self.tableView.reloadData()
                     posts.forEach { print($0.id) }
@@ -61,7 +61,7 @@ class PostListTableViewController: UITableViewController {
                 .then { comments -> () in
 //                    self.comments = comments
 //                    self.tableView.reloadData()
-                    HUD.flash(.Success, delay: 0.5)
+                    HUD.flash(.Success)
                     comments.forEach { print($0.postID) }
                 }.error { err in
                     print("get user comments list error")

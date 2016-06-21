@@ -40,7 +40,7 @@ class LoginTableViewController: UITableViewController {
         if let name = usernameTextField.text, let pass = passwordTextField.text {
             UserModel.login(name, password: pass)
                 .then { isSuccess -> () in
-                    HUD.flash(.LabeledSuccess(title: "Success", subtitle: "Login successful."), delay: 1.0)
+                    HUD.flash(.LabeledSuccess(title: "Success", subtitle: "Login successful."))
                     UIApplication.sharedApplication().windows[0].rootViewController = RootTabBarController.loadFromStoryboard()
                 }.error { err in
                     // TODO: 提示错误

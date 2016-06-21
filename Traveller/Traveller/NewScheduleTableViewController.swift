@@ -94,20 +94,23 @@ class NewScheduleTableViewController: UITableViewController {
     
     func newSchedule() {
         if destinationCell.detailTextLabel?.text == "" || destinationCell.detailTextLabel?.text == nil || destinationCell.detailTextLabel?.text == "not selected" {
-            HUD.flash(.LabeledError(title: "Error", subtitle: "Destination cannot be empty"), delay: 2.0)
+            HUD.flash(.LabeledError(title: "Error", subtitle: "Destination cannot be empty"))
         } else {
+            HUD.show(.Progress)
             self.schedule = ScheduleBean(creatorId: scheduleModel.userID, destination: (destinationCell.detailTextLabel?.text)!, order: order, imageURL: nil, startDate: datePickerCell.date)
             scheduleModel.addNewSchedule(self.schedule!, userId: scheduleModel.userID)
                 .then { isSuccess -> () in
                     if isSuccess {
                         // 用delegate传回
-//                        self.newScheduleDelegate?.newSchedule(self.schedule!)
+                        HUD.flash(.LabeledSuccess(title: "Success", subtitle: "You have added a schedule."))
+                        self.newScheduleDelegate?.newSchedule(self.schedule!)
                         self.navigationController?.popViewControllerAnimated(true)
                     } else {
-                        
+                        HUD.flash(.LabeledError(title: "Error", subtitle: "Failed due to unknown reason."))
                     }
                 }.error { err in
                     print (err)
+                    // TODO: 错误处理
             }
             
         }

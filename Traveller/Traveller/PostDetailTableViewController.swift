@@ -129,11 +129,11 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
                 let newComment = CommentBean(creatorID: "Test", content: comment!, postID: self.postId!)
                 newComment.user = UserBean()
                 self.comments.append(newComment)
-                HUD.flash(.Success, delay: 1.0) { finished in
+                HUD.flash(.Success, delay: 0) { finished in
                     self.tableView.reloadData()
                 }
             } else {
-                HUD.flash(.LabeledError(title: "Error", subtitle: "Comment cannot be empty"), delay: 2.0)
+                HUD.flash(.LabeledError(title: "Error", subtitle: "Comment cannot be empty"))
             }
         }))
         presentViewController(alert, animated: true, completion: nil)

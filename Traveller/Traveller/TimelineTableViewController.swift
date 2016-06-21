@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKHUD
 
 class TimelineTableViewController: UITableViewController, NewPlanDelegate {
     
@@ -25,17 +26,24 @@ class TimelineTableViewController: UITableViewController, NewPlanDelegate {
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
         self.tableView.addGestureRecognizer(longPress)
+        
+        HUD.show(.LabeledProgress(title: nil, subtitle: "Loading..."))
+        // 获取数据
+        planModel.getPlans(schedule!.id!, userId: planModel.userID)
+            .then { news -> () in
+//                news.forEach { print($0.id!) }
+                HUD.flash(.Success)
+                self.places = news
+                self.tableView.reloadData()
+            }.error { err in
+                // TODO: 错误处理
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        planModel.getPlans(schedule!.id!, userId: planModel.userID)
-            .then { news -> () in
-                news.forEach { print($0.id!) }
-                self.places = news
-                self.tableView.reloadData()
-            }.error { err in }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -113,16 +121,7 @@ class TimelineTableViewController: UITableViewController, NewPlanDelegate {
     }
     
     func prepareData() {
-//        places = []
         gradientColors = []
-        
-//        places.append(PlanBean(planId: "test", scheduleId: schedule!.id!, content: "Shanghai > Taipei"))
-//        places.append(PlanBean(planId: "test", scheduleId: schedule!.id!, content: "Taipei > Hualian"))
-//        places.append(PlanBean(planId: "test", scheduleId: schedule!.id!, content: "Hualian"))
-//        places.append(PlanBean(planId: "test", scheduleId: schedule!.id!, content: "Hualian > Taidong"))
-//        places.append(PlanBean(planId: "test", scheduleId: schedule!.id!, content: "Taidong > Kending"))
-//        places.append(PlanBean(planId: "test", scheduleId: schedule!.id!, content: "Kending"))
-//        places.append(PlanBean(planId: "test", scheduleId: schedule!.id!, content: "Kending > Shanghai"))
         
         // color
         gradientColors.append(UIColor(red: 86/255, green: 158/255, blue: 8/255, alpha: 1))

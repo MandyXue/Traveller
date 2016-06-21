@@ -339,13 +339,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="64.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zKN-CR-ndx">
-                                            <rect key="frame" x="18" y="13" width="40" height="40"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="5sg-3l-6QD"/>
-                                                <constraint firstAttribute="width" constant="40" id="A7Q-dG-bF1"/>
-                                            </constraints>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pU-qP-ceK">
                                             <rect key="frame" x="66" y="13" width="493" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -361,6 +354,18 @@
                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="testPlace" translatesAutoresizingMaskIntoConstraints="NO" id="zKN-CR-ndx">
+                                            <rect key="frame" x="18" y="13" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="5sg-3l-6QD"/>
+                                                <constraint firstAttribute="width" constant="40" id="A7Q-dG-bF1"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="20"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="26l-Rv-jhN" firstAttribute="bottom" secondItem="zKN-CR-ndx" secondAttribute="bottom" id="3bn-2h-FFw"/>
@@ -609,5 +614,6 @@
         <image name="line" width="4" height="12"/>
         <image name="living" width="33" height="39"/>
         <image name="spot" width="33" height="39"/>
+        <image name="testPlace" width="375" height="200"/>
     </resources>
 </document>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKHUD
 
 class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate {
     
@@ -22,20 +23,23 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
         
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addSpot)), UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(editSpot))]
         
-//        prepareData()
+        // 获取数据
+        HUD.show(.LabeledProgress(title: nil, subtitle: "Loading..."))
+        dayDetailModel.getDayDetails(planId!)
+            .then { news -> () in
+//                news.forEach { print($0.id!) }
+                HUD.flash(.Success)
+                self.spots = news
+                self.tableView.reloadData()
+            }.error { err in
+                // TODO: 错误处理
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        // For test
-        dayDetailModel.getDayDetails(planId!)
-            .then { news -> () in
-                news.forEach { print($0.id!) }
-                self.spots = news
-                self.tableView.reloadData()
-            }.error { err in
-        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -169,6 +173,8 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
     func addSpot() {
         let vc = NewDayDetailTableViewController.loadFromStoryboard() as! NewDayDetailTableViewController
         vc.newDayDetailDelegate = self
+        vc.planId = self.planId
+        print("planId: \(planId)")
         navigationController?.pushViewController(vc, animated: true)
     }
     

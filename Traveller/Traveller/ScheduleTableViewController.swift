@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SDWebImage
+import PKHUD
 
 class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
     
@@ -24,15 +24,24 @@ class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // delete selection between presentations
         self.clearsSelectionOnViewWillAppear = true
         navigationItem.title = "Schedule"
         
-//        prepareData()
-        
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
         self.tableView.addGestureRecognizer(longPress)
+        
+        // 获取数据
+        HUD.show(.LabeledProgress(title: nil, subtitle: "Loading..."))
+        scheduleModel.getSchedule(scheduleModel.userID)
+            .then { news -> () in
+                HUD.flash(.Success)
+                self.cities = news
+                self.tableView.reloadData()
+            }.error { err in
+                // TODO: 错误处理
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -40,13 +49,6 @@ class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
         self.tabBarController?.navigationItem.title = "Schedule"
         self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addDestination))
         self.tabBarController?.navigationItem.leftBarButtonItem = self.editButtonItem()
-        
-        scheduleModel.getSchedule(scheduleModel.userID)
-            .then { news -> () in
-                news.forEach { print($0.id!) }
-                self.cities = news
-                self.tableView.reloadData()
-            }.error { err in }
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,9 +66,6 @@ class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DestinationCell", forIndexPath: indexPath) as! DestinationTableViewCell
         // TODO: 图片还是加载不出来
-        if let image = cities[indexPath.row].imageURL {
-            cell.destImageView?.sd_setImageWithURL(NSURL(string: image), placeholderImage: UIImage(named: "testPlace"))
-        }
         cell.destNameLabel.text = cities[indexPath.row].destination
         cell.destDateLabel.text = "Start time: " + DataBean.onlyDateFormatter.stringFromDate(cities[indexPath.row].startDate)
         return cell

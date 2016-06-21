@@ -65,12 +65,12 @@ class SignupTableViewController: UITableViewController {
         UserModel.signup(user)
             .then { isSuccess -> Promise<Bool> in
                 if isSuccess {
-                    HUD.flash(.LabeledSuccess(title: "Success", subtitle: "Welcome to Traveller!"), delay: 1.0)
+                    HUD.flash(.LabeledSuccess(title: "Success", subtitle: "Welcome to Traveller!"), delay: 0.5)
                     HUD.show(.LabeledProgress(title: "Login...", subtitle: "Automatically login for you."))
                     print("signup successful")
                     return UserModel.login(user.username, password: user.password!)
                 } else {
-                    HUD.flash(.LabeledError(title: "Error", subtitle: "Register failed, please try again."), delay: 1.5)
+                    HUD.flash(.LabeledError(title: "Error", subtitle: "Register failed, please try again."), delay: 1.0)
                     print("signup failed")
                     return Promise { fulfill, reject in
                         reject(SignupError.SignupFailled)
@@ -78,17 +78,17 @@ class SignupTableViewController: UITableViewController {
                 }
             }.then { loginSuccess -> () in
                 if loginSuccess {
-                    HUD.flash(.LabeledSuccess(title: "Success", subtitle: "Login success!"), delay: 1.0)
+                    HUD.flash(.LabeledSuccess(title: "Success", subtitle: "Login success!"), delay: 0.5)
                     UIApplication.sharedApplication().windows[0].rootViewController = RootTabBarController.loadFromStoryboard()
                 } else {
                     // 登录失败
-                    HUD.flash(.LabeledError(title: "Error", subtitle: "Login failed, please try again"), delay: 1.5)
+                    HUD.flash(.LabeledError(title: "Error", subtitle: "Login failed, please try again"), delay: 1.0)
                 }
             }.error { err in
                 print("signup with error")
                 print(err)
                 // TODO: 错误处理
-                HUD.flash(.LabeledError(title: "Error", subtitle: "\(err)"), delay: 1.5)
+                HUD.flash(.LabeledError(title: "Error", subtitle: "\(err)"), delay: 1.0)
             }
         
         

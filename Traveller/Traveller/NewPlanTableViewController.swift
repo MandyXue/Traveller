@@ -108,19 +108,20 @@ class NewPlanTableViewController: UITableViewController {
             if alert.textFields![0].text != "" {
                 self.places.append(alert.textFields![0].text!)
                 self.tableView.reloadData()
-                HUD.flash(.Success, delay: 1.0)
+                HUD.flash(.Success)
             } else {
-                HUD.flash(.LabeledError(title: "Error", subtitle: "Destination city name cannot be empty."), delay: 2.0)
+                HUD.flash(.LabeledError(title: "Error", subtitle: "Destination city name cannot be empty."))
             }
         }))
         presentViewController(alert, animated: true, completion: nil)
     }
     
     func doneSelector() {
-        self.plan?.scheduleId = "5b81ecd4-ff10-4e9a-b7cf-487f6ba677d7"
+        self.plan?.scheduleId = self.scheduleId!
         print("schedule id:\(self.scheduleId!)")
         
         if places.count != 0 {
+            HUD.show(.LabeledProgress(title: nil, subtitle: "Loading..."))
             var string = places[0]
             for i in 1 ..< places.count {
                 string.appendContentsOf(" > ")
@@ -132,14 +133,16 @@ class NewPlanTableViewController: UITableViewController {
                 .then { isSuccess -> () in
                     print("get save plan response")
                     if isSuccess {
-//                        self.newPlanDelegate?.newPlan(self.plan!)
-                        HUD.flash(.Success, delay: 1.0)
+                        self.newPlanDelegate?.newPlan(self.plan!)
+                        HUD.flash(.LabeledSuccess(title: "Success", subtitle: "You have added a day for plan."))
                         self.navigationController?.popViewControllerAnimated(true)
                     } else {
-                       // 保存失败
+                        // 保存失败
+                        HUD.flash(.LabeledError(title: "Error", subtitle: "Failed due to unknown reason."))
                     }
                 }.error { err in
                     print(err)
+                    // TODO: 错误处理
             }
         } else {
             let alert = UIAlertController(title: "Error", message: "Plan destination cities cannot be empty!", preferredStyle: .Alert)
