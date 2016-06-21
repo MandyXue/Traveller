@@ -23,7 +23,7 @@ class ScheduleBean: DataBean {
         self.destination = destination
         self.order = order
         self.imageURL = imageURL
-        self.startDate = DataBean.onlyDateFormatter.dateFromString(startDate)!
+        self.startDate = DataBean().onlyDateFormatter.dateFromString(startDate)!
     }
     
     // From local

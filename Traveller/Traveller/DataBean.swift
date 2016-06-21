@@ -11,15 +11,15 @@ import Foundation
 class DataBean {
     let dateFormatStr = "yyyy-MM-dd HH:mm:ss"
     let timeFormatStr = "HH:mm:ss"
-    let onlyDateFormat = "yyyy-MM-dd"
-    static let dateFormatter = NSDateFormatter()
-    static let timeFormatter = NSDateFormatter()
-    static let onlyDateFormatter = NSDateFormatter()
+    let onlyDateFormatStr = "yyyy-MM-dd"
+    let dateFormatter = NSDateFormatter()
+    let timeFormatter = NSDateFormatter()
+    let onlyDateFormatter = NSDateFormatter()
     
     init () {
-        DataBean.dateFormatter.dateFormat = dateFormatStr
-        DataBean.timeFormatter.dateFormat = timeFormatStr
-        DataBean.onlyDateFormatter.dateFormat = onlyDateFormat
+        dateFormatter.dateFormat = dateFormatStr
+        timeFormatter.dateFormat = timeFormatStr
+        onlyDateFormatter.dateFormat = onlyDateFormatStr
     }
     
     class func getErrorMessage(error: ErrorType) -> String {

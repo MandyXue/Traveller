@@ -25,8 +25,8 @@ class DayDetailBean: DataBean {
         self.id = id
         self.planID = planID
         self.postID = postID
-        self.startTime = DataBean.timeFormatter.dateFromString(startTime)!
-        self.endTime = DataBean.timeFormatter.dateFromString(endTime)!
+        self.startTime = DataBean().timeFormatter.dateFromString(startTime)!
+        self.endTime = DataBean().timeFormatter.dateFromString(endTime)!
         self.place = place
         self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         self.type = type

@@ -11,17 +11,48 @@ import PromiseKit
 import Alamofire
 import SwiftyJSON
 import Qiniu
+import MapKit
 
 class PostModel: DataModel {
     
     static let upManager = QNUploadManager()
     
     // TODO:1-1获取附近post列表
-    func getAroundPost() -> Promise<[PostBean]> {
-        let requestURL = DataModel.baseURL + ""
+    func getAroundPost(mapSpan: MKCoordinateSpan, center: CLLocationCoordinate2D) -> Promise<[PostBean]> {
+        let requestURL = DataModel.baseURL + "/post/nearby"
         
+        let leftLong = center.longitude - mapSpan.longitudeDelta/2
+        let rightLong = center.longitude + mapSpan.longitudeDelta/2
+        
+        let topLat = center.latitude + mapSpan.latitudeDelta/2
+        let bottomLat = center.latitude - mapSpan.latitudeDelta/2
+        
+        
+        let parameters = ["token": token, "leftLongitude": leftLong, "rightLongitude": rightLong, "topLatitude": topLat, "bottomLatitude": bottomLat]
         return Promise { fulfill, reject in
-            Alamofire.request(.GET, requestURL, parameters: nil, encoding: .URL, headers: nil)
+            Alamofire.request(.POST, requestURL, parameters: parameters as? [String : AnyObject], encoding: .URL, headers: nil)
+                .responseJSON { response in
+                    do {
+                        let jsonData = try DataModel.filterResponse(response)
+                        
+                        let posts = jsonData["post"].array!.map { post -> PostBean in
+                            let id = post["id"].string!
+                            let title = post["title"].string!
+                            let address = post["locationDesc"].string!
+                            let latitude = post["latitude"].double!
+                            let longitude = post["longitude"].double!
+                            let summary = post["summary"].string!
+                            let creatorId = post["createrId"].string!
+                            let createDate = post["createDate"].string!
+                            
+                            return PostBean(id: id, title: title, address: address, summary: summary, latitude: latitude, longitude: longitude, creatorID: creatorId, createDate: createDate, imagesURL: [])
+                        }
+                        fulfill(posts)
+                    } catch {
+                        print(error)
+                        reject(error)
+                    }
+            }
         }
     }
     
@@ -138,7 +169,7 @@ class PostModel: DataModel {
 //                    "createDate": DataBean.onlyDateFormatter.stringFromDate(newPost.createDate)]
         let urls = newPost.imagesURL
         
-        let parameters = ["token": token, "title": newPost.title, "creatorId": newPost.creatorID, "locationDesc": newPost.address, "latitude": newPost.location.latitude, "longitude": newPost.location.longitude, "summary": newPost.summary, "createDate": DataBean.dateFormatter.stringFromDate(newPost.createDate), "imageURL": urls]
+        let parameters = ["token": token, "title": newPost.title, "creatorId": newPost.creatorID, "locationDesc": newPost.address, "latitude": newPost.location.latitude, "longitude": newPost.location.longitude, "summary": newPost.summary, "createDate": DataBean().dateFormatter.stringFromDate(newPost.createDate), "imageURL": urls]
         return Promise { fulfill, reject in
 //            Alamofire.request(.POST, requestURL, parameters: parameters as! [String : AnyObject])
             

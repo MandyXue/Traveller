@@ -27,8 +27,8 @@ class DataModel {
     
     // 处理http response抛出的异常
     class func filterResponse(response: Response<AnyObject, NSError>) throws -> JSON {
-        print("http response")
-        print(response)
+//        print("http response")
+//        print(response)
         if let serverResp = response.response {
             if serverResp.statusCode < 200 || serverResp.statusCode > 299 {
                 throw HttpError.StatusNot200

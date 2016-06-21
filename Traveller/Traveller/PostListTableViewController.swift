@@ -213,7 +213,7 @@ extension PostListTableViewController {
         cell.locationLabel.text = comments[indexPath.row].postLocation
         cell.usernameLabel.text = self.user!.username
         cell.commentLabel.text = comments[indexPath.row].content
-        cell.timeLabel.text = DataBean.dateFormatter.stringFromDate(comments[indexPath.row].time)
+        cell.timeLabel.text = DataBean().dateFormatter.stringFromDate(comments[indexPath.row].time)
     }
     
 }

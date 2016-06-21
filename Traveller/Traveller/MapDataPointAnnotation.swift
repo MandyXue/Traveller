@@ -11,7 +11,7 @@ import MapKit
 
 class MapDataPointAnnotation: NSObject, MKAnnotation {
     
-    var pointId: Int = 0
+    var pointId: String
     var image: UIImage   // 缩略图
     
     // MARK: - MKAnnotation Property
@@ -27,17 +27,21 @@ class MapDataPointAnnotation: NSObject, MKAnnotation {
         self.subtitle = subtitle
         self.coordinate = coordinate
         self.image = image
+        self.pointId = ""
     }
     
     init(post: PostBean) {
+//        print(post)
+        
+        self.pointId = post.id!
         self.coordinate = post.location
         self.title = post.title
         self.subtitle = post.address
         if post.images.count != 0 {
             self.image = post.images.first!
         } else {
-            self.image = UIImage()
-            print(self.image)
+            self.image = UIImage(named: "testPlace")!
+//            print(self.image)
         }
     }
 }

@@ -37,7 +37,7 @@ class CommentBean: DataBean {
         self.creatorAvatarURL = avatarURL
         self.content = content
         self.postID = postID
-        self.time = DataBean.dateFormatter.dateFromString(createDate)!
+        self.time = DataBean().dateFormatter.dateFromString(createDate)!
         
         super.init()
     }

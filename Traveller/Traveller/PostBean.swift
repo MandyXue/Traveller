@@ -39,13 +39,14 @@ class PostBean: DataBean {
     
     // For remote
     init(id: String, title: String, address: String, summary:String, latitude: Double, longitude: Double, creatorID:String, createDate: String, imagesURL: [String]) {
+        
         self.id = id
         self.title = title
         self.address = address
         self.summary = summary
         self.location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         self.creatorID = creatorID
-        self.createDate = DataBean.onlyDateFormatter.dateFromString(createDate)!
+        self.createDate = DataBean().onlyDateFormatter.dateFromString(createDate)!
         self.imagesURL = imagesURL
     }
     

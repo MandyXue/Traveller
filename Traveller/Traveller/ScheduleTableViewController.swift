@@ -78,7 +78,7 @@ class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
         let cell = tableView.dequeueReusableCellWithIdentifier("DestinationCell", forIndexPath: indexPath) as! DestinationTableViewCell
         // TODO: 图片还是加载不出来
         cell.destNameLabel.text = cities[indexPath.row].destination
-        cell.destDateLabel.text = "Start time: " + DataBean.onlyDateFormatter.stringFromDate(cities[indexPath.row].startDate)
+        cell.destDateLabel.text = "Start time: " + DataBean().onlyDateFormatter.stringFromDate(cities[indexPath.row].startDate)
         return cell
     }
 

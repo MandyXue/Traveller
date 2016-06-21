@@ -254,7 +254,7 @@ extension PostDetailTableViewController {
         cell.commentLabel.text = comments[indexPath.row-4].content
         cell.commentImageView.image = UIImage(named: "avatar")// user!.avatar
         cell.commentNameLabel.text = comments[indexPath.row-4].user!.username
-        cell.commentTimeLabel.text = DataBean.dateFormatter.stringFromDate(comments[indexPath.row-4].time)
+        cell.commentTimeLabel.text = DataBean().dateFormatter.stringFromDate(comments[indexPath.row-4].time)
     }
 }
 

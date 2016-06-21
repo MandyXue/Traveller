@@ -74,7 +74,7 @@ class TimelineTableViewController: UITableViewController, NewPlanDelegate {
         // 算出来的数值
         cell.dayLabel.text = "D\(indexPath.row+1)"
         let date = NSDate(timeInterval: timeIntervalForOneDay * Double(indexPath.row), sinceDate: schedule!.startDate)
-        cell.timeLabel.text = DataBean.onlyDateFormatter.stringFromDate(date)
+        cell.timeLabel.text = DataBean().onlyDateFormatter.stringFromDate(date)
         cell.backCircleView.backgroundColor = calculateColor(calculateProgress(indexPath), colors: gradientColors)
         // 需要设置的内容
         cell.placeLabel.text = places[indexPath.row].content

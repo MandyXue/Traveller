@@ -16,14 +16,14 @@ class DayDetailModel: DataModel {
     func addNewDayDetail(day: DayDetailBean, userId: String) -> Promise<Bool> {
         let requestURL = DataModel.baseURL + "/daily/add"
         
-        print("day detail start time:\(DataBean.timeFormatter.stringFromDate(day.startTime))")
+        print("day detail start time:\(DataBean().timeFormatter.stringFromDate(day.startTime))")
         
         let parameters = ["token": token,
                           "user_id": userId,
                           "plan_id": day.planID,
                           "post_id": "",
-                          "start_time": DataBean.timeFormatter.stringFromDate(day.startTime),
-                          "end_time": DataBean.timeFormatter.stringFromDate(day.endTime),
+                          "start_time": DataBean().timeFormatter.stringFromDate(day.startTime),
+                          "end_time": DataBean().timeFormatter.stringFromDate(day.endTime),
                           "destination": day.place,
                           "latitude": Double(day.coordinate.latitude),
                           "longitude": Double(day.coordinate.longitude),

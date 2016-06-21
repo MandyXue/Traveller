@@ -13,10 +13,11 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     
     var annotations: [MapDataPointAnnotation] = []
     let annotationViewReuseIdentifier = "annotationViewReuseIdentifier"
+    var center:CLLocationCoordinate2D?
     
     @IBOutlet weak var mapView: MKMapView!
     let locationManager = CLLocationManager()
-    
+    let postModel = PostModel()
     // MARK: - BaseViewController
     
     static func loadFromStoryboard() -> UIViewController {
@@ -31,13 +32,12 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         
         initLocationManager()
         mapView.delegate = self
-        getAnnotations()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         mapView.showsUserLocation = true
-        mapView.userTrackingMode = MKUserTrackingMode.Follow
+        mapView.userTrackingMode = .Follow
         
         // set up navigation bar
         self.tabBarController?.navigationItem.title = "Home"
@@ -62,22 +62,26 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.distanceFilter = 1000
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.requestAlwaysAuthorization()
             locationManager.startUpdatingLocation()
         }
     }
     
-    private func getAnnotations() {
+    private func getAnnotations(mapView: MKMapView) {
         // 这里应该先用API获取annotation然后放到annotations里
         // 而且应该只获取部分信息就好了
-        let testPost = PostBean(place: "Hong Kong Disney Land", detail: "Such a great place!! I love it so much!!!", location: CLLocationCoordinate2D(latitude: 22.3663913986, longitude: 114.1180044924), address: "香港，大嶼山", creator: UserBean(username: "Huo Teng", avatar: UIImage(named: "avatar")!, place: "Shanghai, Jia Ding District"))
-        testPost.addImage(UIImage(named: "testPost")!)
-        annotations.append(MapDataPointAnnotation(post: testPost))
-        let testPost2 = PostBean(place: "Hong Kong Disney Land", detail: "Such a great place!! I love it so much!!!", location: CLLocationCoordinate2D(latitude: 31.2855741398, longitude: 121.2147781261), address: "香港，大嶼山", creator: UserBean(username: "Huo Teng", avatar: UIImage(named: "avatar")!, place: "Shanghai, Jia Ding District"))
-        testPost2.addImage(UIImage(named: "testPost")!)
-        annotations.append(MapDataPointAnnotation(post: testPost2))
-        self.mapView.showAnnotations(annotations, animated: true)
+        
+        postModel.getAroundPost(mapView.region.span, center: mapView.region.center)
+            .then { posts -> () in
+                posts.forEach { post in
+                    post.addImage(UIImage(named: "testPost")!)
+                    self.annotations.append(MapDataPointAnnotation(post: post))
+                }
+                self.mapView.showAnnotations(self.annotations, animated: true)
+            }.error { err in
+                self.handleErrorMsg(err)
+        }
     }
     
     func addAnnotation() {
@@ -86,7 +90,6 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         let vc = NewPostTableViewController.loadFromStoryboard()
         presentViewController(vc, animated: true, completion: nil)
     }
-
 }
 
 // MARK: - Delegate
@@ -113,19 +116,13 @@ extension HomeMapViewController {
         return annotationView
     }
     
-//    func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-//        print("will change")
-        // 这里应该再获取一次annotation
-//        getAnnotations()
-//    }
-    
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         if let annotationView = view.annotation as? MapDataPointAnnotation {
             if let detailView = PostDetailTableViewController.loadFromStoryboard() as? PostDetailTableViewController {
-                print(annotationView.title)
-                // TODO: 接上接口以后要改这个参数
-                detailView.post = PostBean(place: "Hong Kong Disney Land", detail: "Hong Kong Disneyland (Chinese: 香港迪士尼樂園) is the first theme parklocated inside the Hong Kong Disneyland Resort and is owned and managed by the Hong Kong International Theme Parks.", location: CLLocationCoordinate2D(latitude: 22.3663913986, longitude: 114.1180044924), address: "香港，大嶼山", creator: UserBean(username: "Huo Teng", avatar: UIImage(named: "avatar")!, place: "Shanghai, Jia Ding District"))
+//                print(annotationView.title)
+//                print("pointId:\(annotationView.pointId)")
+                detailView.postId = annotationView.pointId
                 self.navigationController?.pushViewController(detailView, animated: true)
             } else {
                 print("something went wrong...")
@@ -133,6 +130,19 @@ extension HomeMapViewController {
         } else {
             print("something went wrong...")
         }
-        
+    }
+    
+    
+    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+        if let _ = self.center {
+            let location = CLLocation(latitude: center!.latitude, longitude: center!.longitude)
+            let distance = location.distanceFromLocation(userLocation.location!)
+            
+            if distance > 1000 {
+                getAnnotations(mapView)
+            }
+        } else {
+            getAnnotations(mapView)
+        }
     }
 }

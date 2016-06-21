@@ -116,7 +116,7 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
                     cell.typeImageView.image = UIImage(named: "spot")
                 }
                 cell.nameLabel.text = spots[index].place
-                cell.timeLabel.text = DataBean.timeFormatter.stringFromDate(spots[index].startTime) + " to " + DataBean.timeFormatter.stringFromDate(spots[index].endTime)
+                cell.timeLabel.text = DataBean().timeFormatter.stringFromDate(spots[index].startTime) + " to " + DataBean().timeFormatter.stringFromDate(spots[index].endTime)
                 return cell
             } else {
                 // 1, 3, 5, ... 等行数，即过路
