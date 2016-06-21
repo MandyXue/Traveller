@@ -11,7 +11,17 @@ import PKHUD
 
 class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
     
-    var cities: [ScheduleBean] = []
+    var cities: [ScheduleBean] = [] {
+        didSet {
+            if cities.count == 0 {
+                let imageView = UIImageView(image: UIImage(named: "empty-table-bg"))
+                self.tableView.backgroundView = imageView
+            } else {
+                let view = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: self.view.bounds.size))
+                self.tableView.backgroundView = view
+            }
+        }
+    }
     let scheduleModel = ScheduleModel()
     // MARK: - BaseViewController
     

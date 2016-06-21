@@ -11,7 +11,17 @@ import PKHUD
 
 class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate {
     
-    var spots: [DayDetailBean] = []
+    var spots: [DayDetailBean] = [] {
+        didSet {
+            if spots.count == 0 {
+                let imageView = UIImageView(image: UIImage(named: "empty-table-bg"))
+                self.tableView.backgroundView = imageView
+            } else {
+                let view = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: self.view.bounds.size))
+                self.tableView.backgroundView = view
+            }
+        }
+    }
     var planId: String?
     var edit = false
     let dayDetailModel = DayDetailModel()

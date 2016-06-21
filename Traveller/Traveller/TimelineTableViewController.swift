@@ -11,7 +11,17 @@ import PKHUD
 
 class TimelineTableViewController: UITableViewController, NewPlanDelegate {
     
-    var places: [PlanBean] = []
+    var places: [PlanBean] = [] {
+        didSet {
+            if places.count == 0 {
+                let imageView = UIImageView(image: UIImage(named: "empty-table-bg"))
+                self.tableView.backgroundView = imageView
+            } else {
+                let view = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: self.view.bounds.size))
+                self.tableView.backgroundView = view
+            }
+        }
+    }
     var gradientColors: [UIColor] = []
     var schedule: ScheduleBean?
 //    var scheduleId: String?

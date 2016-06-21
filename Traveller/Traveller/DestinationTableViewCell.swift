@@ -11,7 +11,11 @@ import UIKit
 class DestinationTableViewCell: UITableViewCell {
 
     @IBOutlet weak var destNameLabel: UILabel!
-    @IBOutlet weak var destImageView: UIImageView!
+    @IBOutlet weak var destImageView: UIImageView! {
+        didSet {
+            destImageView.layer.cornerRadius = 20
+        }
+    }
     @IBOutlet weak var destDateLabel: UILabel!
     
     override func awakeFromNib() {
