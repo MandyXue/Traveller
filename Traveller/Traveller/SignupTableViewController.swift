@@ -9,6 +9,7 @@
 import UIKit
 import Regex
 import PromiseKit
+import PKHUD
 
 class SignupTableViewController: UITableViewController {
     
@@ -27,8 +28,6 @@ class SignupTableViewController: UITableViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     @IBAction func signup(sender: AnyObject) {
-        // TODO: 连接注册接口
-//        UIApplication.sharedApplication().windows[0].rootViewController = DispatchController.dispatchToMain()
         
         // 输入检查
         let email = inputEmail.text!
@@ -40,20 +39,38 @@ class SignupTableViewController: UITableViewController {
         let password = inputPassword.text!
         let repeatPass = repeatPassword.text!
         
-        if !emailResult.boolValue || !nameResult.boolValue || (password != repeatPass) {
-            print("输入有误，请重新输入")
+        if !emailResult.boolValue {
+            let alert = UIAlertController(title: "Invalid input", message: "Your email address is invalid.", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
+            return
+        }
+        if !nameResult.boolValue {
+            let alert = UIAlertController(title: "Invalid input", message: "Your name is invalid.", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
+            return
+        }
+        if password != repeatPass {
+            let alert = UIAlertController(title: "Invalid input", message: "Your confirm password is invalid.", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
             return
         }
         
+        HUD.show(.Progress)
         // 注册新用户
         let user = UserBean(name: inputUsername.text!, password: inputPassword.text!, email: inputEmail.text!)
 
         UserModel.signup(user)
             .then { isSuccess -> Promise<Bool> in
                 if isSuccess {
+                    HUD.flash(.LabeledSuccess(title: "Success", subtitle: "Welcome to Traveller!"), delay: 1.0)
+                    HUD.show(.LabeledProgress(title: "Login...", subtitle: "Automatically login for you."))
                     print("signup successful")
                     return UserModel.login(user.username, password: user.password!)
                 } else {
+                    HUD.flash(.LabeledError(title: "Error", subtitle: "Register failed, please try again."), delay: 1.5)
                     print("signup failed")
                     return Promise { fulfill, reject in
                         reject(SignupError.SignupFailled)
@@ -61,13 +78,17 @@ class SignupTableViewController: UITableViewController {
                 }
             }.then { loginSuccess -> () in
                 if loginSuccess {
+                    HUD.flash(.LabeledSuccess(title: "Success", subtitle: "Login success!"), delay: 1.0)
                     UIApplication.sharedApplication().windows[0].rootViewController = RootTabBarController.loadFromStoryboard()
                 } else {
                     // 登录失败
+                    HUD.flash(.LabeledError(title: "Error", subtitle: "Login failed, please try again"), delay: 1.5)
                 }
             }.error { err in
                 print("signup with error")
                 print(err)
+                // TODO: 错误处理
+                HUD.flash(.LabeledError(title: "Error", subtitle: "\(err)"), delay: 1.5)
             }
         
         
