@@ -117,6 +117,9 @@ class NewPlanTableViewController: UITableViewController {
     }
     
     func doneSelector() {
+        self.plan?.scheduleId = "5b81ecd4-ff10-4e9a-b7cf-487f6ba677d7"
+        print("schedule id:\(self.scheduleId!)")
+        
         if places.count != 0 {
             var string = places[0]
             for i in 1 ..< places.count {
@@ -125,11 +128,11 @@ class NewPlanTableViewController: UITableViewController {
             }
             self.plan?.content = string
             
-            self.planModel.addNewPlan(self.plan!)
-                .then { newId -> () in
-                    if let _ = newId {
-                        self.plan!.id = newId!
-                        self.newPlanDelegate?.newPlan(self.plan!)
+            self.planModel.addNewPlan(self.plan!, userId: planModel.userID)
+                .then { isSuccess -> () in
+                    print("get save plan response")
+                    if isSuccess {
+//                        self.newPlanDelegate?.newPlan(self.plan!)
                         HUD.flash(.Success, delay: 1.0)
                         self.navigationController?.popViewControllerAnimated(true)
                     } else {

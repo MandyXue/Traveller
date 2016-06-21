@@ -123,18 +123,23 @@ class NewDayDetailTableViewController: UITableViewController, SelectLocationDele
     // MARK: - Helper
     
     func newDayDetailSelector() {
+        //For test
+        self.newDayDetail?.planID = "7efc4d40-4d59-4a1b-98ac-4e477e8b95af"
+        
+        print("day detail content:\(newDayDetail?.startTime)")
+        
         if self.newDayDetail?.place != "" {
             if self.newDayDetail?.type != -1 {
                 if startDateCell.date.compare(endDateCell.date) == .OrderedAscending {
                     self.newDayDetail?.startTime = startDateCell.date
                     self.newDayDetail?.endTime = endDateCell.date
                     
-                    self.dayDetailModel.addNewDayDetail(self.newDayDetail!)
-                        .then { newId -> () in
-                            if let _ = newId {
-                                self.newDayDetail!.id = newId!
+                    self.dayDetailModel.addNewDayDetail(self.newDayDetail!, userId: dayDetailModel.userID)
+                        .then { isSuccess -> () in
+                            if isSuccess {
+//                                self.newDayDetail!.id = newId!
                                 // 用delegate把值传回上一页面
-                                self.newDayDetailDelegate?.newDayDetail(self.newDayDetail!)
+//                                self.newDayDetailDelegate?.newDayDetail(self.newDayDetail!)
                                 self.navigationController?.popViewControllerAnimated(true)
                             } else {
                                 print("save new day detail failed")

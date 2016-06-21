@@ -14,12 +14,12 @@ import Alamofire
 class ScheduleModel: DataModel {
     
     
-    func addNewSchedule(schedule: ScheduleBean) -> Promise<String?> {
-        let requestURL = DataModel.baseURL + ""
+    func addNewSchedule(schedule: ScheduleBean, userId: String) -> Promise<Bool> {
+        let requestURL = DataModel.baseURL + "/schedule/\(token)/\(userId)/newschedule"
         
-        let parameters = ["token": token, "post": schedule]
+        let parameters = ["destination": schedule.destination, "scheduleDate": DataBean.dateFormatter.stringFromDate(schedule.startDate)]
         return Promise { fulfill, reject in
-            Alamofire.request(.POST, requestURL, parameters: parameters as? [String : AnyObject], encoding: .URL, headers: nil)
+            Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
@@ -27,11 +27,12 @@ class ScheduleModel: DataModel {
                         
                         if errCode != 0 {
                             // 错误处理
-                            fulfill(nil)
+                            fulfill(false)
                         } else {
                             print("save new schedule response:")
                             print(jsonData)
-                            fulfill("new schedule id")
+
+                            fulfill(true)
                         }
                     } catch {
                         print(error)
