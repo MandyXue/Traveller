@@ -95,6 +95,13 @@ class UserDetailTableViewController: UITableViewController {
     
     func follow() {
         print("follow \(user.username)")
+        userModel.followUser(followingId: userModel.userID, followeeId: user.id!)
+            .then { posts -> () in
+            print(posts)
+            self.tableView.reloadData()
+            }.error { err in
+                self.handleErrorMsg(err)
+        }
     }
     
 }
