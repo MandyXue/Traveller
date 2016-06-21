@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKHUD
 
 class LoginTableViewController: UITableViewController {
     
@@ -20,15 +21,29 @@ class LoginTableViewController: UITableViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     @IBAction func login(sender: AnyObject) {
-        // TODO: 连接注册接口
-        //        UIApplication.sharedApplication().windows[0].rootViewController = DispatchController.dispatchToMain()
         
+        if usernameTextField.text == nil || usernameTextField.text! == "" {
+            let alert = UIAlertController(title: "Invalid input", message: "Your username is empty.", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
+            return
+        }
+        
+        if passwordTextField.text == nil || passwordTextField.text! == "" {
+            let alert = UIAlertController(title: "Invalid input", message: "Your password is empty.", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
+            return
+        }
+        
+        HUD.show(.Progress)
         if let name = usernameTextField.text, let pass = passwordTextField.text {
             UserModel.login(name, password: pass)
                 .then { isSuccess -> () in
+                    HUD.flash(.LabeledSuccess(title: "Success", subtitle: "Login successful."), delay: 1.0)
                     UIApplication.sharedApplication().windows[0].rootViewController = RootTabBarController.loadFromStoryboard()
                 }.error { err in
-                    // 提示错误
+                    // TODO: 提示错误
             }
         }
         

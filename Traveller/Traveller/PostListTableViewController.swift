@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import PKHUD
 import UITableView_FDTemplateLayoutCell
 
 class PostListTableViewController: UITableViewController {
@@ -36,22 +37,31 @@ class PostListTableViewController: UITableViewController {
         
         // 从NSUserDefault获取user ID
         if type == 1 {
+            HUD.show(.LabeledProgress(title: nil, subtitle: "Loading..."))
             navigationItem.title = "Posts"
             // 获取用户的post
             postModel.getPosts(byUserID: postModel.userID)
                 .then { posts -> () in
+                    HUD.flash(.Success, delay: 0.5)
+                    self.posts = posts
+                    self.tableView.reloadData()
                     posts.forEach { print($0.id) }
                 }.error { err in
                     print("get user posts list error")
                     print(err)
+                    // TODO: 错误处理
             }
             
             
         } else if type == 2 {
+            HUD.show(.LabeledProgress(title: nil, subtitle: "Loading..."))
             navigationItem.title = "Comments"
             // 获取用户的评论
             commentModel.getComments(byUserID: postModel.userID)
                 .then { comments -> () in
+//                    self.comments = comments
+//                    self.tableView.reloadData()
+                    HUD.flash(.Success, delay: 0.5)
                     comments.forEach { print($0.postID) }
                 }.error { err in
                     print("get user comments list error")
@@ -134,7 +144,11 @@ extension PostListTableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return posts.count
+        if type == 0 || type == 1 {
+            return posts.count
+        } else {
+            return comments.count
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

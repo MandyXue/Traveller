@@ -43,12 +43,12 @@ class InfoSettingTableViewController: UITableViewController, UIActionSheetDelega
     // MARK: - Helper
     
     func setInfo() {
-        avatarImageView.image = user.avatar
+        avatarImageView.image = (user.avatar == nil) ? UIImage(named: "avatar"): user.avatar
         usernameLabel.text = user.username
-        locationLabel.text = user.place
+        locationLabel.text = (user.place == nil || user.place! == "") ? "not setted": user.place
         genderLabel.text = user.gender! ? "male": "female"
-        summaryLabel.text = (user.summary == nil) ? "unsetted": user.summary
-        homepageLabel.text = (user.homepage == nil) ? "unsetted": user.homepage
+        summaryLabel.text = (user.summary == nil || user.summary! == "") ? "not setted": user.summary
+        homepageLabel.text = (user.homepage == nil || user.homepage! == "") ? "not setted": user.homepage
         emailLabel.text = user.email
         registerDateLabel.text = NSDateFormatter.stringFromDate(user.registerDate!)
     }
@@ -65,11 +65,15 @@ extension InfoSettingTableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
         if indexPath.section == 0 && indexPath.row == 0 {
             let actionSheet = getImagePickerActionSheet()
             actionSheet.showInView(self.view)
+        } else if indexPath.section == 2 || (indexPath.section == 0 && indexPath.row == 1) {
+            let alert = UIAlertController(title: nil, message: (cell?.textLabel?.text)!+" cannot be modified.", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
         } else {
-            let cell = tableView.cellForRowAtIndexPath(indexPath)
             cell?.setSelected(false, animated: false)
             let alert = UIAlertController(title: "Modify "+(cell?.textLabel?.text)!, message: nil, preferredStyle: .Alert)
             alert.addTextFieldWithConfigurationHandler({ (textField) in
@@ -83,6 +87,7 @@ extension InfoSettingTableViewController {
             }))
             presentViewController(alert, animated: true, completion: nil)
         }
+        cell?.selected = false
     }
 }
 
