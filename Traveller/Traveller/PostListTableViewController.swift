@@ -64,15 +64,13 @@ class PostListTableViewController: UITableViewController {
                     HUD.flash(.Success)
                     comments.forEach { print($0.postID) }
                 }.error { err in
-                    print("get user comments list error")
-                    print(err)
+                    // 错误处理
+                    self.handleErrorMsg(err)
             }
         }
         
-        
-//        setInfo()
-        
         if type == 0 {
+            HUD.show(.LabeledProgress(title: nil, subtitle: "Loading..."))
             searchController.searchBar.delegate = self
             searchController.dimsBackgroundDuringPresentation = false
             definesPresentationContext = true
@@ -80,6 +78,17 @@ class PostListTableViewController: UITableViewController {
             // set ui
             searchController.searchBar.barTintColor = UIColor.customGreenColor()
             searchController.searchBar.tintColor = UIColor.whiteColor()
+            // 获取数据
+            postModel.getWatchingPosts(byUserID: postModel.userID)
+                .then { posts -> () in
+                    HUD.flash(.Success)
+                    self.posts = posts
+                    self.tableView.reloadData()
+                    posts.forEach { print($0.id) }
+                }.error { err in
+                    // 错误处理
+                    self.handleErrorMsg(err)
+            }
         }
     }
     
@@ -122,7 +131,7 @@ class PostListTableViewController: UITableViewController {
 extension PostListTableViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        if searchBar.text != nil {
+        if searchBar.text != nil && searchBar.text! != "" {
             filterContentForSearchText(searchBar.text!)
         } else {
             let alert = UIAlertController(title: "Empty Search", message: "Search text shouldn't be empty.", preferredStyle: .Alert)
@@ -132,9 +141,33 @@ extension PostListTableViewController: UISearchBarDelegate {
     }
     
     func filterContentForSearchText(searchText: String) {
-        // TODO: search filter
-        print("filter")
+        // 获取search的数据
+        HUD.show(.LabeledProgress(title: nil, subtitle: "Searching..."))
+        postModel.searchPosts(byKeyword: searchText)
+            .then { posts -> () in
+                self.posts = posts
+                self.tableView.reloadData()
+                HUD.flash(.Success)
+            }.error { err in
+                // 错误处理
+                self.handleErrorMsg(err)
+        }
         tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        HUD.show(.LabeledProgress(title: nil, subtitle: "Loading..."))
+        // 获取数据
+        postModel.getWatchingPosts(byUserID: postModel.userID)
+            .then { posts -> () in
+                HUD.flash(.Success)
+                self.posts = posts
+                self.tableView.reloadData()
+                posts.forEach { print($0.id) }
+            }.error { err in
+                // 错误处理
+                self.handleErrorMsg(err)
+        }
     }
 }
 

@@ -155,6 +155,64 @@ class PostModel: DataModel {
         }
     }
     
+    // 7-1根据用户ID获取用户正在watch的post
+    func getWatchingPosts(byUserID id: String) -> Promise<[PostBean]> {
+        let requestURL = DataModel.baseURL + "/post/watching"
+        let parameters = ["token": token, "user_id": id]
+        
+        return Promise { fulfill, reject in
+            Alamofire.request(.GET, requestURL, parameters: parameters, encoding: .URL, headers: nil)
+                .responseJSON { response in
+                    do {
+                        let jsonData = try DataModel.filterResponse(response)
+                        
+                        let posts = jsonData["post"].array!.map { post -> PostBean in
+                            let id = post["id"].string!
+                            let title = post["title"].string!
+                            let url = post["imageURL"].string!
+                            let location = post["location"].string!
+                            let summary = post["summary"].string!
+                            
+                            return PostBean(id: id, title: title, address: location, summary: summary, latitude: 0, longitude: 0, creatorID: "", createDate: "1999-01-01", imagesURL: [url])
+                        }
+                        fulfill(posts)
+                    } catch {
+                        print(error)
+                        reject(error)
+                    }
+            }
+        }
+    }
+    
+    // 7-2查询所有post中title，location和summary里的相关关键词信息
+    func searchPosts(byKeyword key: String) -> Promise<[PostBean]> {
+        let requestURL = DataModel.baseURL + "/posts/search"
+        let parameters = ["keyword": key]
+        
+        return Promise { fulfill, reject in
+            Alamofire.request(.GET, requestURL, parameters: parameters, encoding: .URL, headers: nil)
+                .responseJSON { response in
+                    do {
+                        let jsonData = try DataModel.filterResponse(response)
+                        
+                        let posts = jsonData["post"].array!.map { post -> PostBean in
+                            let id = post["id"].string!
+                            let title = post["title"].string!
+                            let url = post["imageURL"].string!
+                            let location = post["location"].string!
+                            let summary = post["summary"].string!
+                            
+                            return PostBean(id: id, title: title, address: location, summary: summary, latitude: 0, longitude: 0, creatorID: "", createDate: "1999-01-01", imagesURL: [url])
+                        }
+                        fulfill(posts)
+                    } catch {
+                        print(error)
+                        reject(error)
+                    }
+            }
+        }
+    }
+    
     // TODO:13-3根据评论ID获取post
     func getPost(byCommentID id: String) -> Promise<PostBean> {
         let requestURL = DataModel.baseURL + "/post/comment/\(id)"
