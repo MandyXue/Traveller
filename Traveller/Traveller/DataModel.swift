@@ -15,12 +15,14 @@ class DataModel {
     static let baseURL = "http://10.0.1.30:8000"
     var token:String
     var userID:String
+    var name:String
     
     init () {
         // 每次init时从NSUserDefault中取token和userid
         // TODO:考虑能不能弄成单例模式
         token = NSUserDefaults.standardUserDefaults().valueForKey("token") as! String
         userID = NSUserDefaults.standardUserDefaults().valueForKey("id") as! String
+        name = NSUserDefaults.standardUserDefaults().valueForKey("name") as! String
     }
     
     // 处理http response抛出的异常

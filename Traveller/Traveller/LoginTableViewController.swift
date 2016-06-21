@@ -35,7 +35,8 @@ class LoginTableViewController: UITableViewController {
             presentViewController(alert, animated: true, completion: nil)
             return
         }
-        
+        usernameTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
         HUD.show(.Progress)
         if let name = usernameTextField.text, let pass = passwordTextField.text {
             UserModel.login(name, password: pass)
@@ -46,6 +47,7 @@ class LoginTableViewController: UITableViewController {
                     UIApplication.sharedApplication().windows[0].rootViewController = RootTabBarController.loadFromStoryboard()
                 }.error { err in
                     // TODO: 提示错误
+                    self.handleErrorMsg(err)
             }
         }
         

@@ -60,6 +60,9 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
             postModel.getPostDetail(byPostID: id)
                 .then { post -> Promise<UserBean> in
                     self.post = post
+                    self.imageURLs = post.imagesURL
+                    print("images")
+                    print(self.imageURLs)
                     return self.userModel.getUserDetail(byUserID: self.post!.creatorID)
                 }.then { user -> Promise<[CommentBean]> in
                     self.post!.creator = user
@@ -68,24 +71,10 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
                     self.comments = comments
                     HUD.flash(.Success)
                     self.tableView.reloadData()
-                    self.titleLabel.text = self.post!.title
+                    self.setUpUI()
                 }.error { err in
                     self.handleErrorMsg(err)
                 }
-            
-            // 请求图片数据
-//            when(postModel.getImages(["", "", ""])).then { images -> Void in
-//                
-//                }.error { err in
-//                    
-//            }
-        }
-        
-        
-        
-//        prepareData()
-        if let _ = self.post {
-            setUpUI()
         }
     }
     
@@ -119,7 +108,7 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
             let comment = alert.textFields![0].text
             if comment != "" {
                 let newComment = CommentBean(creatorID: self.commentModel.userID, content: comment!, postID: self.postId!)
-                
+                newComment.user = UserBean(id: self.commentModel.userID, username: self.commentModel.name, avatar: nil)
                 self.commentModel.addNewComment(newComment)
                     .then { isSuccess -> () in
                         self.comments.append(newComment)
@@ -151,25 +140,6 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
 //        view.backgroundColor = UIColor.blackColor()
 //        self.tableView.tableFooterView = view
     }
-    
-//    func prepareData() {
-//        // TODO: 假数据，后续添加接口
-//        var i = 0
-//        while i < 20 {
-//            let newComment = CommentBean(commentId: "testId", creatorId: "testId", avatarURL: nil, content: "Great place, I want to go gogogogogogogogogogogogogogo....", postID: "test", createDate: "2016-06-18")
-//            newComment.user = UserBean(username: "Mandy Xue", avatar: UIImage(named: "avatar")!, place: "Yang Pu District, Shanghai")
-//            comments.append(newComment)
-//                
-//            i += 1
-//        }
-//        // scroll view images
-//        imageURLs.append("http://www.khxing.com/files/2014-9/20140915132828105078.jpg")
-//        imageURLs.append("http://file21.mafengwo.net/M00/B3/05/wKgB21AXIVfkK_6eABs2chtBOg409.groupinfo.w600.jpeg")
-//        imageURLs.append("http://www.oruchina.com/files/2014-9/f20140930095244175411.jpg")
-//        imageURLs.append("http://youimg1.c-ctrip.com/target/tg/920/427/911/5c52e590249244499dbeede58832e865_jupiter.jpg")
-//        scrollViewWidth = self.scrollView.frame.size.width
-//    }
-
 }
 
 // MARK: - Table view setting
@@ -200,7 +170,7 @@ extension PostDetailTableViewController {
             return cell
         case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("CreatorCell", forIndexPath: indexPath) as! PostCreatorTableViewCell
-//            cell.creatorImageView.image = post?.creator?.avatar
+            cell.creatorImageView.image = post?.creator?.avatar
             cell.creatorNameLabel.text = post?.creator?.username
             cell.creatorPlaceLabel.text = post?.creator?.place
             return cell
@@ -296,6 +266,13 @@ extension PostDetailTableViewController {
         let imageToSave = info[UIImagePickerControllerEditedImage]
         if let image = imageToSave as? UIImage {
             post!.addImage(image)
+            postModel.getUpToken().then { uptoken -> [Promise<String>] in
+                    return self.postModel.uploadImageToQiniu([image], uptoken: uptoken)
+                }.then { urls -> () in
+                    // TODO: 为post添加一张图片
+                }.error { err in
+                    self.handleErrorMsg(err)
+            }
         }
         print(post!.images)
         

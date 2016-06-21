@@ -30,6 +30,8 @@ class UserModel: DataModel {
                         let userInfo = NSUserDefaults.standardUserDefaults()
                         userInfo.setObject(token, forKey: "token")
                         userInfo.setObject(currentId, forKey: "id")
+                        userInfo.setObject(name, forKey: "name")
+
                         fulfill(true)
                     } catch {
                         reject(error)

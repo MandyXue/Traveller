@@ -179,7 +179,7 @@ extension UserDetailTableViewController {
         if !type {
             if let detailView = PostDetailTableViewController.loadFromStoryboard() as? PostDetailTableViewController {
                 // TODO: 接上接口以后要改这个参数
-                detailView.post = user.posts[indexPath.row]
+                detailView.postId = user.posts[indexPath.row].id!
                 self.navigationController?.pushViewController(detailView, animated: true)
             } else {
                 print("something went wrong...")

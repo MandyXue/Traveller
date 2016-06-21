@@ -129,18 +129,21 @@ class PostModel: DataModel {
     // TODO:6-1推送一条新的post
     func addNewPost(newPost: PostBean) -> Promise<Bool> {
         let requestURL = DataModel.baseURL + "/post/new"
-        let post = ["title": newPost.title,
-                    "creatorId": newPost.creatorID,
-                    "locationDesc": newPost.address,
-                    "latitude": newPost.location.latitude,
-                    "longitude": newPost.location.longitude,
-                    "summary": newPost.summary,
-                    "createDate": DataBean.onlyDateFormatter.stringFromDate(newPost.createDate)]
+//        let post = ["title": newPost.title,
+//                    "creatorId": newPost.creatorID,
+//                    "locationDesc": newPost.address,
+//                    "latitude": newPost.location.latitude,
+//                    "longitude": newPost.location.longitude,
+//                    "summary": newPost.summary,
+//                    "createDate": DataBean.onlyDateFormatter.stringFromDate(newPost.createDate)]
         let urls = newPost.imagesURL
         
-        let parameters = ["token": token, "post": post, "imageURLs": urls] 
+        let parameters = ["token": token, "title": newPost.title, "creatorId": newPost.creatorID, "locationDesc": newPost.address, "latitude": newPost.location.latitude, "longitude": newPost.location.longitude, "summary": newPost.summary, "createDate": DataBean.dateFormatter.stringFromDate(newPost.createDate), "imageURL": urls]
         return Promise { fulfill, reject in
-            Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
+//            Alamofire.request(.POST, requestURL, parameters: parameters as! [String : AnyObject])
+            
+            
+            Alamofire.request(.POST, requestURL, parameters: parameters as? [String: AnyObject], encoding: .URL, headers: nil)
                 .responseJSON { response in
                     print(response.request!)
                     
