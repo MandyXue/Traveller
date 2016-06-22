@@ -64,7 +64,7 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
                     print("images")
                     print(self.imageURLs)
                     if self.imageURLs.count == 0 {
-                        self.imageURLs.append("")
+                        self.imageURLs.append("http://www.khxing.com/files/2014-9/20140915132828105078.jpg")
                     }
                     return self.userModel.getUserDetail(byUserID: self.post!.creatorID)
                 }.then { user -> Promise<[CommentBean]> in
