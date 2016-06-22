@@ -42,7 +42,7 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         // set up navigation bar
         self.tabBarController?.navigationItem.title = "Home"
         self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addAnnotation))
-        self.tabBarController?.navigationItem.leftBarButtonItem = nil
+        self.tabBarController?.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: #selector(getAnnotations))
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -68,11 +68,11 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         }
     }
     
-    private func getAnnotations(mapView: MKMapView) {
+    @objc private func getAnnotations() {
         // 这里应该先用API获取annotation然后放到annotations里
         // 而且应该只获取部分信息就好了
         
-        postModel.getAroundPost(mapView.region.span, center: mapView.region.center)
+        postModel.getAroundPost(self.mapView.region.span, center: self.mapView.region.center)
             .then { posts -> () in
                 posts.forEach { post in
                     post.addImage(UIImage(named: "testPost")!)
@@ -133,16 +133,16 @@ extension HomeMapViewController {
     }
     
     
-    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
-        if let _ = self.center {
-            let location = CLLocation(latitude: center!.latitude, longitude: center!.longitude)
-            let distance = location.distanceFromLocation(userLocation.location!)
-            
-            if distance > 1000 {
-                getAnnotations(mapView)
-            }
-        } else {
-            getAnnotations(mapView)
-        }
-    }
+//    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+//        if let _ = self.center {
+//            let location = CLLocation(latitude: center!.latitude, longitude: center!.longitude)
+//            let distance = location.distanceFromLocation(userLocation.location!)
+//            
+//            if distance > 1000 {
+//                getAnnotations(mapView)
+//            }
+//        } else {
+//            getAnnotations(mapView)
+//        }
+//    }
 }
