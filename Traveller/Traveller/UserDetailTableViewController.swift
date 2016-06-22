@@ -92,12 +92,6 @@ class UserDetailTableViewController: UITableViewController {
         followingLabel.text = "\(user.followerNum) Followers | \(user.followingNum) Following"
     }
     
-//    func prepareData() {
-//        user.posts = []
-//        user.posts.append(PostBean(place: "Tongji University", detail: "testtesttest", location: CLLocationCoordinate2D(latitude: 31.2825510324, longitude: 121.5060841762), address: "1239 Siping Road, Shanghai", creator: self.user))
-//        user.posts.append(PostBean(place: "Tongji University (Jiading)", detail: "testtesttest", location: CLLocationCoordinate2D(latitude: 31.2855741398, longitude: 121.2147781261), address: "4800 Caoan Road, Shanghai", creator: self.user))
-//    }
-    
     func follow() {
         print("follow \(user.username)")
         userModel.followUser(followingId: userModel.userID, followeeId: user.id!)

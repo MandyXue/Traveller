@@ -13,7 +13,6 @@ class FollowingTableViewCell: UITableViewCell {
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var button: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()

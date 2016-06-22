@@ -133,12 +133,14 @@ class UserModel: DataModel {
                         var usersInfo:[JSON]
                         if isFollowing {
                             usersInfo = jsonData["following_List"].array!
+                            let users = usersInfo.map { self.formatUser(fromRemote: $0, following: true) }
+                            fulfill(users)
                         } else {
                             usersInfo = jsonData["follower_List"].array!
+                            let users = usersInfo.map { self.formatUser(fromRemote: $0, following: false) }
+                            fulfill(users)
                         }
-                        let users = usersInfo.map { self.formatUser(fromRemote: $0) }
                         
-                        fulfill(users)
                     } catch {
                         print(error)
                         reject(error)
@@ -219,6 +221,33 @@ class UserModel: DataModel {
         let avatarURL = userInfo["avatar"].string
                 
         let user = UserBean(name: name, place: place, gender: gender, summary: summary, email: email, homepage: homepage, registerDate: registerDate, followerNum: followerNum, followingNum: followeingNum, avatarURL: avatarURL)
+        
+        return user
+    }
+    
+    func formatUser(fromRemote userInfo: JSON, following: Bool) -> UserBean {
+
+        let name = userInfo["name"].string!
+        let place = userInfo["location"].string
+        let gender = userInfo["gender"].int
+        let summary = userInfo["summary"].string
+        let email = userInfo["email"].string!
+        let homepage = userInfo["homepage"].string
+        let registerDate = userInfo["register_date"].string!
+        let followerNum = userInfo["follower_num"].int!
+        let followeingNum = userInfo["following_num"].int!
+        let avatarURL = userInfo["avatar"].string
+        let followee_id = userInfo["followee_id"].string
+        let follower_id = userInfo["follower_id"].string
+        
+        var user = UserBean(name: name, place: place, gender: gender, summary: summary, email: email, homepage: homepage, registerDate: registerDate, followerNum: followerNum, followingNum: followeingNum, avatarURL: avatarURL)
+        if following {
+            user.id = followee_id
+        } else {
+            user.id = follower_id
+        }
+        
+        
         
         return user
     }

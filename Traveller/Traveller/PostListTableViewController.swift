@@ -244,6 +244,8 @@ extension PostListTableViewController {
         } else {
             vc.postId = comments[indexPath.row].postID
         }
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        cell?.selected = false
         navigationController?.pushViewController(vc, animated: true)
     }
     
