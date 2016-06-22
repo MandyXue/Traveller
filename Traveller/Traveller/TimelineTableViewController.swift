@@ -34,8 +34,8 @@ class TimelineTableViewController: UITableViewController, NewPlanDelegate {
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addDay))
         
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
-        self.tableView.addGestureRecognizer(longPress)
+//        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
+//        self.tableView.addGestureRecognizer(longPress)
         
         HUD.show(.LabeledProgress(title: nil, subtitle: "Loading..."))
         // 获取数据

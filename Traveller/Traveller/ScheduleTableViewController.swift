@@ -39,8 +39,8 @@ class ScheduleTableViewController: UITableViewController, NewScheduleDelegate {
         self.clearsSelectionOnViewWillAppear = true
         navigationItem.title = "Schedule"
         
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
-        self.tableView.addGestureRecognizer(longPress)
+//        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
+//        self.tableView.addGestureRecognizer(longPress)
         
         // 获取数据
         HUD.show(.LabeledProgress(title: nil, subtitle: "Loading..."))
