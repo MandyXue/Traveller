@@ -96,8 +96,12 @@ class UserModel: DataModel {
                         let userInfo = jsonData["data"]
                         let user = self.formatUser(fromRemote: userInfo)
                         
-                        let followRelation = jsonData["errMessage"].string! == "following" ? true : false
-                        user.isFollowed = followRelation
+                        
+                        let follow = jsonData["errMessage"].string
+                        if let _ = follow {
+                            let followRelation = follow! == "following" ? true : false
+                            user.isFollowed = followRelation
+                        }
                         
                         user.id = id
                         fulfill(user)

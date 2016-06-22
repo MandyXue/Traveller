@@ -10,6 +10,7 @@ import UIKit
 import LTNavigationBar
 import SnapKit
 import MapKit
+import SDWebImage
 
 class UserDetailTableViewController: UITableViewController {
     
@@ -86,9 +87,7 @@ class UserDetailTableViewController: UITableViewController {
     // MARK: - Helper
     
     func setUpUI() {
-        if user.avatar != nil {
-            avatarImageView.image = user.avatar
-        }
+        avatarImageView.image = UIImage(named: "avatar")
         nameLabel.text = user.username
         followingLabel.text = "\(user.followerNum) Followers | \(user.followingNum) Following"
     }

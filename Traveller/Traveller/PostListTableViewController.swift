@@ -27,7 +27,7 @@ class PostListTableViewController: UITableViewController {
     }
     var posts: [PostBean] = []{
         didSet {
-            if comments.count == 0 {
+            if posts.count == 0 {
                 if type == 0 {
                     let imageView = UIImageView(image: UIImage(named: "empty-table-bg-search"))
                     self.tableView.backgroundView = imageView

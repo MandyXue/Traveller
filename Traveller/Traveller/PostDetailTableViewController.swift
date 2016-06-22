@@ -14,6 +14,7 @@ import MJRefresh
 import UITableView_FDTemplateLayoutCell
 import PromiseKit
 import PKHUD
+import SDWebImage
 
 class PostDetailTableViewController: UITableViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate, SDCycleScrollViewDelegate {
     
@@ -179,7 +180,10 @@ extension PostDetailTableViewController {
             return cell
         case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("CreatorCell", forIndexPath: indexPath) as! PostCreatorTableViewCell
-            cell.creatorImageView.image = (post?.creator?.avatar == nil) ? UIImage(named: "avatar"): post?.creator?.avatar
+            
+            
+            
+            cell.creatorImageView.image = UIImage(named: "avatar")//(post?.creator?.avatar == nil) ? UIImage(named: "avatar"): post?.creator?.avatar
             cell.creatorNameLabel.text = post?.creator?.username
             cell.creatorPlaceLabel.text = post?.creator?.place
             return cell
