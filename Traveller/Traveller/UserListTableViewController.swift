@@ -12,7 +12,22 @@ import PKHUD
 class UserListTableViewController: UITableViewController {
     
     var type: Bool = true // true: following, false: follower
-    var users: [UserBean] = []
+    var users: [UserBean] = [] {
+        didSet {
+            if users.count == 0 {
+                if type {
+                    let imageView = UIImageView(image: UIImage(named: "empty-table-bg-following"))
+                    self.tableView.backgroundView = imageView
+                } else {
+                    let imageView = UIImageView(image: UIImage(named: "empty-table-bg-follower"))
+                    self.tableView.backgroundView = imageView
+                }
+            } else {
+                let view = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: self.view.bounds.size))
+                self.tableView.backgroundView = view
+            }
+        }
+    }
     var userModel = UserModel()
     
     // MARK: - BaseViewController
