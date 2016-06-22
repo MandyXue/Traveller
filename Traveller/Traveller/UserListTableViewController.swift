@@ -64,6 +64,7 @@ class UserListTableViewController: UITableViewController {
             cell.usernameLabel.text = users[indexPath.row].username
             let username = users[indexPath.row].place
             cell.locationLabel.text = (username == nil || username! == "") ? "not setted": username
+            cell.button.removeFromSuperview()
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("FollowerCell", forIndexPath: indexPath) as! FollowerTableViewCell
@@ -72,6 +73,7 @@ class UserListTableViewController: UITableViewController {
             cell.usernameLabel.text = users[indexPath.row].username
             let username = users[indexPath.row].place
             cell.locationLabel.text = (username == nil || username! == "") ? "not setted": username
+            cell.addButton.removeFromSuperview()
             return cell
         }
     }

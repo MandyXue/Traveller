@@ -8,6 +8,7 @@
 
 import UIKit
 import PKHUD
+import MapKit
 
 class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate {
     
@@ -121,7 +122,12 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
             } else {
                 // 1, 3, 5, ... 等行数，即过路
                 let cell = tableView.dequeueReusableCellWithIdentifier("TransportCell", forIndexPath: indexPath) as! TransportTableViewCell
-                cell.timeLabel.text = "1.1km walking"
+//                cell.timeLabel.text = "1.1km walking"
+                let point1 = spots[(indexPath.row-1)/2].coordinate
+                let point2 = spots[(indexPath.row+1)/2].coordinate
+                let distance = getDistance(point1, point2: point2)
+                let str = NSString(format: "%2f", distance)
+                cell.timeLabel.text = "\(str) kilometers"
                 return cell
             }
         }
@@ -174,11 +180,21 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
     
     // MARK: - Helper
     
-    func prepareData() {
-        spots.append(DayDetailBean(planID: planId!, postID: "test", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "鹅銮鼻灯塔", latitude: 1, longitude: 1, type: 2))
-        spots.append(DayDetailBean(planID: planId!, postID: "test", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "鹅銮鼻公园", latitude: 1, longitude: 1, type: 2))
-        spots.append(DayDetailBean(planID: planId!, postID: "test", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "台湾最南点碑", latitude: 1, longitude: 1, type: 2))
-        spots.append(DayDetailBean(planID: planId!, postID: "test", startTime: NSDate(timeIntervalSinceNow: 0), endTime: NSDate(timeIntervalSinceNow: 0), place: "垦丁俪山林会馆", latitude: 1, longitude: 1, type: 1))
+    func getDistance(point1: CLLocationCoordinate2D, point2: CLLocationCoordinate2D) -> Double {
+        let earth_radius = 6378.137
+        func rad(d: Double) -> Double {
+            return d * M_PI / 180.0
+        }
+        
+        let radlat1 = rad(point1.latitude)
+        let radlat2 = rad(point2.latitude)
+        let a = radlat1 - radlat2
+        let b = rad(point1.longitude) - rad(point2.longitude)
+        
+        var s = 2 * sin(sqrt(pow(sin(a/2), 2) + cos(radlat1) * cos(radlat2) * pow(sin(b/2), 2)))
+        s = s * earth_radius
+        s = round(s * 10000) / 10000
+        return s
     }
     
     func addSpot() {
