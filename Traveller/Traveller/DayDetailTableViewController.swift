@@ -126,7 +126,7 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
                 let point1 = spots[(indexPath.row-1)/2].coordinate
                 let point2 = spots[(indexPath.row+1)/2].coordinate
                 let distance = getDistance(point1, point2: point2)
-                let str = NSString(format: "%2f", distance)
+                let str = NSString(format: "%0.2f", distance)
                 cell.timeLabel.text = "\(str) kilometers"
                 return cell
             }
@@ -208,16 +208,16 @@ class DayDetailTableViewController: UITableViewController, NewDayDetailDelegate 
     func editSpot() {
         edit = true
         tableView.reloadData()
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
-        self.tableView.addGestureRecognizer(longPress)
+//        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
+//        self.tableView.addGestureRecognizer(longPress)
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(done))]
     }
     
     func done() {
         edit = false
         tableView.reloadData()
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
-        self.tableView.removeGestureRecognizer(longPress)
+//        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
+//        self.tableView.removeGestureRecognizer(longPress)
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addSpot)), UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(editSpot))]
     }
     

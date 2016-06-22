@@ -14,9 +14,34 @@ import UITableView_FDTemplateLayoutCell
 class PostListTableViewController: UITableViewController {
     
     var type: Int = 0 // 0: all following posts,1: my posts, 2: my comments
-    var comments: [CommentBean] = []
-    var posts: [PostBean] = []
-    var filteredPosts: [PostBean] = []
+    var comments: [CommentBean] = [] {
+        didSet {
+            if type == 2 && comments.count == 0 {
+                let imageView = UIImageView(image: UIImage(named: "empty-table-bg-comment"))
+                self.tableView.backgroundView = imageView
+            } else {
+                let view = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: self.view.bounds.size))
+                self.tableView.backgroundView = view
+            }
+        }
+    }
+    var posts: [PostBean] = []{
+        didSet {
+            if comments.count == 0 {
+                if type == 0 {
+                    let imageView = UIImageView(image: UIImage(named: "empty-table-bg-search"))
+                    self.tableView.backgroundView = imageView
+                } else {
+                    let imageView = UIImageView(image: UIImage(named: "empty-table-bg-post"))
+                    self.tableView.backgroundView = imageView
+                }
+            } else {
+                let view = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: self.view.bounds.size))
+                self.tableView.backgroundView = view
+            }
+        }
+    }
+//    var filteredPosts: [PostBean] = []
     var user:UserBean?
     
     let postModel = PostModel()
