@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import PKHUD
 
 class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
@@ -71,13 +72,16 @@ class HomeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     @objc private func getAnnotations() {
         // 这里应该先用API获取annotation然后放到annotations里
         // 而且应该只获取部分信息就好了
-        
+        HUD.show(.LabeledProgress(title: nil, subtitle: "Searching..."))
         postModel.getAroundPost(self.mapView.region.span, center: self.mapView.region.center)
             .then { posts -> () in
+                self.mapView.removeAnnotations(self.annotations)
+                self.annotations = []
                 posts.forEach { post in
                     post.addImage(UIImage(named: "testPost")!)
                     self.annotations.append(MapDataPointAnnotation(post: post))
                 }
+                HUD.flash(.LabeledSuccess(title: "Success", subtitle: "Search success!"))
                 self.mapView.showAnnotations(self.annotations, animated: true)
             }.error { err in
                 self.handleErrorMsg(err)
