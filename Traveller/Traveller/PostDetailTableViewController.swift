@@ -63,6 +63,9 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
                     self.imageURLs = post.imagesURL
                     print("images")
                     print(self.imageURLs)
+                    if self.imageURLs.count == 0 {
+                        self.imageURLs.append("")
+                    }
                     return self.userModel.getUserDetail(byUserID: self.post!.creatorID)
                 }.then { user -> Promise<[CommentBean]> in
                     self.post!.creator = user
@@ -266,17 +269,22 @@ extension PostDetailTableViewController {
         let imageToSave = info[UIImagePickerControllerEditedImage]
         if let image = imageToSave as? UIImage {
             post!.addImage(image)
-            postModel.getUpToken().then { uptoken -> [Promise<String>] in
-                    return self.postModel.uploadImageToQiniu([image], uptoken: uptoken)
-                }.then { urls -> () in
-                    // TODO: 为post添加一张图片
+            HUD.show(.LabeledProgress(title: nil, subtitle: "Uploading....."))
+            var url = ""
+            postModel.getUpToken().then { uptoken -> Promise<[String]> in
+                    return when(self.postModel.uploadImageToQiniu([image], uptoken: uptoken))
+                }.then { urls -> Promise<Bool> in
+                    url = urls[0]
+                    return self.postModel.addImage(forPostId: self.postId!, imageURL: urls[0])
+                }.then { _ -> () in
+                    self.imageURLs.append(url)
+                    HUD.flash(.Success)
                 }.error { err in
                     self.handleErrorMsg(err)
             }
         }
         print(post!.images)
         
-        // TODO: 连后端接口上传图片
         dismissViewControllerAnimated(true, completion: nil)
     }
     

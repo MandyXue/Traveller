@@ -85,6 +85,8 @@ class UserModel: DataModel {
         let requestURL = DataModel.baseURL + "/user/\(id)/info"
         let parameters = ["token": token]
         
+        print("request:\(requestURL)")
+        print("token:\(token)")
         return Promise { fulfill, reject in
             Alamofire.request(.GET, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON{ response in

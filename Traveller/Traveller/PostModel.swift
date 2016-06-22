@@ -249,18 +249,37 @@ class PostModel: DataModel {
     }
     
     // TODO:13-3根据评论ID获取post
-    func getPost(byCommentID id: String) -> Promise<PostBean> {
-        let requestURL = DataModel.baseURL + "/post/comment/\(id)"
-        let parameters = ["token": token]
+//    func getPost(byCommentID id: String) -> Promise<PostBean> {
+//        let requestURL = DataModel.baseURL + "/post/comment/\(id)"
+//        let parameters = ["token": token]
+//        
+//        return Promise { fulfill, reject in
+//            Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
+//                .responseJSON { response in
+//                    do {
+//                        let jsonData = try DataModel.filterResponse(response)
+//                        
+//                        let post = self.formatPost(jsonData)
+//                        fulfill(post)
+//                    } catch {
+//                        print(error)
+//                        reject(error)
+//                    }
+//            }
+//        }
+//    }
+    
+    func addImage(forPostId id:String, imageURL: String) -> Promise<Bool> {
+        let requestURL = DataModel.baseURL + "/post/addImage"
+        let parameters = ["token": token, "post_id": id, "imageUrl": imageURL]
         
         return Promise { fulfill, reject in
             Alamofire.request(.POST, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
-                        let jsonData = try DataModel.filterResponse(response)
+                        try DataModel.filterResponse(response)
                         
-                        let post = self.formatPost(jsonData)
-                        fulfill(post)
+                        fulfill(true)
                     } catch {
                         print(error)
                         reject(error)
