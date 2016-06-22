@@ -22,7 +22,13 @@ class PostDetailTableViewController: UITableViewController, UIActionSheetDelegat
     var post:PostBean?
     var postId: String?
     var comments: [CommentBean] = []
-    var imageURLs: [String] = []
+    var imageURLs: [String] = [] {
+        didSet {
+            if imageURLs.count == 1 {
+                scrollView.autoScroll = false
+            }
+        }
+    }
     var scrollViewWidth: CGFloat = 0
     
     let postModel = PostModel()
@@ -173,7 +179,7 @@ extension PostDetailTableViewController {
             return cell
         case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("CreatorCell", forIndexPath: indexPath) as! PostCreatorTableViewCell
-            cell.creatorImageView.image = post?.creator?.avatar
+            cell.creatorImageView.image = (post?.creator?.avatar == nil) ? UIImage(named: "avatar"): post?.creator?.avatar
             cell.creatorNameLabel.text = post?.creator?.username
             cell.creatorPlaceLabel.text = post?.creator?.place
             return cell
@@ -278,6 +284,7 @@ extension PostDetailTableViewController {
                     return self.postModel.addImage(forPostId: self.postId!, imageURL: urls[0])
                 }.then { _ -> () in
                     self.imageURLs.append(url)
+                    self.scrollView.imageURLStringsGroup = self.imageURLs
                     HUD.flash(.Success)
                 }.error { err in
                     self.handleErrorMsg(err)
