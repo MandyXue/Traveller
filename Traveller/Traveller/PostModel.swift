@@ -202,7 +202,7 @@ class PostModel: DataModel {
                         
                         let posts = jsonData["post"].array!.map { post -> PostBean in
                             let id = (post["id"].string == nil) ? "": post["id"].string!
-                            let title = (post["title"].string == nil) ? "": post["title"]
+                            let title = (post["title"].string == nil) ? "": post["title"].string!
                             let url = (post["imageURL"].string == nil) ? "": post["imageURL"].string!
                             let location = (post["location"].string == nil) ? "": post["location"].string!
                             let summary = (post["summary"].string == nil) ? "": post["summary"].string!
