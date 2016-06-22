@@ -44,10 +44,8 @@ class UserDetailTableViewController: UITableViewController {
         self.navigationController?.navigationBar.lt_setBackgroundColor(UIColor.clearColor())
         
         // 做一下好友判断
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Follow", style: .Plain, target: self, action: #selector(follow))
-        
+        modifyFollowBtn()
         setUpUI()
-//        prepareData()
         
         postModel.getPosts(byUserID: self.user.id!)
             .then { posts -> () in
@@ -56,6 +54,14 @@ class UserDetailTableViewController: UITableViewController {
                 self.tableView.reloadData()
             }.error { err in
                 self.handleErrorMsg(err)
+        }
+    }
+    
+    func modifyFollowBtn () {
+        if !user.isFollowed {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Follow", style: .Plain, target: self, action: #selector(follow))
+        } else {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel Follow", style: .Plain, target: self, action: #selector(disFollow))
         }
     }
     
@@ -84,7 +90,7 @@ class UserDetailTableViewController: UITableViewController {
             avatarImageView.image = user.avatar
         }
         nameLabel.text = user.username
-        followingLabel.text = "0 Followers | 0 Following"
+        followingLabel.text = "\(user.followerNum) Followers | \(user.followingNum) Following"
     }
     
 //    func prepareData() {
@@ -96,14 +102,23 @@ class UserDetailTableViewController: UITableViewController {
     func follow() {
         print("follow \(user.username)")
         userModel.followUser(followingId: userModel.userID, followeeId: user.id!)
-            .then { posts -> () in
-            print(posts)
-            self.tableView.reloadData()
+            .then { isSuccess -> () in
+                self.user.isFollowed = true
+                self.modifyFollowBtn()
             }.error { err in
                 self.handleErrorMsg(err)
         }
     }
     
+    func disFollow () {
+        userModel.cancelFollow(followingId: userModel.userID, followeeId: user.id!)
+            .then { isSuccess -> () in
+                self.user.isFollowed = false
+                self.modifyFollowBtn()
+            }.error { err in
+                self.handleErrorMsg(err)
+        }
+    }
 }
 
 // MARK: - Table view setting

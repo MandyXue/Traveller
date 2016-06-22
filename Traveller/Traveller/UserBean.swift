@@ -25,6 +25,9 @@ class UserBean {
     var email: String           // 邮箱
     var homepage: String?       // 主页or博客
     var registerDate: NSDate?   // 注册时间
+    var followingNum = 0
+    var followerNum = 0
+    var isFollowed = false
     
     // MARK: - Init
     init() {
@@ -98,6 +101,10 @@ class UserBean {
         self.summary = summary
         self.email = email
         self.homepage = homepage
-        self.registerDate = NSDate()
+        self.registerDate = DataBean().onlyDateFormatter.dateFromString(registerDate)
+        
+        self.followingNum = followingNum
+        self.followerNum = followerNum
+        self.avatarURL = avatarURL
     }
 }

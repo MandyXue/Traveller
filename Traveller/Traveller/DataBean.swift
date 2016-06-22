@@ -55,6 +55,12 @@ class DataBean {
             message = "登录失败"
         case UserError.NotMatch:
             message = "用户名密码不匹配"
+        case UserError.ModifyFailed:
+            message = "修改用户信息失败"
+        case UserError.CancelFollowFailed:
+            message = "取消Follow失败"
+        case UserError.FollowExist:
+            message = "Follow关系已存在"
         
         case CommentError.PostIdEmpty:
             message = "post id不能为空"
@@ -140,6 +146,12 @@ class DataBean {
             error = DataError.TokenInvalid
         case 106:
             error = UserError.GetUserInfoFailled
+        case 107:
+            error = UserError.ModifyFailed
+        case 108:
+            error = UserError.CancelFollowFailed
+        case 109:
+            error = UserError.FollowExist
         case 201:
             error = UserError.LoginFailed
         case 202:

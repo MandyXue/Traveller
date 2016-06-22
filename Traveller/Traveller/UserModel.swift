@@ -92,8 +92,13 @@ class UserModel: DataModel {
                 .responseJSON{ response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
+                        print(jsonData)
                         let userInfo = jsonData["data"]
                         let user = self.formatUser(fromRemote: userInfo)
+                        
+                        let followRelation = jsonData["errMessage"].string! == "following" ? true : false
+                        user.isFollowed = followRelation
+                        
                         user.id = id
                         fulfill(user)
                     } catch {
@@ -191,6 +196,7 @@ class UserModel: DataModel {
                         fulfill(true)
                     } catch {
                         print(error)
+                        reject(error)
                     }
             }
         }
@@ -207,7 +213,7 @@ class UserModel: DataModel {
         let followerNum = userInfo["follower_num"].int!
         let followeingNum = userInfo["following_num"].int!
         let avatarURL = userInfo["avatar"].string
-        
+                
         let user = UserBean(name: name, place: place, gender: gender, summary: summary, email: email, homepage: homepage, registerDate: registerDate, followerNum: followerNum, followingNum: followeingNum, avatarURL: avatarURL)
         
         return user

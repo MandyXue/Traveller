@@ -32,6 +32,9 @@ enum UserError: ErrorType {
     case EmailEmpty
     case LoginFailed
     case NotMatch
+    case ModifyFailed
+    case CancelFollowFailed
+    case FollowExist
 }
 
 enum CommentError: ErrorType {
