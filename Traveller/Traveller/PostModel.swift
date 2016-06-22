@@ -34,7 +34,7 @@ class PostModel: DataModel {
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)
-                        
+                        print(jsonData)
                         let posts = jsonData["post"].array!.map { post -> PostBean in
                             let id = post["id"].string!
                             let title = post["title"].string!
@@ -62,8 +62,9 @@ class PostModel: DataModel {
         let parameters = ["token": token, "id": id]
         
         print("request:\(requestURL)")
+        print("token:\(token)")
         return Promise { fulfill, reject in
-            Alamofire.request(.GET, requestURL, parameters: parameters, encoding: .URLEncodedInURL, headers: nil)
+            Alamofire.request(.GET, requestURL, parameters: parameters, encoding: .URL, headers: nil)
                 .responseJSON { response in
                     do {
                         let jsonData = try DataModel.filterResponse(response)

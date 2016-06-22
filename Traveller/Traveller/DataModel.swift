@@ -39,6 +39,9 @@ class DataModel {
                     
                     let errCode = jsonData["errCode"].int!
                     if 105 == errCode {
+                        print("get error 105")
+                        print(response)
+                        
                         NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "token")
                         
                         throw DataError.TokenInvalid
